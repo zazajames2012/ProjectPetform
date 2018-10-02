@@ -1,0 +1,123 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AdminLTEV2_M.cshtml";
+}
+
+<link href="~/Content/kendo/2014.2.716/kendo.common-bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/kendo/2014.2.716/kendo.bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+<script src="~/Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+<script src="~/Scripts/kendo/2014.2.716/kendo.all.min.js" type="text/javascript"></script>
+<script src="~/Scripts/kendo/2014.2.716/kendo.all.min.js" type="text/javascript"></script>
+<script src="@Url.Content("~/Apps/Controllers/ProductsController.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Apps/Modules/ConstantConfig.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Apps/Modules/EnumHelper.js")" type="text/javascript"></script>
+
+<style>
+    .app-modal-window-products .modal-dialog {
+        width: 85%;
+    }
+
+    /*.app-modal-window-products .modal-dialog {
+        width: 65%;
+    }*/
+</style>
+
+@*<input id="hdPhysicalPathImageProducts" type="hidden" value="@Session["PhysicalPathImageProducts"].ToString()" />
+<input id="hdMaxImageUploadSize" type="hidden" value="@Session["MaxImageUploadSize"].ToString()" />*@
+
+<!-- Page Heading -->
+<div class="mainT-Table" ng-app="Products" ng-controller="ProductsController" ng-init="initial()">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="akow-header-blank"></div>
+            @{ IHtmlString str = new HtmlString(@Session["SearchNavTitle"].ToString()); @Html.Raw(str) }
+            <div class="akow-header-blank"></div>
+            <div style="margin: 0 10px 0 10px">
+                <form class="form-inline text-center ng-pristine ng-valid" role="form" style="padding-bottom: 15px;">
+                    <table id="criteriaBGtable" class="footable-loaded footable no-paging box_search">
+                        <tbody>
+                            <tr style="display: table-row;">
+                                <td>
+                                    <div>
+                                        <table id="CriteriaTable" class="footable-loaded footable no-paging box_search">
+                                            <tbody>
+                                                <tr style="display: table-row;">
+                                                    <td>
+                                                        <br>
+                                                        <div class="row no-gutter">
+                                                            <div class="col-md-4 col-md-offset-1">
+                                                                <div class="editor-label" style="text-align:right;">
+                                                                    <label>ชื่อผลิตภัณฑ์ :</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <div class="editor-field" style="text-align:left;">
+                                                                    <input type="text" ng-model="viewProductName" id="productName" class="akow-control-textbox" name="productName" maxlength="30" title="Value">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row no-gutter" style="padding-top:0.5em">
+                                                            <div class="col-md-4 col-md-offset-1">
+                                                                <div class="editor-label" style="text-align:right;">
+                                                                    <label>กลุ่มผลิตภัณฑ์ :</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <select kendo-combo-box
+                                                                        k-placeholder="'-- ทั้งหมด --'"
+                                                                        k-data-text-field="'Text'"
+                                                                        k-data-value-field="'ID'"
+                                                                        k-filter="'contains'"
+                                                                        k-auto-bind="false"
+                                                                        k-min-length="3"
+                                                                        k-data-source="viewProductsGroup"
+                                                                        style="width: 100%"
+                                                                        ng-model="viewProductGroupID"></select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row" style="text-align:center;">
+                                                            <br>
+                                                            <button class="btn btn-primary" ng-click="getProduct()"><i class="fa fa-search"></i>&nbsp;Search</button>
+                                                            <br>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr style="display: table-row;">
+                                                    <td>
+                                                        &nbsp;
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+
+                <div>
+                    <button class="btn btn-primary akow-loading akow-addbutton" ng-click="Add()"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;Add</button>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">&nbsp;</div>
+                    <input type="hidden" id="hdSmallLaborCost" name="hdSmallLaborCost" value="false">
+                    <input type="hidden" id="hdNormalLaborCost" name="hdNormalLaborCost" value="true">
+                    <input type="hidden" id="hdLargeLaborCost" name="hdLargeLaborCost" value="true">
+                    <input type="hidden" id="hdExtraLargeLaborCost" name="hdExtraLargeLaborCost" value="false">
+
+                    <input type="hidden" id="hdSmallMinimumPrice" name="hdSmallMinimumPrice" value="false">
+                    <input type="hidden" id="hdNormalMinimumPrice" name="hdNormalMinimumPrice" value="true">
+                    <input type="hidden" id="hdLargeMinimumPrice" name="hdLargeMinimumPrice" value="true">
+                    <input type="hidden" id="hdExtraLargeMinimumPrice" name="hdExtraLargeMinimumPrice" value="false">
+                </div>
+                <div>
+                    <div kendo-grid="grid" k-options="mainGridOptions" id="gridProductsList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

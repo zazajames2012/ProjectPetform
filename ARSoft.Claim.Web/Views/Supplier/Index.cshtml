@@ -1,0 +1,141 @@
+﻿@*// *** Update by : Nutthapaphon Sopradisth ***
+    // *** Update Date : 28/10/2015 17:00  ****@
+@{
+    ViewBag.Title = "ข้อมูลคู่ค้า (Suppliers)";
+    Layout = "~/Views/Shared/AdminLTEV2_M.cshtml";
+}
+
+<link href="~/Content/kendo/2014.2.716/kendo.common-bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/kendo/2014.2.716/kendo.bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/akow/default.css" rel="stylesheet" type="text/css" />
+
+<script src="~/Scripts/angular-ui/ui-bootstrap-tpls.min.js" type="text/javascript"></script>
+<script src="~/Scripts/kendo/2014.2.716/kendo.all.min.js" type="text/javascript"></script>
+<script src="@Url.Content("~/Apps/Controllers/SupplierController.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Apps/Modules/ConstantConfig.js")" type="text/javascript"></script>
+
+<style>
+    .app-modal-window-add-supplier .modal-dialog {
+        width: 55%;
+    }
+
+    .app-modal-window-edit-supplier .modal-dialog {
+        width: 80%;
+    }
+
+    .app-modal-window-supplier-contact .modal-dialog {
+        width: 60%;
+    }
+</style>
+
+<div class="mainT-Table" ng-app="Supplier" ng-controller="SupplierController" ng-init="initial()">
+    <div>
+        <!-- Page Heading -->
+        <div class="row" style="padding-top:0.5em">
+            <div class="col-lg-12">
+                <div class="akow-header-blank"></div>
+                @{
+                    IHtmlString str = new HtmlString(@Session["SearchNavTitle"].ToString()); @Html.Raw(str) }
+                <div class="akow-header-blank"></div>
+                <table class="table demo" data-filter="#filter" data-filter-text-only="true" style="width:100%;border: 0px solid #ddd;">
+                    <tr>
+                        <td>
+                            <!-- Criteria -->
+                            <table id="criteriaBGtable" style="width:100%;border: 1px solid #ddd; background-color:white;">
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <table id="CriteriaTable" style="width:100%;border: 1px solid #ddd;">
+                                                <tr>
+                                                    <td>
+                                                        <br />
+                                                        <div class="row no-gutter" style="padding: 0.5em 0 0 1.5em">
+                                                            <div class="col-md-4">
+                                                                <div class="editor-label" style="text-align:right;">
+                                                                    <label id="lblSupplierCode">รหัสผู้จำหน่าย : </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="editor-field" style="text-align:left;">
+                                                                    <input id="txtSupplierCode" maxlength="30" type="text" ng-model="mse_criteria_SupplierCode" class="akow-control-textbox" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        @*<br />*@
+                                                        <div class="row no-gutter" style="padding: 0.5em 0 0 1.5em">
+                                                            <div class="col-md-4">
+                                                                <div class="editor-label" style="text-align:right;">
+                                                                    <label id="lblSupplierName">ชื่อผู้จำหน่าย : </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="editor-field" style="text-align:left;">
+                                                                    <input id="txtSupplierName" maxlength="128" type="text" ng-model="mse_criteria_SupplierName" class="akow-control-textbox" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        @*<br />*@
+                                                        <div class="row no-gutter" style="padding: 0.5em 0 0 1.5em">
+                                                            <div class="col-md-4">
+                                                                <div class="editor-label" style="text-align:right;">
+                                                                    <label id="lblSupplierType">ประเภทผู้จำหน่าย : </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="editor-field" style="text-align:left;">
+                                                                    <input type="checkbox" ng-model="mse_criteria_Type_Seller" ng-checked="mse_criteria_Type_Seller" id="chkSeller" name="chkSeller" value="1" />&nbsp;ผู้ขาย &nbsp;&nbsp;&nbsp;
+                                                                    <input type="checkbox" ng-model="mse_criteria_Type_SOP" ng-checked="mse_criteria_Type_SOP" id="chkSOP" name="chkSOP" value="2" />&nbsp;ผู้รับจ้าง &nbsp;&nbsp;&nbsp;
+                                                                    <input type="checkbox" ng-model="mse_criteria_Type_Subcontractor" ng-checked="mse_criteria_Type_Subcontractor" id="chkSubcontractor" name="chkSubcontractor" value="3" />&nbsp;ผู้รับเหมา &nbsp;&nbsp;&nbsp;
+                                                                    <input type="checkbox" ng-model="mse_criteria_Type_Other" ng-checked="mse_criteria_Type_Other" id="chkOther" name="chkOther" value="4" />&nbsp;อื่นๆ
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        @*<br />*@
+                                                        <div class="row no-gutter" style="padding: 0.5em 0 0 1.5em">
+                                                            <div class="col-md-4">
+                                                                <div class="editor-label" style="text-align:right;">
+                                                                    <label id="lblStatus">สถานะ : </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <input type="radio" ng-model="mse_criteria_Status" name="rbtStatus" value="1" id="rbtActive" /> ใช้งาน &nbsp;&nbsp;&nbsp;&nbsp;
+                                                                <input type="radio" ng-model="mse_criteria_Status" name="rbtStatus" value="0" id="rbtInActive" /> ไม่ใช้งาน
+                                                            </div>
+                                                        </div>
+                                                        <br />
+                                                        <div class="row" style="text-align:center;">
+                                                            <button class="btn btn-primary" ng-click="getSupplierByCriteria()"><i class="fa fa-search"></i>&nbsp;Search</button>
+                                                            <br />
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div>
+                                <button class="btn btn-primary akow-addbutton" ng-disabled="isOpenModalAction" ng-click="addSupplier()"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;Add</button><br />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div id="gridSupplierList" kendo-grid="grid" k-options="mainGridOptionsSupplier"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,94 @@
+﻿@{
+    Layout = null;
+}
+<style>
+    .k-grid > table > tbody > tr:hover,
+    .k-grid-content > table > tbody > tr:hover {
+        background: #ccc !important;
+    }
+</style>
+<div class="header bg-light-blue-gradient">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="close()">
+        &times; &nbsp;&nbsp;
+    </button>
+    <h3 class="akow-modal-popup-title">
+        &nbsp;&nbsp; ค้นหา - ผู้จำหน่าย/คู่ค้า (Suppliers)
+    </h3>
+</div>
+<div class="modal-body col-xs-12 form-horizontal form-group-sm table-bordered" ng-init="init()">
+    <div class="col-xs-12">
+        <form>
+            @*<div class="row">
+                    &nbsp;
+                </div>*@
+            <div class="row no-gutter" style="padding: 0.5em 0 0 1.5em">
+                <div class="col-md-4">
+                    <div class="editor-label" style="text-align:right;">
+                        <label id="lblSupplierCode">รหัสผู้จำหน่าย : </label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="editor-field" style="text-align:left;">
+                        <input id="txtSupplierCode" type="text" ng-model="mse_criteria_SupplierCode" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            @*<br />*@
+            <div class="row no-gutter" style="padding: 0.5em 0 0 1.5em">
+                <div class="col-md-4">
+                    <div class="editor-label" style="text-align:right;">
+                        <label id="lblSupplierName">ชื่อผู้จำหน่าย : </label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="editor-field" style="text-align:left;">
+                        <input id="txtSupplierName" type="text" ng-model="mse_criteria_SupplierName" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            @*<br />*@
+            <div class="row no-gutter" style="padding: 0.5em 0 0 1.5em">
+                <div class="col-md-4">
+                    <div class="editor-label" style="text-align:right;">
+                        <label id="lblSupplierType">ประเภทผู้จำหน่าย : </label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="editor-field" style="text-align:left;">
+                        <input type="checkbox" ng-model="mse_criteria_Type_Seller" id="chkSeller" name="chkSeller" value="1" ng-checked="IsSupplierTypeSellerChecked" ng-disabled="IsDisabledSupplierTypeSeller" />&nbsp;ผู้ขาย &nbsp;&nbsp;&nbsp;
+                        <input type="checkbox" ng-model="mse_criteria_Type_SOP" id="chkSOP" name="chkSOP" value="2" ng-checked="IsSupplierTypeSOPChecked" ng-disabled="IsDisabledSupplierTypeSOP" />&nbsp;ผู้รับจ้าง &nbsp;&nbsp;&nbsp;
+                        <input type="checkbox" ng-model="mse_criteria_Type_Subcontractor" id="chkSubcontractor" name="chkSubcontractor" value="3" ng-checked="IsSupplierTypeSubcontractorChecked" ng-disabled="IsDisabledSupplierTypeSubcontractor" />&nbsp;ผู้รับเหมา &nbsp;&nbsp;&nbsp;
+                        <input type="checkbox" ng-model="mse_criteria_Type_Other" id="chkOther" name="chkOther" value="4" ng-checked="IsSupplierTypeOtherChecked" ng-disabled="IsDisabledSupplierTypeOther" />&nbsp;อื่นๆ
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                &nbsp;
+            </div>
+            <div class="row">
+                <div class="col-xs-12" style="text-align:center;">
+                    <button class="btn btn-primary" ng-click="getSupplierByCriteria()"><i class="fa fa-search"></i>&nbsp;Search</button>&nbsp;&nbsp;
+                    <button class="btn btn-primary" ng-click="close()"><i class="fa fa-sign-out"></i>&nbsp;Close</button>
+                </div>
+            </div>
+            <div class="row">
+                &nbsp;
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div id="gridLOVSupplier" kendo-grid="grid" k-on-change="selectRowItem()" k-options="mainGridOptions"></div>
+                </div>
+            </div>
+            <div class="row">
+                &nbsp;
+            </div>
+            @*<div class="row">
+                    <div class="col-xs-12" style="text-align:center;">
+                        <button class="btn btn-default" ng-click="close()"><i class="fa fa-times"></i>&nbsp;Close</button>
+                    </div>
+                </div>*@
+        </form>
+    </div>
+</div>
+<div class="modal-footer"></div>

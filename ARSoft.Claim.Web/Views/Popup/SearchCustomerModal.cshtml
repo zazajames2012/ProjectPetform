@@ -1,0 +1,94 @@
+﻿@{
+    Layout = null;
+}
+<style>
+    .k-grid > table > tbody > tr:hover,
+    .k-grid-content > table > tbody > tr:hover {
+        background: #ccc !important;
+    }
+</style>
+<progressbar class="progress-striped active" value="dynamic"
+             ng-show="loading"></progressbar>
+<div class="header bg-light-blue-gradient">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="close()">
+        &times; &nbsp;&nbsp;
+    </button>
+    <h3 class="akow-modal-popup-title">
+        &nbsp;&nbsp; ค้นหา - ลูกค้า (Customers)
+    </h3>
+</div>
+<div class="modal-body col-xs-12 form-horizontal form-group-sm table-bordered" ng-init="init()">
+    <div class="col-xs-12">
+        <form>
+            @*<div class="row">
+                <div class="col-xs-3">
+                    &nbsp;
+                </div>
+            </div>*@
+            <div class="row no-gutter akow-row-top">
+                <div class="col-md-4">
+                    <div class="editor-label" style="text-align:right">
+                        <label id="lblCustomerCode">รหัสลูกค้า : </label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="editor-field" style="text-align:left">
+                        <input id="txtCustomerCode" type="text" ng-model="mct_criteria_CustomerCode" class="akow-form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter akow-row-top">
+                <div class="col-md-4">
+                    <div class="editor-label" style="text-align: right">
+                        <label id="lblCustomerName">ชื่อลูกค้า : </label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="editor-field" style="text-align: left">
+                        <input id="txtCustomerName" type="text" ng-model="mct_criteria_CustomerName" class="akow-form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter akow-row-top">
+                <div class="col-md-4">
+                    <div class="editor-label" style="text-align:right;">
+                        <label for="CustomerType">ประเภทลูกค้า: </label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    @*<div>*@
+                        @*<input type="checkbox" ng-model="mct_criteria_CustomerTypeID" ng-checked="mct_criteria_IsProject" id="chkProject" name="chkProject" value="1" ng-disabled="DisabledProject" /><label>Project</label>*@
+                    <input type="checkbox" ng-model="mct_criteria_IsProject" id="chkProject" name="chkProject" value="1" ng-disabled="DisabledProject" />&nbsp;<label>Project</label>
+                    @*</div>*@
+                    <span class="tab"></span>
+                    <span class="tab"></span>
+                    @*<div>*@
+                        @*<input type="checkbox" ng-model="mct_criteria_CustomerTypeID" ng-checked="mct_criteria_IsRetail" id="chkRetail" name="chkRetail" value="2" ng-disabled="DisabledRetail" /><label>Retail</label>*@
+                    <input type="checkbox" ng-model="mct_criteria_IsRetail" id="chkRetail" name="chkRetail" value="2" ng-disabled="DisabledRetail" />&nbsp;<label>Product</label>
+                    @*</div>*@
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-xs-12" style="text-align:center;">
+                    <br />
+                    <button class="btn btn-primary" ng-click="getCustomerByCriteria()"><i class="fa fa-search"></i>&nbsp;Search</button>&nbsp;&nbsp;
+                    <button class="btn btn-primary" ng-click="close()"><i class="fa fa-sign-out"></i>&nbsp;Close</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <br />
+                    <div id="gridLOVCustomer" kendo-grid="grid" k-on-change="selectRowItem()" k-options="mainGridOptions"></div>
+                </div>
+            </div>
+            @*<div class="row">
+                <div class="col-xs-12" style="text-align:center;">
+                    <br />
+                    <button class="btn btn-default" ng-click="close()"><i class="fa fa-times"></i>&nbsp;Close</button>
+                </div>
+            </div>*@
+        </form>
+    </div>
+</div>
+<div class="modal-footer"></div>

@@ -1,0 +1,152 @@
+﻿@*Update by : Veerapong Hoewtheerakul
+    Update date : 08/10/2015 10:00*@
+@{
+    Layout = null;
+}
+
+<progressbar class="progress-striped active" value="dynamic" ng-show="loading"></progressbar>
+
+
+<div class="modal-header" style="border-bottom: 1px solid #e5e5e5;  background: #e5e5e5;">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="close()">
+        &times;
+    </button>
+    @*<h4 class="akow-modal-title">ข้อมูลยี่ห้อสินค้า (Brand) <i class="fa fa-fw fa-chevron-right"></i> {{ModalCaption}} </h4>*@
+    <div ng-show="mode=='Add'">
+        @{ IHtmlString addNavTitle = new HtmlString(@Session["AddNavTitle"].ToString()); @Html.Raw(addNavTitle) }
+    </div>
+    <div ng-show="mode=='Edit'">
+        @{ IHtmlString editNavTitle = new HtmlString(@Session["EditNavTitle"].ToString()); @Html.Raw(editNavTitle) }
+    </div>
+    <div ng-show="mode=='View'">
+        @{ IHtmlString viewNavTitle = new HtmlString(@Session["ViewNavTitle"].ToString()); @Html.Raw(viewNavTitle) }
+    </div>
+</div>
+<div class="modal-body mainT-Table2" ng-init="init()" style="z-index:50" id="modal-body">
+    @Html.Partial("~/Views/Shared/_AkowAuthen.cshtml")
+
+    <form id="frmModal" style="padding-left:3em;padding-right:3em">
+        <div class="row">
+
+            <div style="padding: 1em">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-xs-3 col-xs-offset-1" style="text-align: right; width: 30%; ">
+                                <label style="color:red">* </label>
+                                <label>ชื่อยี่ห้อสินค้า :</label>
+                            </div>
+                            <div class="col-xs-2" style="text-align: left; width: 25%; ">
+                                <input type="text" class="form-control akow-control-textbox  akow-require-field" ng-model="model.Name" style="height:30px" />
+                            </div>
+                        </div>
+
+
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-xs-3 col-xs-offset-1" style="text-align: right; width: 30%; ">
+                                <label>Web Site :</label>
+                            </div>
+                            <div class="col-xs-4" style="text-align: left; width: 40%; ">
+                                <input type="text" class="form-control akow-control-textbox" ng-model="model.BrandWebSite" style="height:30px" />
+                            </div>
+                        </div>
+
+
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-xs-3 col-xs-offset-1" style="text-align: right; width: 30%; ">
+                                <label>Support Web Site :</label>
+                            </div>
+                            <div class="col-xs-4" style="text-align: left; width: 40%; ">
+                                <input type="text" class="form-control akow-control-textbox" ng-model="model.SupportWebSite" style="height:30px" />
+                            </div>
+                        </div>
+
+                        @*<div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-xs-3 col-xs-offset-1" style="text-align: right; width: 30%; ">
+                                <label style="color:red">* </label>
+                                <label>Standard TAT :</label>
+                            </div>
+                            <div class="col-xs-1" style="text-align: left;">
+                                <input kendo-numeric-text-box k-min="1" k-max="180" k-options="numericOptionStandardTAT" style="width:80px" class="akow-require-field" ng-model="model.StandardTAT" />
+                            </div>
+                            <label class="control-label text-left">(วัน)</label>
+                        </div>
+
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-xs-3 col-xs-offset-1" style="text-align: right; width: 30%; ">
+                                <label style="color:red">* </label>
+                                <label>การคำนวณ TAT :</label>
+                            </div>
+                            <div class="col-xs-3" style="text-align: left;">
+                                <select id="slTATCal" class="akow-control-textbox akow-require-field">
+                                    <option>Default TAT</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="row no-gutter" style="padding-top:0.5em" ng-hide="mode=='Edit'">
+                            <div class="col-xs-3 col-xs-offset-1" style="text-align: right; width: 30%; ">
+                                <label style="color:red">* </label>
+                                <label>วันหยุด :</label>
+                            </div>
+                            <div class="col-xs-6" style="text-align: left;">
+                                <input type="radio" style="cursor: default" value="1" ng-model="model.HolidayIncluded" ng-blur="Blur()" />
+                                <label style="font-weight: normal; cursor: default">รวมวันหยุด</label>
+                                &nbsp; &nbsp;
+                                <input type="radio" style=" cursor:default" value="0" ng-model="model.HolidayIncluded" ng-blur="Blur()" />
+                                <label style="font-weight: normal; cursor: default">ไม่รวมวันหยุด</label>
+                            </div>
+                        </div>*@
+
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-xs-3 col-xs-offset-1" style="text-align: right; width: 30%; ">
+                                <label>รายละเอียด :</label>
+                            </div>
+                            <div class="col-xs-4" style="text-align: left; width: 40%; ">
+                                <textarea id="TextArea1" class="form-control akow-control-textbox" rows="4" cols="60" style="resize: none;" ng-model="model.Description"></textarea>
+                            </div>
+                        </div>
+
+
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-xs-3 col-xs-offset-1" style="text-align: right; width: 30%; ">
+                                <label style="color:red">* </label>
+                                <label>สถานะ :</label>
+                            </div>
+                            <div class="col-xs-4" style="text-align: left; width: 40%; ">
+                                <input id="Status1" type="radio" akow-radiogroup="Status" style="cursor: default" akow-radiolabel="Status" name="Status" value="1" ng-model="model.Status" ng-blur="Blur()" />
+                                <label akow-radiolabelname="Status" style="font-weight: normal; cursor: default">ใช้งาน</label>
+                                &nbsp; &nbsp;
+                                <input id="Status2" style=" cursor:default" type="radio" akow-radiogroup="Status" akow-radiolabel="Status" name="Status" value="0" checked ng-model="model.Status" ng-blur="Blur()" />
+                                <label akow-radiolabelname="Status" style="font-weight: normal; cursor: default">ไม่ใช้งาน</label>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+           
+
+        </div>
+    </form>
+</div>
+
+<div class="row">
+    @*<div class="col-xs-2" style="text-align: right; width: 30%; ">
+            &nbsp;
+        </div>*@
+    <div class="col-xs-offset-5 col-xs-4">
+        <button class="btn btn-primary akow-savebutton text-right" ng-show="mode!='View'" ng-click="save()"><i class="fa fa-floppy-o"></i>&nbsp;Save</button>
+        &nbsp;
+        <button class="btn btn-primary" ng-click="close()"><i class="fa fa-times-circle"></i>&nbsp;Cancel</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-2" style="text-align: right; width: 30%; ">
+        &nbsp;
+    </div>
+</div>

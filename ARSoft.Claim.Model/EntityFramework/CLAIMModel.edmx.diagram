@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="dcc5eafd577d4847a9950707d1ec3852" Name="Diagram1">
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.MAS_BRANDS" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.MAS_CHARGE_CATEGORY" Width="1.5" PointX="13.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.MAS_CHARGES" Width="1.5" PointX="16" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.MAS_CLASSIFICATION" Width="1.5" PointX="15" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.MAS_CLASSIFICATIONCONTROL" Width="1.5" PointX="12.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.MAS_CORE_BUSINESS_COMPANY" Width="1.5" PointX="5.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.MAS_CUSTOMER_CONTACTS" Width="1.5" PointX="3" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.MAS_CUSTOMER_GROUPS" Width="1.5" PointX="1.5" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.MAS_CUSTOMER_IP" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.MAS_CUSTOMER_LOCATIONS" Width="1.5" PointX="5.25" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.MAS_CUSTOMERS" Width="1.5" PointX="0.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.MAS_DOC_CONTROL" Width="1.5" PointX="7.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.MAS_EMAIL_TEMPLATE" Width="1.5" PointX="7.75" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.MAS_EMPLOYEES" Width="1.5" PointX="15.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.MAS_MASTER_SETUP" Width="1.5" PointX="7.75" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.MAS_PRODUCT_GROUPS" Width="1.5" PointX="12.75" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.MAS_PRODUCTS" Width="1.5" PointX="14.75" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.MAS_SLA_COMPUTE_SETTINGS" Width="1.5" PointX="16.75" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.MAS_SUPPLIER_CONTACTS" Width="1.5" PointX="7.5" PointY="28.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.MAS_SUPPLIERS" Width="1.5" PointX="5.25" PointY="27.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.MAS_ZONE" Width="1.5" PointX="3" PointY="25.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.SYS_AUTHORIZATION_LOGS" Width="1.5" PointX="11" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.SYS_AUTHORIZED_APPLICATIONS" Width="1.5" PointX="8.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.SYS_COMMON_MESSAGES" Width="1.5" PointX="17.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.SYS_COMPONENTS" Width="1.5" PointX="3.75" PointY="35.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.SYS_CONFIGS" Width="1.5" PointX="17.75" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.SYS_DISTRICTS" Width="1.5" PointX="3" PointY="21.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.SYS_DOCUMENT_PATTERNS" Width="1.5" PointX="17.75" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.SYS_EMAIL_CONFIGS" Width="1.5" PointX="18.75" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.SYS_PERMISSIONS" Width="1.5" PointX="3.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.SYS_PROVINCES" Width="1.5" PointX="0.75" PointY="21.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.SYS_ROLES" Width="1.5" PointX="3.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.SYS_ROLES_PERMISSIONS" Width="1.5" PointX="6" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.SYS_SERVICES_PROCESS" Width="1.5" PointX="18.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.SYS_SYSTEM_LOGS" Width="1.5" PointX="19.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.SYS_USERS" Width="1.5" PointX="8.25" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.SYS_USERS_ROLES" Width="1.5" PointX="13.5" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.TRN_JOBS" Width="1.5" PointX="10.5" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="ARSoft.CLAIM.Model.TRX_ERROR_LOG" Width="1.5" PointX="19.75" PointY="10.25" IsExpanded="true" />
+        <AssociationConnector Association="ARSoft.CLAIM.Model.FK_MAS_CHARGES_MAS_CHARGE_CATEGORY" ManuallyRouted="false" />
+        <AssociationConnector Association="ARSoft.CLAIM.Model.FK_MAS_SETUP_MAS_DOCCONTROL" ManuallyRouted="false" />
+        <AssociationConnector Association="ARSoft.CLAIM.Model.FK_MAS_CUSTOMER_CONTACTS_MAS_CUSTOMERS" ManuallyRouted="false" />
+        <AssociationConnector Association="ARSoft.CLAIM.Model.FK_MAS_CUSTOMER_LOCATIONS_MAS_CUSTOMER_CONTACTS" ManuallyRouted="false" />
+        <AssociationConnector Association="ARSoft.CLAIM.Model.FK_TRN_JOBS_MAS_CUSTOMER_CONTACTS" ManuallyRouted="false" />
+        <AssociationConnector Association="ARSoft.CLAIM.Model.FK_MAS_CUSTOMERS_HAS_CUSTOMER_GROUPS" ManuallyRouted="false" />
+        <AssociationConnector Association="ARSoft.CLAIM.Model.FK_MAS_CUSTOMER_IP_MAS_CUSTOMERS" ManuallyRouted="false" />
+        <AssociationConnector Association="ARSoft.CLAIM.Model.FK_MAS_CUSTOMER_ADDRESS_HAS_CUSTOMERS" ManuallyRouted="false" />
+        <AssociationConnector Association="ARSoft.CLAIM.Model.FK_MAS_CUSTOMER_ADDRESS_HAS_DISTRICTS" ManuallyRouted="false" />
+        <AssociationConnector Association="ARSoft.CLAIM.Model.FK_MAS_CUSTOMER_LOCATIONS_MAS_ZONE" ManuallyRouted="false" />
+        <AssociationConnector Association="ARSoft.CLAIM.Model.FK_TRN_JOBS_MAS_CUSTOMER_LOCATIONS" ManuallyRouted="false" />
+        <AssociationConnector Association="ARSoft.CLAIM.Model.FK_TRN_JOBS_HAS_INDIRECT_CUSTOMER" ManuallyRouted="false" />
+        <AssociationConnector Association="ARSoft.CLAIM.Model.FK_TRN_JOBS_MAS_CUSTOMERS" ManuallyRouted="false" />
+        <AssociationConnector Association="ARSoft.CLAIM.Model.FK_MAS_SUPPLIER_CONTACTS_MAS_SUPPLIERS" ManuallyRouted="false" />
+        <AssociationConnector Association="ARSoft.CLAIM.Model.FK_MAS_SUPPLIERS_SYS_DISTRICTS" ManuallyRouted="false" />
+        <AssociationConnector Association="ARSoft.CLAIM.Model.FK_SYS_AUTHORIZATION_LOGS_HAS_AUTHORIZED_APPLICATIONS" ManuallyRouted="false" />
+        <AssociationConnector Association="ARSoft.CLAIM.Model.FK_SYS_COMPONENTS_SELF_PARENT" ManuallyRouted="false" />
+        <AssociationConnector Association="ARSoft.CLAIM.Model.FK_SYS_ROLES_PERMISSIONS_SYS_COMPONENTS" ManuallyRouted="false" />
+        <AssociationConnector Association="ARSoft.CLAIM.Model.FK_SYS_DISTRICTS_HAS_PROVINCES" ManuallyRouted="false" />
+        <AssociationConnector Association="ARSoft.CLAIM.Model.FK_TRN_JOBS_SYS_DISTRICTS" ManuallyRouted="false" />
+        <AssociationConnector Association="ARSoft.CLAIM.Model.FK_SYS_ROLES_PERMISSIONS_SYS_PERMISSIONS" ManuallyRouted="false" />
+        <AssociationConnector Association="ARSoft.CLAIM.Model.FK_TRN_JOBS_SYS_PROVINCES" ManuallyRouted="false" />
+        <AssociationConnector Association="ARSoft.CLAIM.Model.FK_SY_USERS_ROLES_SYS_ROLES" ManuallyRouted="false" />
+        <AssociationConnector Association="ARSoft.CLAIM.Model.FK_SYS_ROLES_PERMISSIONS_SYS_ROLES" ManuallyRouted="false" />
+        <AssociationConnector Association="ARSoft.CLAIM.Model.FK_SY_USERS_HAS_ROLES_USERS" ManuallyRouted="false" />
+        <AssociationConnector Association="ARSoft.CLAIM.Model.FK_TRN_JOBS_SYS_USERS" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

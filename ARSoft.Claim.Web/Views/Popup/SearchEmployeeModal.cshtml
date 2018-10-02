@@ -1,0 +1,148 @@
+﻿@{
+    Layout = null;
+}
+<style>
+    .k-grid > table > tbody > tr:hover,
+    .k-grid-content > table > tbody > tr:hover {
+        background: #ccc !important;
+    }
+</style>
+<progressbar class="progress-striped active" value="dynamic"
+             ng-show="loading"></progressbar>
+<div class="header bg-green-gradient">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="close()">
+        &times; &nbsp;&nbsp;
+    </button>
+    <h3 class="akow-modal-popup-title">
+        &nbsp;&nbsp; ค้นหาพนักงาน
+    </h3>
+</div>
+<div class="modal-body col-xs-12 form-horizontal form-group-sm table-bordered" ng-init="init()">
+    <div class="col-xs-12">
+        <form id="frmEmployee">
+            <div class="row">
+                <div class="col-xs-3">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="row no-gutter">
+                <div class="col-xs-3">
+                    <div class="editor-label" style="text-align:right;">
+                        <label for="Department">ฝ่าย :</label>
+                    </div>                    
+                </div>
+                <div class="col-xs-7">
+                    <div class="editor-field" style="text-align:left;">
+                        @*<select class="akow-form-control" ng-model="model.DepOrgID" ng-disabled="DepartDisabled">
+                            <option value="">-- ทั้งหมด --</option>
+                            <option ng-repeat="item in departments" value="{{item.ID}}" ng-selected="item.ID==model.DepOrgID">{{item.Name}}</option>
+                        </select>*@
+                        <select class="akow-form-control" ng-model="modelDepOrgID" ng-disabled="DepartDisabled">
+                            <option value="">-- ทั้งหมด --</option>
+                            <option ng-repeat="item in departments" value="{{item.ID}}" ng-selected="item.ID==modelDepOrgID">{{item.Name}}</option>
+                        </select>
+                    </div>                    
+                </div>
+            </div>
+            @*<div class="row">
+                <div class="col-xs-3">
+                    &nbsp;
+                </div>                
+            </div>*@
+            <div class="row no-gutter  akow-row-top">
+                <div class="col-xs-3">
+                    <div class="editor-label" style="text-align:right;">
+                        <label for="Section">แผนก :</label>
+                    </div>
+                </div>
+                <div class="col-xs-7">
+                    <div class="editor-field" style="text-align:left;">
+                        @*<select class="akow-form-control" ng-model="model.SecOrgID">
+                            <option value="">-- ทั้งหมด --</option>
+                            <option ng-repeat="item in sections" ng-show="item.ParentID==model.DepOrgID" value="{{item.ID}}">{{item.Name}}</option>
+                        </select>*@
+                        <select class="akow-form-control" ng-model="modelSecOrgID">
+                            <option value="">-- ทั้งหมด --</option>
+                            <option ng-repeat="item in sections" ng-show="item.ParentID==modelDepOrgID" value="{{item.ID}}">{{item.Name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            @*<div class="row">
+                <div class="col-xs-3">
+                    &nbsp;
+                </div>
+            </div>*@
+            <div class="row no-gutter  akow-row-top">
+                <div class="col-xs-3">
+                    <div class="editor-label" style="text-align:right;">
+                        <label for="Position">ตำแหน่ง :</label>
+                    </div>
+                </div>
+                <div class="col-xs-7">
+                    <div class="editor-field" style="text-align:left;">
+                        @*<select class="akow-form-control" ng-model="model.PositionID">
+                            <option value="">-- ทั้งหมด --</option>
+                            <option ng-repeat="item in positions" value="{{item.ID}}">{{item.Name}}</option>
+                        </select>*@
+                        <select class="akow-form-control" ng-model="modelPositionID">
+                            <option value="">-- ทั้งหมด --</option>
+                            <option ng-repeat="item in positions" value="{{item.ID}}">{{item.Name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            @*<div class="row">
+                <div class="col-xs-3">
+                    &nbsp;
+                </div>
+            </div>*@
+            <div class="row no-gutter akow-row-top">
+                <div class="col-xs-3">
+                    <div class="editor-label" style="text-align:right;">
+                        <label for="Filter">รหัสพนักงาน :</label>
+                    </div>
+                </div>
+                <div class="col-xs-7">
+                    <div class="editor-field" style="text-align:left;">
+                        @*<input class="akow-form-control" ng-model="model.Code" />*@
+                        <input class="akow-form-control" ng-model="modelCode" />
+                    </div>
+                </div>
+            </div>   
+            <div class="row no-gutter akow-row-top">
+                <div class="col-xs-3">
+                    <div class="editor-label" style="text-align:right;">
+                        <label for="Filter">ชื่อพนักงาน :</label>
+                    </div>
+                </div>
+                <div class="col-xs-7">
+                    <div class="editor-field" style="text-align:left;">
+                        @*<input class="akow-form-control" ng-model="model.Name" />*@
+                        <input class="akow-form-control" ng-model="modelName" />
+                    </div>
+                </div>
+            </div>        
+            <div class="row">                
+                <div class="col-xs-12" style="text-align:center;">
+                    <br />
+                    <button class="btn btn-primary" ng-click="search()"><i class="fa fa-search"></i>&nbsp;Search</button>
+                    <button class="btn btn-primary" ng-click="close()"><i class="fa fa-sign-out"></i>&nbsp;Close</button>
+                </div>                
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <br />
+                    <div id="gridLOVEmployee" kendo-grid="grid" k-on-change="selectRowItem()" k-options="mainGridOptions"></div>
+                </div>
+            </div>
+            @*<div class="row">
+                <div class="col-xs-12" style="text-align:center;">
+                    <br />
+                    <button class="btn btn-default" ng-click="close()"><i class="fa fa-times"></i>&nbsp;Close</button>
+                </div>
+            </div>*@
+        </form>
+    </div>
+</div>
+<div class="modal-footer"></div>

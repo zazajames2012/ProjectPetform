@@ -1,0 +1,202 @@
+﻿@*
+    *** Update by : Pongthorn Paemanee ***
+    *** Update Date : 08/10/2015 16:00  ***
+*@
+
+@using ARSoft.Claim.DataModel;
+
+@{
+    Layout = null;
+}
+
+<div class="mainT-Table" ng-init="Customer_Initial()">
+    <div class="modal-header" style="border-bottom: 1px solid #e5e5e5;  background: #e5e5e5;">
+        <button class="close" type="button" data-dismiss="modal" aria-hidden="true" ng-click="Customer_Close()">
+            &times;
+        </button>
+        @{ IHtmlString str = new HtmlString(@Session["ViewNavTitle"].ToString()); @Html.Raw(str) }
+    </div>
+    <div class="modal-body">
+        <div style="padding-bottom: 10px;">
+            <div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label text-right" for="Customer_ViewCode"><span style="color:red;">* </span>รหัสลูกค้า : </label>
+                        <div class="col-sm-2">
+                            <input class="akow-control-textbox-disabled akow-require-field" type="text" id="Customer_ViewCode" name="Customer_ViewCode" maxlength="30" title="รหัสลูกค้า" style="width: 150px;" ng-model="Customer_ViewCode">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label text-right" for="Customer_ViewName"><span style="color:red;">* </span>ชื่อลูกค้า : </label>
+                        <div class="col-sm-7">
+                            <input class="akow-control-textbox-disabled akow-require-field" type="text" id="Customer_ViewName" name="Customer_ViewName" maxlength="256" title="ชื่อลูกค้า" ng-disabled="Customer_ViewNameDis" ng-model="Customer_ViewName">
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label text-right" for="Customer_ViewCustomerType"><span style="color:red;">* </span>ประเภทลูกค้า : </label>
+                        <div class="col-sm-2">
+                            {{Customer_ViewCustomerType}} | {{Customer_ViewCustomerGroup}}
+                        </div>
+                        <label class="col-sm-2 control-label text-right" for="Customer_ViewTitle">คำนำหน้า : </label>
+                        <div class="col-sm-2">
+                            <input class="akow-control-textbox-disabled" type="text" id="Customer_ViewTitle" name="Customer_ViewTitle" maxlength="30" title="คำนำหน้า" ng-disabled="Customer_ViewTitleDis" ng-model="Customer_ViewTitle">
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label text-right" for="Customer_ViewReferCode01">กลุ่มลูกค้า : </label>
+                        <div class="col-sm-2">
+                            <select ng-model="Customer_ViewCustomerGroupID" class="akow-control-dropdownlist akow-require-field" ng-disabled="true">
+                                <option ng-repeat="Item in CustomerGroupList" value="{{Item.ID}}" ng-selected="Item.ID==Customer_ViewCustomerGroupID">{{Item.Name}}</option>
+                            </select>
+                        </div>
+                        <label class="col-sm-2 control-label text-right" for="Customer_ViewFirstName"><span style="color:red;">* </span>ชื่อ สกุล : </label>
+                        <div class="col-sm-2">
+                            <input class="akow-control-textbox-disabled akow-require-field" type="text" id="Customer_ViewFirstName" name="Customer_ViewFirstName" maxlength="128" title="ชื่อ" ng-disabled="Customer_ViewFirstNameDis" ng-model="Customer_ViewFirstName">
+                        </div>
+                        <div class="col-sm-2">
+                            <input class="akow-control-textbox-disabled akow-require-field" type="text" id="Customer_ViewLastName" name="Customer_ViewLastName" maxlength="128" title="สกุล" ng-disabled="Customer_ViewLastNameDis" ng-model="Customer_ViewLastName">
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label text-right" for="Customer_ViewNameShort">ชื่อย่อ : </label>
+                        <div class="col-sm-2">
+                            <input class="akow-control-textbox-disabled" type="text" id="Customer_ViewNameShort" name="Customer_ViewNameShort" maxlength="30" title="ชื่อย่อ" ng-disabled="Customer_ViewNameShortDis" ng-model="Customer_ViewNameShort">
+                        </div>
+                        <label class="col-sm-2 control-label text-right" for="Customer_ViewMemberID">รหัสสมาชิก : </label>
+                        <div class="col-sm-2">
+                            <input class="akow-control-textbox-disabled" type="text" id="Customer_ViewMemberID" name="Customer_ViewMemberID" maxlength="30" title="รหัสสมาชิก" ng-disabled="Customer_ViewMemberIDDis" ng-model="Customer_ViewMemberID">
+                        </div>
+                        <label class="col-sm-2 control-label text-right" for="Customer_ViewRegisterDate">วันที่เป็นสมาชิก : </label>
+                        <div class="col-md-2">
+                            <input class="akow-control-textbox-disabled akow-date-field" id="Customer_ViewRegisterDate" ng-disabled="Customer_ViewRegisterDateDis" ng-model="Customer_ViewRegisterDate" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label text-right" for="Customer_ViewCategory">ประเภทหน่วยงาน : </label>
+                        <div class="col-sm-2"> 
+                            <select ng-model="Customer_ViewCategory" class="akow-control-dropdownlist akow-require-field" ng-disabled="true"> 
+                                <option ng-repeat="Item in CustomerCategoryList" value="{{Item.MasterSetupId}}" ng-selected="Item.MasterSetupId==Customer_ViewCategory">{{Item.Name}}</option>
+                            </select>
+                           @* @Html.DropDownList("Customer_ViewCategory", ViewData["Customer_ViewCategory"] as SelectListItem[], "-- Select --", new { @class = "akow-control-dropdownlist-disabled", @title = "ประเภทหน่วยงาน" })*@
+                        </div>
+                        <label class="col-sm-2 control-label text-right">การติดต่อ : </label>
+                        <div class="col-sm-2">
+                            <input class="Customer_ViewContact" type="checkbox" name="Customer_ViewContact" ng-model="Customer_ViewContact" />&nbsp;ติดต่อโดยตรง
+                        </div>
+                    </div>
+                </div>
+                <hr />
+
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label text-right">เลขที่ผู้เสียภาษี : </label>
+                        <div class="col-sm-2">
+                            <input class="akow-control-textbox-disabled" type="text" id="Customer_ViewTaxID" name="Customer_ViewTaxID" maxlength="15" title="เลขที่ผู้เสียภาษี" style="width: 150px;" ng-model="Customer_ViewTaxID">
+                        </div>
+                        <label class="col-sm-2 control-label text-right">รหัสอ้างอิง : </label>
+                        <div class="col-sm-2">
+                            <input class="akow-control-textbox-disabled" type="text" id="Customer_ViewReferCode01" name="Customer_ViewReferCode01" maxlength="128" title="รหัสอ้างอิง" style="width: 150px;" ng-model="Customer_ViewReferCode01">
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label text-right">โทรศัพท์ เคลื่อนที่ : </label>
+                        <div class="col-sm-2">
+                            <input class="akow-control-textbox-disabled" type="text" id="Customer_ViewMobile" name="Customer_ViewMobile" maxlength="20" title="โทรศัพท์ เคลื่อนที่" style="width: 150px;" ng-model="Customer_ViewMobile">
+                        </div>
+                        <label class="col-sm-2 control-label text-right">Fax : </label>
+                        <div class="col-sm-2">
+                            <input class="akow-control-textbox-disabled" type="text" id="Customer_ViewFax" name="Customer_ViewFax" maxlength="20" title="Fax" style="width: 150px;" ng-model="Customer_ViewFax">
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label text-right">โทรศัพท์ : </label>
+                        <div class="col-sm-2">
+                            <input class="akow-control-textbox-disabled" type="text" id="Customer_ViewPhone" name="Customer_ViewPhone" maxlength="20" title="โทรศัพท์" style="width: 150px;" ng-model="Customer_ViewPhone">
+                        </div>
+                        <label class="col-sm-2 control-label text-right">email : </label>
+                        <div class="col-sm-2">
+                            <input class="akow-control-textbox-disabled" type="email" id="Customer_ViewEmail" name="Customer_ViewEmail" maxlength="256" title="email" ng-model="Customer_ViewEmail">
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label text-right" for="Customer_ViewWebSite">Web site : </label>
+                        <div class="col-sm-8">
+                            <input class="akow-control-textbox-disabled" type="text" id="Customer_ViewWebSite" name="Customer_ViewWebSite" maxlength="256" title="Web site" ng-model="Customer_ViewWebSite">
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label text-right" for="Customer_ViewRemark">หมายเหตุ : </label>
+                        <div class="col-sm-8 text-left">
+                            <textarea class="akow-control-textbox-disabled" id="Customer_ViewRemark" name="Customer_ViewRemark" maxlength="256" rows="5" title="หมายเหตุ" style="resize:none" ng-model="Customer_ViewRemark"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div>
+                        <label class="col-sm-2 control-label text-right" for="searchCusStatus">สถานะ : </label>
+                        <div class="col-sm-8 text-left">
+
+                            <label ng-repeat="option in StatusList">
+                                <input type="radio" ng-value="option.ID" ng-model="rbtCusStatusGroup" name="status">{{option.Name}}
+                            </label>
+
+                            @*@foreach (var c in (IEnumerable<DropdownModel>)ViewBag.CusStatusGroup)
+                            {
+                                <input type="radio" name="Customer_ViewStatus" value=@c.ID ng-model="Customer_ViewStatus"><span>&nbsp;&nbsp;</span>@c.Name<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            }*@
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 10px;">
+                    <div class="col-sm-12">
+
+                    </div>
+                </div>
+                <div id="Customer_ViewTabStrip" kendo-tab-strip k-content-urls="[ null, null]">
+                    <ul>
+                        <li class="k-state-active"><a id="Customer_lnkCusContact">ข้อมูลผู้ติดต่อ</a></li>
+                        <li><a id="Customer_lnkCusLocation">สถานที่ติดต่อ(Branch)</a></li>
+                    </ul>
+                    <div class="row">
+                        <div class="row" style="padding-top: 10px;padding-right: 20px">
+                            <div class="col-sm-12 text-left">
+                                <div kendo-grid="grid" k-options="Customer_OptGridCusContact" id="Customer_GridCusContact"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row" style="padding-top: 10px;padding-right: 20px">
+                            <div class="col-sm-12 text-left">
+                                <div kendo-grid="grid" k-options="Customer_OptGridCusLocation" id="Customer_GridCusLocation"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer" style="text-align:center;">
+        @*<button class="btn btn-default" ng-click="Customer_Close()"><i class="fa fa-times"></i>&nbsp;Close</button>*@
+        <button class="btn btn-primary center-block" ng-click="Customer_Close()"><i class="fa fa-sign-out"></i>&nbsp;Close</button>
+    </div>
+</div>

@@ -1,0 +1,167 @@
+﻿@*// *** Update by : Nutthapaphon Sopradisth ***
+    // *** Update Date : 28/10/2015 17:00  ****@
+@{
+    Layout = null;
+}
+
+<progressbar class="progress-striped active" value="dynamic"
+             ng-show="loading"></progressbar>
+
+<div class="mainT-Table">
+    <div style="width:100%;">
+        <div class="modal-header" style="border-bottom: 1px solid #e5e5e5;  background: #e5e5e5;">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="Close()">
+                &times;
+            </button>
+            <h4 class="akow-modal-title">@Session["MenuName"] <i class="fa fa-fw fa-chevron-right"></i> เพิ่มผู้ติดต่อ</h4>
+        </div>
+        <div class="modal-body">
+            <table id="AddSupplierContactTable" class="table demo" style="width:100%; border: 0px solid #ddd;">
+                <tr>
+                    <td>
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-md-3">
+                                <div style="text-align:right;">
+                                    <label id="lbl_msc_add_TitleName">คำนำหน้าชื่อ : </label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="editor-field" style="text-align:left;">
+                                    <input id="txt_msc_add_TitleName" maxlength="20" type="text" ng-model="msc_add_TitleName" class="akow-control-textbox" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-md-3">
+                                <div style="text-align:right;">
+                                    <span style="color:red;">* </span><label id="lbl_msc_add_FirstName">ชื่อ : </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="editor-field" style="text-align:left;">
+                                    <input id="txt_msc_add_FirstName" maxlength="128" type="text" ng-model="msc_add_FirstName" class="akow-control-textbox akow-require-field" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-md-3">
+                                <div style="text-align:right;">
+                                    <span style="color:red;">* </span><label id="lbl_msc_add_LastName">สกุล : </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="editor-field" style="text-align:left;">
+                                    <input id="txt_msc_add_LastName" maxlength="128" type="text" ng-model="msc_add_LastName" class="akow-control-textbox akow-require-field" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-md-3">
+                                <div style="text-align:right;">
+                                    <span style="color:red;">* </span><label id="lbl_msc_add_PhoneContact">โทรศัพท์ : </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="editor-field" style="text-align:left;">
+                                    <input id="txt_msc_add_PhoneContact" kendo-masked-text-box k-mask="'0-0000-0000'" maxlength="20" type="text" ng-model="msc_add_PhoneContact" class="akow-control-masked-textbox akow-require-field" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-md-3">
+                                <div style="text-align:right;">
+                                    <label id="lbl_msc_SupplierName">อีเมล์ : </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="editor-field" style="text-align:left;">
+                                    <input id="txt_msc_add_EmailContact" maxlength="256" type="email" ng-model="msc_add_Email" class="akow-control-textbox" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-md-3">
+                                <div style="text-align:right;">
+                                    <span style="color:red;">* </span><label id="lbl_msc_add_EmailContact">ผู้ติดต่อ : </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="editor-field" style="text-align:left;">
+                                    <input type="radio" name="rbtAddContactType" ng-model="msc_add_TypeID" ng-checked="true" value="1" id="rbtAddContactTypeDirect" /> ติดต่อโดยตรง &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="radio" name="rbtAddContactType" ng-model="msc_add_TypeID" value="2" id="rbtAddContactTypeIndirect" /> ผู้ติดต่อ อื่นๆ
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-md-3">
+                                <div style="text-align:right;">
+                                    <label id="lbl_msc_add_PhoneOtherOne">โทรศัพท์อื่น (1) : </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="editor-field" style="text-align:left;">
+                                    <input id="txt_msc_add_PhoneOtherOne" kendo-masked-text-box k-mask="'0-0000-0000'" maxlength="20" type="text" ng-model="msc_add_PhoneOtherOne" class="akow-control-masked-textbox" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-md-3">
+                                <div style="text-align:right;">
+                                    <label id="lbl_msc_Phone">โทรศัพท์อื่น (2) : </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="editor-field" style="text-align:left;">
+                                    <input id="txt_msc_add_PhoneOtherTwo" kendo-masked-text-box k-mask="'0-0000-0000'" maxlength="20" type="text" ng-model="msc_add_PhoneOtherTwo" class="akow-control-masked-textbox" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-md-3">
+                                <div style="text-align:right;">
+                                    <label id="lbl_msc_Phone">โทรศัพท์อื่น (3) : </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="editor-field" style="text-align:left;">
+                                    <input id="txt_msc_add_PhoneOtheThree" kendo-masked-text-box k-mask="'0-0000-0000'" maxlength="20" type="text" ng-model="msc_add_PhoneOtheThree" class="akow-control-masked-textbox" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-md-3">
+                                <div style="text-align:right;">
+                                    <label id="lbl_msc_Remark">หมายเหตุ : </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="editor-field" style="text-align:left;">
+                                    <textarea name="txt_msc_add_Remark" maxlength="256" id="txt_msc_add_Remark" style="resize:none;" class="akow-control-textbox" ng-model="msc_add_Remark" cols="100" row no-gutters="5"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-md-3">
+                                <div style="text-align:right;">
+                                    <label id="lbl_msc_Status">สถานะ : </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="editor-field" style="text-align:left;">
+                                    <input type="radio" name="rbtAddStatus" ng-checked="true" ng-model="msc_add_Status" value="1" id="rbtActive" />&nbsp; ใช้งาน &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="radio" name="rbtAddStatus" ng-model="msc_add_Status" value="0" id="rbtInActive" />&nbsp; ไม่ใช้งาน
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="modal-footer" style="text-align:center;">
+            <button class="btn btn-primary akow-addbutton" ng-click="addSupplierContact()"><i class="fa fa-floppy-o"></i>&nbsp;Save</button>
+            <button class="btn btn-primary" ng-click="Close()"><i class="fa fa-times-circle"></i>&nbsp;Cancel</button>
+        </div>
+    </div>
+</div>
+
+

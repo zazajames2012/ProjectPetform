@@ -1,0 +1,156 @@
+﻿@*// *** Update by : Nutthapaphon Sopradisth ***
+    // *** Update Date : 31/10/2015 09:00  ****@
+
+@{
+    ViewBag.Title = "กำหนดสิทธิการใช้งาน";
+    Layout = "~/Views/Shared/AdminLTEV2_M.cshtml";
+}
+
+<link href="~/Content/kendo/2014.2.716/kendo.bootstrap.min.css" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/kendo/2014.2.716/kendo.all.min.js" type="text/javascript"></script>
+
+<script src="@Url.Content("~/Apps/Controllers/RoleAssignmentController.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Apps/Modules/ConstantConfig.js")" type="text/javascript"></script>
+
+
+<style type="text/css">
+    .modal {
+        overflow-y: auto;
+    }
+</style>
+
+<div class="mainT-Table" ng-app="Permission" ng-controller="RoleAssignmentController" ng-init="initial()">
+    <div>
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="akow-header-blank"></div>
+                @{ IHtmlString str = new HtmlString(@Session["SearchNavTitle"].ToString()); @Html.Raw(str) }
+                <div class="akow-header-blank"></div>
+                <table class="table demo" data-filter="#filter" data-filter-text-only="true" style="width:100%;" border="0">
+                    <tr>
+                        <td colspan="2">
+                            <div class="row no-gutter">
+                                <div class="col-md-1" style="background-color:#ecf0f5 !important">
+                                    <div class="editor-label" style="text-align:right;">
+                                        <label id="lblSysRole">Role : </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3" style="background-color:#ecf0f5 !important">
+                                    <div class="editor-field" style="text-align:left;">
+                                        <select ng-model="model.ID" class="akow-control-dropdownlist" id="ddlSysRolePermission" ng-change="getSysRolePermission(model.ID)">
+                                            <option ng-repeat="role in DllSysRoleModels" value="{{role.ID}}" ng-selected="role.ID==1">{{role.RoleName}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @* Insert Original*@
+                            <div kendo-tab-strip k-content-urls="[ null, null]">
+                                <!-- tab list -->
+                                <ul>
+                                    <li class="k-state-active">Web</li>
+                                    <li>Mobile</li>
+                                </ul>
+
+                                <div style="padding: 1em">
+                                    <div id="gridWebRolePermission" kendo-grid="grid" k-options="mainGridWebOptions"></div>
+                                </div>
+
+                                <div style="padding: 1em">
+                                    <div id="gridMobileRolePermission" kendo-grid="grid" k-options="mainGridMobileOptions"></div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align:center;">
+                            <button class="btn btn-primary akow-savebutton" ng-click="showConfirmUpdateModal()"><i class="fa fa-floppy-o"></i>&nbsp;Save</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="frmSetWebChildPermissionModal" class="modal fade">
+            <div class="modal-dialog" style="width:60%;">
+                <div class="modal-content">
+                    <div class="modal-header" style="border-bottom: 1px solid #e5e5e5;  background: #e5e5e5;">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="akow-modal-title">กำหนดสิทธิการใช้งาน <i class="fa fa-fw fa-chevron-right"></i> <span id="childWebTitle"></span></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" style="padding:10px 10px 10px 10px;">
+                            <div class="form-group">
+                                <div class="row" style="padding:10px 20px 10px 20px;">
+                                    <div id="gridWebChildRolePermission" kendo-grid k-options="childGridWebOptions"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="text-align:center;">
+                        <a class="btn btn-success akow-savebutton" ng-click="saveWebChildSysRolePermission()" data-dismiss="modal"><i class="fa fa-floppy-o"></i>&nbsp;Save</a>
+                        <button class="btn btn-success" data-dismiss="modal"><i class="fa fa-times-circle"></i>&nbsp;Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="frmSetMobileChildPermissionModal" class="modal fade">
+            <div class="modal-dialog" style="width:60%;">
+                <div class="modal-content">
+                    <div class="modal-header" style="border-bottom: 1px solid #e5e5e5;  background: #e5e5e5;">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="akow-modal-title">กำหนดสิทธิการใช้งาน <i class="fa fa-fw fa-chevron-right"></i> <span id="childMobileTitle"></span></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" style="padding:10px 10px 10px 10px;">
+                            <div class="form-group">
+                                <div class="row" style="padding:10px 20px 10px 20px;">
+                                    <div id="gridMobileChildRolePermission" kendo-grid k-options="childGridMobileOptions"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="text-align:center;">
+                        <a class="btn btn-success akow-savebutton" ng-click="saveMobileChildSysRolePermission()" data-dismiss="modal"><i class="fa fa-floppy-o"></i>&nbsp;Save</a>
+                        <button class="btn btn-success" data-dismiss="modal"><i class="fa fa-times-circle"></i>&nbsp;Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="frmSetWebSubChildPermissionModal" class="modal fade">
+            <div class="modal-dialog" style="width:40%;">
+                <div class="modal-content">
+                    <div class="modal-header" style="border-bottom: 1px solid #e5e5e5;  background: #e5e5e5;">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="akow-modal-title"> <span id="childWebSubTitle"></span> <i class="fa fa-fw fa-chevron-right"></i> Components</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" style="padding:10px 10px 10px 10px;">
+                            <div class="form-group">
+                                <div class="row" style="padding:10px 20px 10px 20px;">
+                                    <div id="gridWebSubChildRolePermission" kendo-grid k-options="childGridSubWebOptions"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="text-align:center;">
+                        <a class="btn btn-primary akow-savebutton" ng-click="saveSubWebChildSysRolePermission()" data-dismiss="modal"><i class="fa fa-floppy-o"></i>&nbsp;Save</a>
+                        <button class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times-circle"></i>&nbsp;Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

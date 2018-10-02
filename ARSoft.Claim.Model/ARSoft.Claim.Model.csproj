@@ -1,0 +1,325 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0FF84502-54BC-4816-AC48-168647F1E7E4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ARSoft.Claim.Model</RootNamespace>
+    <AssemblyName>ARSoft.Claim.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BOL\Authorization\ApplicationModel.cs" />
+    <Compile Include="BOL\Authorization\AuthorizationCodeModel.cs" />
+    <Compile Include="BOL\Authorization\AuthorizationLogsModel.cs" />
+    <Compile Include="BOL\Authorization\TokenModel.cs" />
+    <Compile Include="BOL\Authorization\UserAuthorizationModel.cs" />
+    <Compile Include="BOL\Authorization\UsersModel.cs" />
+    <Compile Include="BOL\BaseClassModel.cs" />
+    <Compile Include="BOL\BrandModel.cs" />
+    <Compile Include="BOL\ClassificationModel.cs" />
+    <Compile Include="BOL\CommonMessagesModel.cs" />
+    <Compile Include="BOL\CustomerModel.cs" />
+    <Compile Include="BOL\DataItemModel.cs" />
+    <Compile Include="BOL\DocControlModel.cs" />
+    <Compile Include="BOL\EmployeeModel.cs" />
+    <Compile Include="BOL\GenDocumentNumberModel.cs" />
+    <Compile Include="BOL\MenuModel.cs" />
+    <Compile Include="BOL\OrganizationModel.cs" />
+    <Compile Include="BOL\PermissionModel.cs" />
+    <Compile Include="BOL\ProductsModel.cs" />
+    <Compile Include="BOL\RolesModel.cs" />
+    <Compile Include="BOL\SetupModel.cs" />
+    <Compile Include="BOL\SupplierContactModel.cs" />
+    <Compile Include="BOL\SupplierModel.cs" />
+    <Compile Include="BOL\SysDistinctModel.cs" />
+    <Compile Include="BOL\SysProvinceModel.cs" />
+    <Compile Include="BOL\SysRoleModel.cs" />
+    <Compile Include="BOL\SysRolePermissionModel.cs" />
+    <Compile Include="BOL\SysUsersModel.cs" />
+    <Compile Include="BOL\TabPermissionModel.cs" />
+    <Compile Include="BOL\UserRoleModel.cs" />
+    <Compile Include="Constant\ConstantConfig.cs" />
+    <Compile Include="EntityFramework\CLAIMModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CLAIMModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\CLAIMModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\CLAIMModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CLAIMModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MAS_BRANDS.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MAS_CHARGES.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MAS_CHARGE_CATEGORY.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MAS_CLASSIFICATION.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MAS_CLASSIFICATIONCONTROL.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MAS_CORE_BUSINESS_COMPANY.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MAS_CUSTOMERS.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MAS_CUSTOMER_CONTACTS.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MAS_CUSTOMER_GROUPS.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MAS_CUSTOMER_IP.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MAS_CUSTOMER_LOCATIONS.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MAS_DOC_CONTROL.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MAS_EMAIL_TEMPLATE.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MAS_EMPLOYEES.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MAS_MASTER_SETUP.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MAS_PRODUCTS.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MAS_PRODUCT_GROUPS.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MAS_SLA_COMPUTE_SETTINGS.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MAS_SUPPLIERS.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MAS_SUPPLIER_CONTACTS.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\MAS_ZONE.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\SYS_AUTHORIZATION_LOGS.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\SYS_AUTHORIZED_APPLICATIONS.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\SYS_COMMON_MESSAGES.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\SYS_COMPONENTS.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\SYS_CONFIGS.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\SYS_DISTRICTS.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\SYS_DOCUMENT_PATTERNS.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\SYS_EMAIL_CONFIGS.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\SYS_PERMISSIONS.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\SYS_PROVINCES.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\SYS_ROLES.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\SYS_ROLES_PERMISSIONS.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\SYS_SERVICES_PROCESS.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\SYS_SYSTEM_LOGS.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\SYS_USERS.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\SYS_USERS_ROLES.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\TRN_JOBS.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\TRX_ERROR_LOG.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\uspGetAuthorizedMenus_Result.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\uspGetChildRolePermissionByRoleID_Result.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\uspGetCusContactById_Result.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\uspGetCusLocationById_Result.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\uspGetCustomerContactListByID_Result.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\uspGetCustomers_Result.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\uspGetListOfClassification_Result.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\uspGetListOfCustomer_Result.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\uspGetListOfEmployees_Result.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\uspGetListOfSysRole_Result.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\uspGetPermissions_Result.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\uspGetProducts_Result.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\uspGetRoleList_Result.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\uspGetRolePermissionByRoleID_Result.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\uspGetRolePermissions_Result.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\uspGetRoles_Result.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\uspGetSupplierContacts_Result.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\uspGetSysUserRolesByUserID_Result.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\uspGetSysUsersByUserName_Result.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\uspGetSysUsers_Result.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\uspGetUserRoles_Result.cs">
+      <DependentUpon>CLAIMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Enumeration\EnumHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="EntityFramework\CLAIMModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CLAIMModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="EntityFramework\CLAIMModel.edmx.diagram">
+      <DependentUpon>CLAIMModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ARSoft.Utility\ARSoft.Utility.csproj">
+      <Project>{488691A7-7D31-4E78-A092-0DDB890D6AA7}</Project>
+      <Name>ARSoft.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EntityFramework\CLAIMModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CLAIMModel.edmx</DependentUpon>
+      <LastGenOutput>CLAIMModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EntityFramework\CLAIMModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CLAIMModel.edmx</DependentUpon>
+      <LastGenOutput>CLAIMModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

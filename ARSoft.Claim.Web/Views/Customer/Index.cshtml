@@ -1,0 +1,135 @@
+﻿@*
+    *** Update by : Jirawat Pipatpaisan ***
+    *** Update Date : 27/11/2015 13:30  ***
+*@
+
+@*@using ARSoft.Claim.DataModel;*@
+@using ARSoft.Claim.Model.BOL;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AdminLTEV2_M.cshtml";
+}
+
+<link href="~/Content/kendo/2014.2.716/kendo.common-bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/kendo/2014.2.716/kendo.bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+<script src="~/Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+<script src="~/Scripts/kendo/2014.2.716/kendo.all.min.js" type="text/javascript"></script>
+<script src="@Url.Content("~/Apps/Controllers/CustomersController.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Apps/Modules/ConstantConfig.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Apps/Modules/EnumHelper.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Apps/Popup/SearchCustomerContactModalController.js")" type="text/javascript"></script>
+
+<style>
+    .app-modal-window-customer .modal-dialog {
+        width: 82%;
+    }
+</style>
+
+<!-- Page Heading -->
+<div class="mainT-Table" ng-app="Apps" ng-controller="Index" ng-init="Customer_Initial()">
+    <div>
+        <div class="row" style="padding-top:0.5em">
+
+            <div class="col-lg-12">
+                <div class="akow-header-blank"></div>
+                @{ IHtmlString str = new HtmlString(@Session["SearchNavTitle"].ToString()); @Html.Raw(str) }
+                <div class="akow-header-blank"></div>
+                <table class="table demo" data-filter="#filter" data-filter-text-only="true" style="width:100%;border: 0px solid #ddd;">
+                    <tr>
+                        <td>
+                            <table id="criteriaBGtable" style="width:100%;border: 1px solid #ddd; background-color:white;">
+                                <tr>
+                                    <td>
+                                        <br />
+                                        <div class="row no-gutter" style="padding-top: 10px;">
+                                            <div>
+                                                <label class="col-sm-5 control-label text-right" for="searchCusCode">รหัสลูกค้า : </label>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="akow-control-textbox" id="searchCusCode" ng-model="criteria_Code" name="searchCusCode" maxlength="30" title="Value">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutter" style="padding-top: 10px;">
+                                            <div>
+                                                <label class="col-sm-5 control-label text-right" for="searchCusName">ชื่อลูกค้า : </label>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="akow-control-textbox" id="searchCusName" ng-model="criteria_Name" name="searchCusName" maxlength="256" title="Value">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutter" style="padding-top: 10px;">
+                                            <div>
+                                                <label class="col-sm-5 control-label text-right" for="searchCusType">ประเภท : </label>
+                                                <div class="col-sm-6 text-left">
+
+                                                    <label ng-repeat="option in CustomerType">
+                                                        &nbsp;<input type="checkbox" class="chkCusTypeGroup" ng-model="chkCusType" ng-value="option.ID" name="custype"/>{{option.Name}} 
+                                                    </label>
+                                                    
+                                                    @*<label ng-repeat="option in CustomerType">
+                                                        &nbsp;<input type="checkbox" ng-model="chkCusType.selected[option.id]" ng-value="option.ID" ng-true-value="'{{option.name}}'" ng-false-value="''" name="custype">{{option.Name}}
+                                                        {{chkCusType.selected}}
+                                                    </label>*@                                                
+                                                   
+                                                    @*<label ng-repeat="country in countries">
+                                                        <input type="checkbox" ng-model="myCountry.selected[country.id]" ng-true-value="'{{country.name}}'" ng-false-value="''">{{country.name}}
+                                                    </label>*@
+
+                                                    @*@foreach (var c in (IEnumerable<CustomerModel>)ViewBag.CusTypeGroup)
+                                                    {
+                                                        <input class="chkCusTypeGroup" type="checkbox" id="chkCusType" name="chkCusType" value=@c.ID><span>&nbsp;</span>@c.Name<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                    }*@
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutter" style="padding-top: 10px;">
+                                            <div>
+                                                <label class="col-sm-5 control-label text-right" for="searchCusStatus">สถานะ : </label>
+                                                <div class="col-sm-6 text-left">
+
+                                                    <label ng-repeat="option in StatusList"> 
+                                                        <input type="radio" ng-value="option.ID" ng-model="rbtCusStatusGroup" name="status">{{option.Name}}                                                                                              
+                                                    </label>
+
+                                                    @*@foreach (var c in (IEnumerable<DropdownModel>)ViewBag.CusStatusGroup)
+                                                    {
+                                                        <input type="radio" name="rbtCusStatusGroup" value=@c.ID @c.Checked><span>&nbsp;</span>@c.Name<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                    }*@
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutter" style="text-align: center;padding-top: 10px;">
+                                            <button class="btn btn-primary" ng-click="getCustomer(true)"><i class="fa fa-search"></i>&nbsp;Search</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div>
+                                <button class="btn btn-primary akow-addbutton" ng-disabled="IsDisabled" ng-click="Add()"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;Add</button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div kendo-grid="grid" k-options="mainGridOptionsCustomer" id="gridWebCustomer"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

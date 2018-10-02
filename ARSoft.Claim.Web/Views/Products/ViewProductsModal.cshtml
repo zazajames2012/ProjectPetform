@@ -1,0 +1,108 @@
+﻿@{
+    Layout = null;
+}
+
+<style>
+    .labor-text-right {
+        text-align: right !important;
+        font-size: 15px !important;
+    }
+</style>
+
+<div class="mainT-Table" ng-init="initial()">
+    <div class="modal-header" style="border-bottom: 1px solid #e5e5e5;  background: #e5e5e5;">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="Close()">
+            &times;
+        </button>
+        @{ IHtmlString str = new HtmlString(@Session["ViewNavTitle"].ToString()); @Html.Raw(str) }
+    </div>
+    <div class="modal-body"  id="modal-body">
+        <div style="padding-bottom: 10px;">
+            @*<div class="row" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label for="addEmpCode" class="col-sm-4 control-label text-right">รหัสผลิตภัณฑ์ : </label>
+                    <div class="col-sm-6">
+                        <input type="text" ng-model="productCode" style="width: 100px;" name="productCode" maxlength="10" class="akow-control-textbox k-textbox" title="รหัสผลิตภัณฑ์">
+                    </div>
+                </div>
+            </div>*@
+            <div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label for="productName" class="col-sm-4 control-label text-right"><span style="color:red;">* </span>ชื่อผลิตภัณฑ์ : </label>
+                    <div class="col-sm-6">
+                        <input type="text" ng-model="productName" name="productName" maxlength="128" class="akow-control-textbox akow-require-field" title="ชื่อผลิตภัณฑ์">
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label for="productGroupID" class="col-sm-4 control-label text-right"><span style="color:red;">* </span>กลุ่มผลิตภัณฑ์ : </label>
+                    <div class="col-sm-6">
+                        <select ng-model="productGroupID" class="akow-control-textbox akow-control-dropdownlist akow-require-field">
+                            <option value="">-- โปรดเลือก --</option>
+                            <option ng-repeat="product in ProductsGroup" ng-selected="product.ID==productGroupID" value="{{product.ID}}">{{product.Text}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            @*<div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label for="specific" class="col-sm-4 control-label text-right"><span style="color:red;">* </span>ต้องระบุรหัสแยก : </label>
+                    <div class="col-sm-6">
+                        <label akow-checkboxlabelname="validChkBox">
+                            <input type="checkbox" name="specificGroup" akow-checkboxlabel="validChkBox" akow-checkboxgroup="specificGroup" class="akow-require-field" ng-model="productSymptomCode">
+                            Symptom Code
+                        </label>
+                        &nbsp;&nbsp;&nbsp;
+                        <label akow-checkboxlabelname="validChkBox">
+                            <input type="checkbox" name="specificGroup" akow-checkboxgroup="specificGroup" class="akow-require-field" ng-model="productRepairCode">
+                            Repair Code
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label for="BundleSoftware" class="col-sm-4 control-label text-right">Software/Firmware : </label>
+                    <div class="col-sm-6">
+                        <label class="radio-inline">
+                            <input name="rbtBundleSoftwareGroup" ng-model="BundleSoftware" id="rbtBundleSoftware" type="radio" value="1" ng-checked="BundleSoftware" ng-click="onClickBundleSoftware()">มี Software/Firmware
+                        </label>
+                        <label class="radio-inline">
+                            <input name="rbtBundleSoftwareGroup" ng-model="BundleSoftware" id="rbtNotBundleSoftware" type="radio" value="0" ng-checked="BundleSoftware" ng-click="onClickBundleSoftware()">ไม่มี Software/Firmware
+                        </label>
+                    </div>
+                </div>
+            </div>*@
+            <div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label for="addEmail" class="col-sm-4 control-label text-right">Description : </label>
+                    <div class="col-sm-6">
+                        <textarea name="productDescription" ng-model="productDescription" id="productDescription" style="resize:none;" maxlength="256" class="akow-control-textbox"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label for="Status" class="col-sm-4 control-label text-right">Status : </label>
+                    <div class="col-sm-6">
+                        <label class="radio-inline">
+                            <input name="rbtStatusGroup" ng-model="productStatus" id="rbtStatus1" ng-checked="productStatus" type="radio" value="1">ใช้งาน
+                        </label>
+                        <label class="radio-inline">
+                            <input name="rbtStatusGroup" ng-model="productStatus" id="rbtStatus2" ng-checked="productStatus" type="radio" value="0">ไม่ใช้งาน
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+        
+        </div>       
+   
+    </div>
+    <div class="modal-footer" style="text-align:center">
+        @*<button class="btn btn-default" ng-click="Close()"><i class="fa fa-times"></i>&nbsp;Close</button>*@
+        <button class="btn btn-primary center-block" ng-click="Close()"><i class="fa fa-sign-out"></i>&nbsp;Close</button>
+    </div>
+</div>
+

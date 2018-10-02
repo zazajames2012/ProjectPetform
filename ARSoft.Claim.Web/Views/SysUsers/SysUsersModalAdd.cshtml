@@ -1,0 +1,114 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="mainT-Table" ng-init="initial()">
+    <div class="modal-header" style="border-bottom: 1px solid #e5e5e5;  background: #e5e5e5;">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="Close()">
+            &times;
+        </button>
+        @{ IHtmlString str = new HtmlString(@Session["AddNavTitle"].ToString()); @Html.Raw(str) }
+    </div>
+    <div class="modal-body">
+        <div style="padding-bottom: 10px;">
+            <div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label for="addUsername" class="col-sm-4 control-label text-right"><span style="color:red;">* </span>Username : </label>
+                    <div class="col-sm-5">
+                        <input type="text" id="addUsername" name="addUsername" maxlength="128" class="akow-control-textbox akow-require-field" title="Username">
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label for="addPassword" class="col-sm-4 control-label text-right"><span style="color:red;">* </span>Password : </label>
+                    <div class="col-sm-5">
+                        <input type="password" id="addPassword" name="addPassword" maxlength="256" class="akow-control-textbox akow-require-field" title="Password">
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label for="addConfirmPassword" class="col-sm-4 control-label text-right"><span style="color:red;">* </span>Confirm Password : </label>
+                    <div class="col-sm-5">
+                        <input type="password" id="addConfirmPassword" name="addConfirmPassword" maxlength="256" class="akow-control-textbox akow-require-field" title="Confirm Password">
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label for="addDisplayName" class="col-sm-4 control-label text-right"><span style="color:red;">* </span>Display Name : </label>
+                    <div class="col-sm-5">
+                        <input type="text" id="addDisplayName" name="addDisplayName" maxlength="256" class="akow-control-textbox akow-require-field" title="Display Name">
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label for="addEmployee" class="col-sm-4 control-label text-right">Employee : </label>
+                    <div class="col-sm-5">
+                        <input type="text" class="akow-control-textbox" ng-model="model.Name" />
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="input-group-btn" ng-click="Popup()">
+                            <button class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label for="addEmail" class="col-sm-4 control-label text-right"><span style="color:red;">* </span>Email : </label>
+                    <div class="col-sm-5">
+                        <input type="email" id="addEmail" name="addEmail" maxlength="256" class="akow-control-textbox akow-require-field" title="Email" ng-model="model.Email">
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label for="addStatus" class="col-sm-4 control-label text-right"><span style="color:red;">* </span>Status : </label>
+                    <div class="col-sm-5">
+                        <label class="radio-inline">
+                            <input name="rbtStatusGroup" id="rbtStatus1" checked type="radio" value="1">Active
+                        </label>
+                        <label class="radio-inline">
+                            <input name="rbtStatusGroup" id="rbtStatus2" type="radio" value="0">Inactive
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top: 10px; padding-left: 100px; padding-right: 100px; ">
+                <div class="col-sm-12 center-block">
+                    <fieldset>
+                        <label class="control-label text-right" style="color:red">* </label>
+                        <label class="control-label text-right">Role : </label>
+                        <table>
+                            @{
+                                int iTotal = ViewBag.RoleName.Count <= 0 ? 0 : ViewBag.RoleName.Count - 1;
+                                for (int i = 0; i <= (iTotal / 4); i++)
+                                {
+                                    <tr>
+                                        @for (int j = 0; j < 4; j++)
+                                        {
+                                            if ((i * 4) + j < ViewBag.RoleName.Count)
+                                            {
+                                                <td width="350">
+                                                    <input type="checkbox" class="chkAddRoleName" name="chkAddRoleName_@((i * 4) + j)" value="@ViewBag.RoleName[(i * 4) + j].Value" />@ViewBag.RoleName[(i * 4) + j].Text
+                                                </td>
+                                            }
+                                        }
+                                    </tr>
+                                }
+                            }
+                        </table>
+
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer" style="text-align:center">
+        <button class="btn btn-primary akow-addbutton" ng-click="addSysUser()"><i class="fa fa-floppy-o"></i>&nbsp;Save</button>
+        <button class="btn btn-primary" ng-click="Close()"><i class="fa fa-times-circle"></i>&nbsp;Cancel</button>
+    </div>
+</div>

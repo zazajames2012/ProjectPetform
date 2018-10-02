@@ -1,0 +1,129 @@
+﻿@*
+    *** Update by : Pongthorn Paemanee ***
+    *** Update Date : 08/10/2015 16:00  ***
+*@
+
+@using ARSoft.Claim.DataModel;
+
+@{
+    Layout = null;
+}
+
+<div class="mainT-Table" ng-init="CustomerContact_Initial()">
+    <div class="modal-header" style="border-bottom: 1px solid #e5e5e5;  background: #e5e5e5;">
+        <button class="close" type="button" data-dismiss="modal" aria-hidden="true" ng-click="CustomerContact_Close()">
+            &times;
+        </button>
+        <h4 class="akow-modal-title">แก้ไขข้อมูลลูกค้า <i class="fa fa-fw fa-chevron-right"></i> แก้ไขข้อมูลผู้ติดต่อ</h4>
+    </div>
+    <div class="modal-body">
+        <div style="padding-bottom: 10px;">
+            <div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right" for="CusContact_EditTitle">คำนำหน้า : </label>
+                        <div class="col-sm-4">
+                            <input class="akow-control-textbox" type="text" id="CusContact_EditTitle" name="CusContact_EditTitle" maxlength="30" title="คำนำหน้า" ng-model="CusContact_EditTitle">
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right" for="CusContact_EditFirstName"><span style="color:red;">* </span>ชื่อ : </label>
+                        <div class="col-sm-4">
+                            <input class="akow-control-textbox akow-require-field" type="text" id="CusContact_EditFirstName" name="CusContact_EditFirstName" maxlength="128" title="ชื่อ" ng-model="CusContact_EditFirstName">
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right" for="CusContact_EditLastName"><span style="color:red;">* </span>สกุล : </label>
+                        <div class="col-sm-4">
+                            <input class="akow-control-textbox akow-require-field" type="text" id="CusContact_EditLastName" name="CusContact_EditLastName" maxlength="128" title="สกุล" ng-model="CusContact_EditLastName">
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right"><span style="color:red;">* </span>โทรศัพท์ : </label>
+                        <div class="col-sm-4">
+                            <input kendo-masked-text-box class="akow-control-textbox akow-require-field akow-control-masked-textbox" type="text" id="CusContact_EditPhone" name="CusContact_EditPhone" maxlength="30" title="โทรศัพท์" ng-model="CusContact_EditPhone">
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right">email : </label>
+                        <div class="col-sm-4">
+                            <input class="akow-control-textbox" type="email" id="CusContact_EditEmail" name="CusContact_EditEmail" maxlength="256" title="email" ng-model="CusContact_EditEmail">
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div>
+                        <label class="col-sm-3 control-label text-right" for="searchCusContactType"><span style="color:red;">* </span>ผู้ติดต่อ : </label>
+                        <div class="col-sm-9 text-left">
+                            <label ng-repeat="option in ContactTypeList">
+                                &nbsp;<input type="radio" ng-model="CusContact_EditContactType" ng-value="option.ID" name="ContactTypeEdit" />{{option.Name}}
+                            </label>
+                            @*@foreach (var c in (IEnumerable<DropdownModel>)ViewBag.CusContactType)
+                            {
+                                <input type="radio" name="rbtCusContactType" value=@c.ID ng-model="CusContact_EditContactType"><span>&nbsp;</span>@c.Name<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            }*@
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right">Fax : </label>
+                        <div class="col-sm-9">
+                            <input kendo-masked-text-box class="akow-control-textbox akow-control-masked-textbox" type="text" id="CusContact_EditPhoneOther1" name="CusContact_EditPhoneOther1" maxlength="20" title="โทรศัพท์อื่น (1)" ng-model="CusContact_EditPhoneOther1">
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right">โทรศัพทมือถือ : </label>
+                        <div class="col-sm-9">
+                            <input kendo-masked-text-box  class="akow-control-textbox akow-control-masked-textbox" type="text" id="CusContact_EditPhoneOther2" name="CusContact_EditPhoneOther2" maxlength="20" title="โทรศัพท์อื่น (2)" ng-model="CusContact_EditPhoneOther2">
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right">โทรศัพท์อื่นๆ : </label>
+                        <div class="col-sm-9">
+                            <input kendo-masked-text-box  class="akow-control-textbox akow-control-masked-textbox" type="text" id="CusContact_EditPhoneOther3" name="CusContact_EditPhoneOther3" maxlength="20" title="โทรศัพท์อื่น (3)" ng-model="CusContact_EditPhoneOther3">
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right" for="CusContact_EditRemark">หมายเหตุ : </label>
+                        <div class="col-sm-9">
+                            <textarea class="akow-control-textbox" id="CusContact_EditRemark" name="CusContact_EditRemark" maxlength="256" rows="5" title="หมายเหตุ" style="resize:none" ng-model="CusContact_EditRemark"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div>
+                        <label class="col-sm-3 control-label text-right" for="searchCusStatusGroup">สถานะ : </label>
+                        <div class="col-sm-9 text-left">
+                            <label ng-repeat="option in StatusList">
+                                &nbsp;<input type="radio" ng-model="CusContact_EditStatus" ng-value="option.ID" name="StatusEdit" />{{option.Name}}
+                            </label>
+                            @*@foreach (var c in (IEnumerable<DropdownModel>)ViewBag.CusStatusGroup)
+                            {
+                                <input type="radio" name="CusContact_EditStatus" value=@c.ID ng-model="CusContact_EditStatus"><span>&nbsp;</span>@c.Name<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            }*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer" style="text-align:center;">
+        <button class="btn btn-primary akow-savebutton" ng-click="CustomerContact_Edit()"><i class="fa fa-floppy-o"></i>&nbsp;Save</button>        
+        <button class="btn btn-primary" ng-click="CustomerContact_Close()"><i class="fa fa-times-circle"></i>&nbsp;Cancel</button>
+    </div>
+</div>

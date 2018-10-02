@@ -1,0 +1,35 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="header bg-blues-gradient akow-msgbox-title">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="close()">
+        &times; &nbsp;&nbsp;
+    </button>
+    <h3 class="akow-modal-popup-title">
+        &nbsp;&nbsp; About
+    </h3>
+</div>
+
+<div class="modal-body col-xs-12 form-horizontal form-group-sm table-bordered" ng-init="init()">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-2">
+                <span style="font-weight:bold;color:#1a348e"> Claim Management System </span><br />
+                @ViewBag.WebVersion <br />
+                @ViewBag.ApiVersion <br />
+                @ViewBag.BizVersion <br />
+                Release Date : @File.GetCreationTime(ViewContext.Controller.GetType().Assembly.Location).ToShortDateString()<br /><br />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 center-block">
+                @*<button class="btn btn-primary center-block" ng-click="close()"><i class="fa fa-toggle-on"></i>&nbsp;Close</button><br />*@
+                <button class="btn btn-primary center-block" ng-click="close()"><i class="fa fa-sign-out"></i>&nbsp;Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer"></div>
+

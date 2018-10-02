@@ -1,0 +1,128 @@
+﻿@*
+    *** Update by : Pongthorn Paemanee ***
+    *** Update Date : 07/10/2015 13:30  ***
+*@
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AdminLTEV2_M.cshtml";
+}
+
+<link href="~/Content/kendo/2014.2.716/kendo.common-bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/kendo/2014.2.716/kendo.bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+<script src="~/Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+<script src="~/Scripts/kendo/2014.2.716/kendo.all.min.js" type="text/javascript"></script>
+<script src="@Url.Content("~/Apps/Controllers/SysUsersController.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Apps/Modules/ConstantConfig.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Apps/Popup/SearchEmployeeModalController.js")" type="text/javascript"></script>
+
+<style>
+    tr {
+        display: table-row !important;
+    }
+</style>
+
+<!-- Page Heading -->
+<div ng-app="Apps" ng-controller="Index" ng-init="initial()" class="mainT-Table">
+    <div>
+        <!-- Page Heading -->
+        <div class="row" style="padding-top:0.5em">
+            <div class="col-lg-12">
+                <div class="akow-header-blank"></div>
+                @{ IHtmlString str = new HtmlString(@Session["SearchNavTitle"].ToString()); @Html.Raw(str) }
+                <div class="akow-header-blank"></div>
+                <table class="table demo" data-filter="#filter" data-filter-text-only="true" style="width:100%;border: 0px solid #ddd;">
+                    <tr>
+                        <td>
+                            <!-- Criteria -->
+                            <table id="criteriaBGtable" style="width:100%;border: 1px solid #ddd; background-color:white;">
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <table id="CriteriaTable" style="width:100%;border: 1px solid #ddd;">
+                                                <tr>
+                                                    <td>
+                                                        <br />
+                                                        <div class="row no-gutter" style="padding-top: 10px;">
+                                                            <div>
+                                                                <label for="searchUsername" class="col-sm-3 control-label text-right">Username : </label>
+                                                                <div class="col-sm-3">
+                                                                    <input type="text" class="akow-control-textbox" id="searchUsername" name="searchUsername" maxlength="128" title="Value">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row no-gutter" style="padding-top: 10px;">
+                                                            <div>
+                                                                <label for="searchRole" class="col-sm-3 control-label text-right">Role : </label>
+                                                                <div class="col-sm-9 text-left">
+                                                                    <table id="tabRole">
+                                                                        @{
+                                                                            int iTotal = ViewBag.RoleName.Count <= 0 ? 0 : ViewBag.RoleName.Count - 1;
+                                                                            for (int i = 0; i <= (iTotal / 4); i++)
+                                                                            {
+                                                                                <tr>
+                                                                                    @for (int j = 0; j < 4; j++)
+                                                                                    {
+                                                                                        if ((i * 4) + j < ViewBag.RoleName.Count)
+                                                                                        {
+                                                                                            <td>
+                                                                                                <input type="checkbox" class="chkRoleName" name="chkRoleName_@((i * 4) + j)" value="@ViewBag.RoleName[(i * 4) + j].Value" /><span>&nbsp;</span>@ViewBag.RoleName[(i * 4) + j].Text<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                                                            </td>
+                                                                                        }
+                                                                                    }
+                                                                                </tr>
+                                                                            }
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <input type="checkbox" name="checkAll" id="checkAll" checked>&nbsp;Select All
+                                                                                </td>
+                                                                            </tr>
+                                                                        }
+                                                                    </table>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="row no-gutter" style="text-align:center; padding-top:10px">
+
+                                                            <div class="form-group">
+                                                                <button class="btn btn-primary" ng-click="getSysUsers()"><i class="fa fa-search"></i>&nbsp;Search</button>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="col-md-2 text-left">
+                                <button class="btn btn-primary akow-addbutton" ng-click="Add()"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;Add</button>
+                            </div>
+                            <div class="text-right">
+                                <button class='btn btn-danger akow-deletebutton' ng-click='modalDelSelected()'><i class='fa fa-trash'></i>&nbsp;Delete</button>
+                            </div>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div id="gridWebSysUsers" kendo-grid="grid" k-options="mainGridOptions"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

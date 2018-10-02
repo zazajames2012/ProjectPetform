@@ -1,0 +1,53 @@
+﻿@**** Update by : Veerapong Hoewtheerakul ***
+    *** Update Date : 06/10/2015 17:00  ****@
+@for (int i = 0; i <= 9; i++)
+{
+    string msgboxI = "akow-msgbox-msgbox" + i.ToString();
+    string okI = "akow-msgbox-okbutton" + i.ToString();
+    string cancelI = "akow-msgbox-cancelbutton" + i.ToString();
+
+    @*<div class="@msgboxI  akow-msgbox-msgbox modal fade modal-dialog">*@
+    <div class="@msgboxI  akow-msgbox-msgbox" style="display: none;">
+
+        <div class="form-box bg-gray" style="height: auto; width: 500px; top: 50%; left: 50%; position: fixed; margin-left: -250px; margin-top: -105px; ">
+
+            <div class="header bg-green-gradient akow-msgbox-title" style="height:10%;padding-left:10px">Message Title </div>
+
+            <div class="body" style="height:60%">
+                <br />
+                <div class="row" style="text-align:center;vertical-align:middle">
+
+                    <div class="col-lg-3" style="text-align:center">
+
+                        <i class="akow-msgbox-infoicon fa fa-info-circle fa-5x fa-fw " style="font-size: 5em;color:#d88b00;display:none"></i>
+
+                        <i class="akow-msgbox-questionicon fa fa-question-circle fa-5x fa-fw " style="font-size: 5em;color:#00c96c;display:none"></i>
+
+                        <i class="akow-msgbox-warningicon fa fa-exclamation-triangle fa-5x fa-fw " style="font-size: 5em;color:#d88b00;display:none"></i>
+
+                        <i class="akow-msgbox-erroricon fa fa-exclamation-circle  fa-5x fa-fw " style="font-size: 5em;color:#b61414;display:none"></i>
+
+
+                    </div>
+                    <div class="col-lg-9" style="text-align:left">
+                        <div class="akow-msgbox-message" style="width:80%; white-space:pre-wrap">
+                            The articles set out below are articles created and/or produced by Future Publishing Limited. Microsoft is not responsible for the content.
+                        </div>
+                    </div>
+                </div>
+                <br /><br />
+            </div>
+
+            <div style="text-align: center; height: 20%; padding-bottom: 15px;">
+                <button class="@okI btn bg-green-gradient akow-msgbox-okbutton" style="width:100px">OK</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button class="@cancelI btn bg-red-gradient akow-msgbox-cancelbutton" style="width:100px;">Cancel</button>
+            </div>
+            <input class="akow-msgbox-resulthidden" type="hidden" />
+        </div>
+    </div>
+
+}
+
+<input class="akow-hdCount" type="hidden" value="0" />
+

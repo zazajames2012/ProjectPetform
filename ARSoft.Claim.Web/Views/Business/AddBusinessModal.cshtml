@@ -1,0 +1,130 @@
+﻿@*// *** Update by : Nutthapaphon Sopradisth ***
+    // *** Update Date : 28/10/2015 17:00  ****@
+
+@{
+    Layout = null;
+}
+
+<style>
+    .k-state-disabled {
+        border: 0px solid #fff;
+    }
+</style>
+
+<progressbar class="progress-striped active" value="dynamic"
+             ng-show="loading"></progressbar>
+
+
+<div class="mainT-Table">
+    <div style="width:100%;">
+        <div class="modal-header" style="border-bottom: 1px solid #e5e5e5;  background: #e5e5e5;">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="Close()">
+                &times;
+            </button>
+            @{ IHtmlString str = new HtmlString(@Session["AddNavTitle"].ToString()); @Html.Raw(str) }
+        </div>
+        <div class="modal-body">
+            <!-- Page Heading -->
+            <div class="row no-gutter" style="padding: 0 0 0 1.5em">
+                <div class="col-md-3">
+                    <div class="akow-col-right">
+                        <label id="lblPositionName">Code : </label>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="akow-col-left">
+                        <input id="txtCode" min="0" maxlength="10" type="text" ng-model="mas_add_Code" style="width:35%" class="akow-control-textbox" />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    &nbsp;
+                </div>
+            </div>
+
+            <div class="row no-gutter" style="padding: 0.5em 0 0 1.5em">
+                <div class="col-md-3">
+                    <div class="akow-col-right">
+                        <span style="color:red;">* </span><label id="lblPositionName">Position Name : </label>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="akow-col-left">
+                        <input id="txtPositionName" min="0" maxlength="128" type="text" ng-model="mas_add_Name" class="akow-control-textbox akow-require-field" />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    &nbsp;
+                </div>
+            </div>
+
+            <div class="row no-gutter" style="padding: 0.5em 0 0 1.5em">
+                <div class="col-md-3">
+                    <div class="akow-col-right">
+                        <span style="color:red;">* </span><label id="lblShortName">Short Name : </label>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="akow-col-left">
+                        <input id="txtShortName" min="0" maxlength="30" type="text" ng-model="mas_add_ShortName" class="akow-control-textbox akow-require-field" />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    &nbsp;
+                </div>
+            </div>
+
+            <div class="row no-gutter" style="padding: 0.5em 0 0 1.5em">
+                <div class="col-md-3">
+                    <div class="akow-col-right">
+                        <span style="color:red;">* </span><label id="lblLevels">Levels : </label>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="akow-col-left">
+                        <input id="txtLevels" type="number" class="akow-require-field" style="text-align: center!important;" />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    &nbsp;
+                </div>
+            </div>
+
+            <div class="row no-gutter" style="padding: 0.5em 0 0 1.5em">
+                <div class="col-md-3">
+                    <div class="akow-col-right">
+                        <label id="lblLevels">Status : </label>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="akow-col-left">
+                        <label class="radio-inline">
+                            <input name="rbtStatusGroup" ng-model="mas_add_Status" id="rbtStatusAction" ng-checked="true" type="radio" value="1">ใช้งาน
+                        </label>
+                        <label class="radio-inline">
+                            <input name="rbtStatusGroup" ng-model="mas_add_Status" id="rbtStatusInAction" type="radio" value="0">ไม่ใช้งาน
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer" style="text-align:center;">
+            <button class="btn btn-primary akow-addbutton" ng-click="addBusiness()"><i class="fa fa-floppy-o"></i>&nbsp;Save</button>
+            <button class="btn btn-primary" ng-click="Close()"><i class="fa fa-times-circle"></i>&nbsp;Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#txtLevels").kendoNumericTextBox({
+        format: "0",
+        value: "0",
+        min: "0",
+        max: "10",
+        step: "1"
+    });
+
+    $("#txtLevels").data("kendoNumericTextBox").wrapper.width("130px");
+</script>

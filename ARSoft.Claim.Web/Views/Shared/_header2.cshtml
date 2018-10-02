@@ -1,0 +1,197 @@
+﻿<link href="~/Content/kendo/2014.2.716/kendo.common-bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/kendo/2014.2.716/kendo.bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/kendo/2014.2.716/kendo.metro.min.css" rel="stylesheet" />
+
+<script src="~/Scripts/angular-ui/ui-bootstrap-tpls.min.js" type="text/javascript"></script>
+<script src="~/Scripts/kendo/2014.2.716/kendo.all.min.js" type="text/javascript"></script>
+<script src="@Url.Content("~/Apps/Controllers/AccountController.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Apps/Modules/ConstantConfig.js")" type="text/javascript"></script>
+
+<style>
+    .navbar-nav > .job-notification-menu {
+        position: relative;
+    }
+
+        .navbar-nav > .job-notification-menu > .dropdown-menu {
+            width: 300px;
+            padding: 0 0 0 0 !important;
+            margin: 0 !important;
+            top: 100%;
+        }
+
+            .navbar-nav > .job-notification-menu > .dropdown-menu > li {
+                position: relative;
+            }
+
+                .navbar-nav > .job-notification-menu > .dropdown-menu > li.header {
+                    background-color: #ffffff;
+                    padding: 7px 10px;
+                    color: #444444;
+                    font-size: 14px;
+                }
+
+                .navbar-nav > .job-notification-menu > .dropdown-menu > li.footer > a {
+                    font-size: 12px;
+                    padding: 7px 10px;
+                    color: #444 !important;
+                    text-align: center;
+                }
+
+
+    #listView {
+        padding: 10px 5px;
+        margin-bottom: -1px;
+        min-height: 280px;
+    }
+
+    .jobs {
+        float: left;
+        position: relative;
+        width: 300px;
+        height: 55px;
+        margin: 0 5px;
+        padding: 0;
+    }
+
+        .jobs img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .jobs h3 {
+            margin: 0;
+            padding: 3px 5px 0 0;
+            max-width: 200px;
+            overflow: hidden;
+            line-height: 1.1em;
+            font-size: .9em;
+            font-weight: normal;
+            text-transform: uppercase;
+            color: #999;
+        }
+
+        .jobs p {
+            visibility: hidden;
+        }
+
+        .jobs:hover p {
+            visibility: visible;
+            position: absolute;
+            width: 280px;
+            height: 55px;
+            top: 0;
+            margin: 0;
+            padding: 0;
+            line-height: 55px;
+            vertical-align: middle;
+            text-align: center;
+            /*color: #fff;*/
+            background-color: rgba(178, 241, 248, 0.75);
+            transition: background .2s linear, color .2s linear;
+            -moz-transition: background .2s linear, color .2s linear;
+            -webkit-transition: background .2s linear, color .2s linear;
+            -o-transition: background .2s linear, color .2s linear;
+        }
+
+    .k-listview:after {
+        content: ".";
+        display: block;
+        height: 0;
+        clear: both;
+        visibility: hidden;
+    }
+
+    #overlayDiv {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 99;
+    }
+</style>
+
+<header class="main-header">
+    @*<a href="../Default/index" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini">INV</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><img src="@Url.Content("~/Images/inventory-logo-white.png")" style="max-height: 20px;" /></span>
+        </a>*@
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" onclick="ResizeGrid()" data-toggle="offcanvas" role="button">
+            <i class="material-icons">&nbsp;</i>
+            <span class="sr-only">Toggle navigation</span>
+            CLAIM
+            @*<img src="@Url.Content("~/Images/inventory-logo-white.png")" style="max-height: 19px;" />*@
+        </a>
+        <div class="navbar-custom-menu" ng-app="Account" ng-controller="AccountController">
+            <ul class="nav navbar-nav">
+                @*<li class="dropdown job-notification-menu open">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                            <i class="fa fa-envelope-o"></i>
+                            <span class="label label-success">{{ListJob.length}}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">You have {{ListJob.length}} Jobs</li>
+                            <li>
+                                <div kendo-list-view id="listView" k-data-source="source">
+                                    <div class="jobs" k-template ng-click="Job_Select(dataItem)">
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <img ng-src="../img/{{dataItem.NameShort}}" />
+                                                </td>
+                                                <td>
+                                                    <h3>{{ dataItem.Name }}</h3>
+                                                </td>
+                                            </tr>
+
+                                        </table>
+                                        <p>{{ dataItem.ID }}</p>
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="footer"><a href="#" ng-click="Job_SeeAll()">See All Jobs</a></li>
+                        </ul>
+                    </li>*@
+
+
+                <li class="dropdown user user-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="glyphicon glyphicon-user"></i>
+                        <span>@Session["DisplayName"] <i class="caret"></i></span>
+                    </a>
+                    <ul class="dropdown-menu" style="width:200px">
+                        <li>
+                            <a href="#" ng-click="ChangePasswordPopup()"><i class="fa fa-fw fa-user"></i> Change Password</a>
+                        </li>
+                        <li>
+                            <a href="#" ng-click='logout()'><i class="fa fa-fw fa-power-off"></i> Sign Out</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#" ng-click="AboutPopup()"><i class="fa fa-fw fa-gear"></i> About</a>
+                        </li>
+
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+</header>
+<script>
+    function ResizeGrid() {
+        var delayMillis = 500;
+        setTimeout(function () {
+            var grid = $('div[kendo-grid="grid"]');
+            grid.resize();
+        }, delayMillis);
+    }
+</script>

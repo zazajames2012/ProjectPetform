@@ -1,0 +1,145 @@
+﻿@{
+    Layout = null;
+    string CurrentUrl = HttpContext.Current.Request.Url.AbsolutePath.ToString().ToLower().Replace("/", "");
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Claim</title>
+
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <link href="@Url.Content("~/css")/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/font-awesome-4.3.0/css")/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link href="@Url.Content("~/Scripts/adminlte2/plugins/iCheck")/all.css" rel="stylesheet" type="text/css" />
+    @*<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />*@
+    <!-- Ionicons -->
+    <link href="@Url.Content("~/css")/ionicons2.0.1.min.css" rel="stylesheet" type="text/css" />
+    @*<link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />*@
+    <!-- Morris chart -->
+    @*<link href="@Url.Content("~/css")/morris/morris.css" rel="stylesheet" type="text/css" />*@
+
+    <!-- Theme style -->
+    <link rel="shortcut icon" type="image/png" href="@Url.Content("~/Images/favicon_master.png")" />
+    <link href="@Url.Content("~/css")/AdminLTEV2.0.1.css" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css")/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+    <!-- SWF style -->
+    <link href="@Url.Content("~/Content")/SWF.css" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content")/akow/default.css" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content")/akow/dialog.css" rel="stylesheet" type="text/css" />
+
+    <script src="@Url.Content("~/Scripts/adminlte2/plugins/jQuery")/jQuery-2.1.4.min.js"></script>
+    <script src="@Url.Content("~/Scripts/adminlte2/plugins/iCheck")/all.css"></script>
+    <script src="@Url.Content("~/Scripts")/jquery.signalR-2.2.0.min.js"></script>
+    <script src="@Url.Content("~/Scripts")/jquery.signalR-2.2.0.js"></script>
+
+    <style type="text/css">
+        table > tbody > tr > td {
+            vertical-align: baseline !important;
+        }
+    </style>
+
+
+    <script src="@Url.Content("~/Scripts/adminlte2")/bootstrap.min.js" type="text/javascript"></script>
+
+    @*<script src="@Url.Content("~/Scripts")/jquery-ui.min.js" type="text/javascript"></script>*@
+    <script src="@Url.Content("~/Scripts")/modernizr-2.6.2.js" type="text/javascript"></script>
+
+
+
+
+    <!-- AdminLTE App -->
+
+    <script src="@Url.Content("~/Scripts/adminlte2/plugins/iCheck")/icheck.min.js" type="text/javascript"></script>
+    @*<script src="@Url.Content("~/Scripts/Scripts")/_LOAD_CBX.js" type="text/javascript"></script>*@
+    @*<script src="@Url.Content("~/Scripts/Opensource")/autoNumeric.js" type="text/javascript"></script>*@
+    @if (ViewBag.is_use_popup_addr1 != null || (ViewData["is_use_address1"] != null && Convert.ToInt32(ViewData["is_use_address1"]) == 1))
+    {
+
+        <script src="@Url.Content("~/Scripts/Scripts/")AddressDialog1.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var url_getaddr_id = "@Url.Action("getAddressbyID", "SALE001")";
+        </script>
+    }
+
+    @Html.Partial("_Script")
+
+    @*<script src="~/Apps/controllers/menuController.js" type="text/javascript"></script>*@
+
+    @RenderSection("H1", false)
+</head>
+
+<body class="skin-green-light sidebar-mini">
+
+
+    <div class="wrapper">
+
+        @Html.Partial("~/Views/Shared/_LeftSidebar.cshtml")
+        @Html.Partial("~/Views/Shared/_header2.cshtml")
+        @Html.Partial("~/Views/Shared/_AkowAlert.cshtml")
+        @Html.Partial("~/Views/Shared/_AkowAuthenAlert.cshtml")
+
+
+        <div class="content-wrapper" id="ngSecond">
+
+            @RenderBody()
+
+        </div>
+
+        <footer class="main-footer">
+            <div style="text-align:center;">
+                <strong>Copyright &copy; 2017-2018 AR-Soft Co.,ltd.</strong> All rights reserved.
+            </div>
+        </footer>
+    </div>
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/adminlte2")/app.min.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/adminlte2")/demo.js"></script>
+    <script src="@Url.Content("~/Scripts/adminlte2")/plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <!-- FastClick -->
+    <script src='@Url.Content("~/Scripts/adminlte2")/plugins/fastclick/fastclick.min.js'></script>
+</body>
+</html>
+<script src="~/Apps/controllers/menuController.js" type="text/javascript"></script>
+@RenderSection("F1", false)
+
+<script>
+    angular.element(document).ready(function () {
+        var element = document.getElementById('ngSecond').getElementsByTagName('div')[0];
+        var nameSecondApp = element.getAttribute("ng-app");
+      //  console.log(nameSecondApp);
+        //  alert(childDiv);
+
+        var ngSecond = document.getElementById('ngSecond');
+
+        if (ngSecond && nameSecondApp)
+        angular.bootstrap(ngSecond, [nameSecondApp]);
+    });
+
+    $(".btn_adv").click(function () {
+        //Find the box parent
+        //
+        var box = $(this).parents(".mainT-Table").first();
+
+        if (!box.hasClass("collapsed-box")) {
+
+            box.addClass("collapsed-box");
+            if ($('.fa-sort-down').length > 0) {
+                $(".fa-sort-down").removeClass("fa-sort-down").addClass("fa-sort-up");
+            //    bf.slideUp();
+            }
+            else {
+                $(".fa-sort-down").removeClass("fa-sort-up").addClass("fa-sort-down");
+
+            }
+        } else {
+            box.removeClass("collapsed-box");
+            $(".fa-sort-up").removeClass("fa-sort-up").addClass("fa-sort-down");
+        //    bf.slideDown();
+        }
+    });
+    $("#"+'@CurrentUrl').addClass('active');
+</script>

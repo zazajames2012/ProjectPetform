@@ -1,0 +1,166 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="mainT-Table" ng-init="initial()">
+    <div class="modal-header" style="border-bottom: 1px solid #e5e5e5;  background: #e5e5e5;">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="Close()">
+            &times;
+        </button>
+        @{ IHtmlString str = new HtmlString(@Session["EditNavTitle"].ToString()); @Html.Raw(str) }
+    </div>
+    <div class="modal-body col-lg-12" ng-init="init()">
+        <div class="row" style="padding-bottom:1em">
+            <div class="col-lg-6">
+                <form>
+                    <div class="row no-gutter" style="padding-top:0.5em">
+                        <label for="editEmpCode" class="control-label text-right col-lg-4"><span style="color:red;">* </span>รหัสพนักงาน : </label>
+                        <div class="col-lg-1"><input kendo-masked-text-box k-mask="'00000'" type="text" id="editEmpCode" name="editEmpCode" ng-model="editCode" maxlength="6" class="akow-control-textbox akow-require-field akow-control-masked-textbox" title="รหัสพนักงาน"></div>
+                    </div>
+                    <div class="row no-gutter" style="padding-top:0.5em">
+                        <label for="editPassword" class="col-lg-4 control-label text-right"><span style="color:red;">* </span>คำนำหน้า : </label>
+                        <div class="col-lg-3">
+                            @*@Html.DropDownList("EditEmpTitle", ViewData["EditEmpTitle"] as SelectListItem[], new { @class = "akow-control-dropdownlist akow-require-field", @title = "คำนำหน้า" })*@
+                            
+                            <select class="akow-control-dropdownlist" id="EditEmpTitle" name="EditEmpTitle" ng-model="EditEmpTitle" style="width:220px">
+                                <option value="" selected>-- ทั้งหมด --</option>
+                                <option ng-repeat="title in ModelTitleEdit" value="{{title.ID}}">{{title.Name}}</option>
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="row no-gutter" style="padding-top:0.5em">
+                        <label for="editEmpFirstName" class="col-lg-4 control-label text-right"><span style="color:red;">* </span>ชื่อ : </label>
+                        <div class="col-lg-4">
+                            <input type="text" id="editEmpFirstName" name="editEmpFirstName" maxlength="128" ng-model="editFirstName" class="akow-control-textbox akow-require-field" style="width:225px" title="ชื่อ">
+                        </div>
+                    </div>
+                    <div class="row no-gutter" style="padding-top:0.5em">
+                        <label for="editEmpLastName" class="col-lg-4 control-label text-right"><span style="color:red;">* </span>นามสกุล : </label>
+                        <div class="col-lg-4">
+                            <input type="text" id="editEmpLastName" name="editEmpLastName" maxlength="128" ng-model="editLastName" class="akow-control-textbox akow-require-field" style="width:225px" title="นามสกุล">
+                        </div>
+                    </div>
+                    <div class="row no-gutter" style="padding-top:0.5em">
+                        <label for="editEmpNickName" class="col-lg-4 control-label text-right">ชื่อเล่น : </label>
+                        <div class="col-lg-4">
+                            <input type="text" id="editEmpNickName" name="editEmpNickName" maxlength="50" ng-model="editNickName" class="akow-control-textbox" style="width:225px" title="ชื่อเล่น">
+                        </div>
+                    </div>
+                    <div class="row no-gutter" style="padding-top:0.5em">
+                        @*<label for="editEmail" class="col-lg-4 control-label text-right"><span style="color:red;">* </span>Email : </label>*@
+                        <label for="editEmail" class="col-lg-4 control-label text-right">Email : </label>
+                        <div class="col-lg-4">
+                            <input type="email" id="editEmail" name="editEmail" maxlength="256" class="akow-control-textbox" style="width:225px" title="Email" ng-model="editEmail">
+                        </div>
+                    </div>
+                    <div class="row no-gutter" style="padding-top:0.5em">
+                        <label for="editMobile" class="col-lg-4 control-label text-right"><span style="color:red;">* </span>โทรศัพท์ มือถือ : </label>
+                        <div>
+                            <input kendo-masked-text-box k-mask="'00-0000-0000'" type="text" id="editMobile" name="editMobile" maxlength="30" class="akow-control-textbox akow-require-field akow-control-masked-textbox" title="โทรศัพท์ มือถือ" ng-model="editMobile">
+                        </div>
+                    </div>
+                    <div class="row no-gutter" style="padding-top:0.5em">
+                        <label for="editPhone" class="col-lg-4 control-label text-right">โทรศัพท์ : </label>
+                        <div>
+                            <input kendo-masked-text-box k-mask="'0-0000-0000'" type="text" id="editPhone" name="editPhone" maxlength="30" class="akow-control-textbox akow-control-masked-textbox" title="โทรศัพท์" ng-model="editPhone">
+                        </div>
+                    </div>
+                    <div class="row no-gutter" style="padding-top:0.5em">
+                        <label for="editExtPhone" class="control-label text-right col-lg-4">เบอร์ต่อ : </label>
+                        <div class="col-lg-3">
+                            <input type="text" id="editExtPhone" name="editExtPhone" maxlength="5" class="akow-control-textbox" title="เบอร์ต่อ" ng-model="editExtPhone">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-6">
+                <fieldset style="width:380px">
+                    <legend><b>สังกัด</b></legend>
+                    <div class="row no-gutter" style="padding-top:0.5em">
+                        <label for="editCompany" class="col-md-4 control-label text-right">บริษัท :</label>
+                        <div>
+                            <label for="editDataCompany" class="control-label text-left">@ViewData["EditOrgName"]</label>
+                        </div>
+                    </div>
+
+                    <div class="row no-gutter" style="padding-top:0.5em">
+                        <label for="editDepartment" class="control-label text-right col-md-4"><span style="color:red;">* </span>ฝ่าย : </label>
+                        <div class="col-sm-4">
+                            <select class="akow-control-dropdownlist akow-require-field" id="EditDepartment" name="EditDepartment" ng-model="EditDepartment" style="width:220px" ng-change="EditSection=null">
+                                <option value="" selected>-- เลือก --</option>
+                                <option ng-repeat="dep in DepartmentEdit" ng-selected="dep.ID==EditDepartment" value="{{dep.ID}}">{{dep.Name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row no-gutter" style="padding-top:0.5em">
+                        <label for="editSection" class="control-label text-right col-md-4">ส่วนงาน : </label>
+                        <div>
+                            <select class="akow-control-dropdownlist" id="EditSection" name="EditSection" ng-model="EditSection" style="width:220px">
+                                <option value="" selected>-- เลือก --</option>
+                                <option ng-repeat="sec in SectionEdit" ng-selected="sec.ID==EditSection" ng-show="sec.ParentID==EditDepartment" value="{{sec.ID}}">{{sec.Name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row no-gutter" style="padding-top:0.5em">
+                        <label for="editSector" class="control-label text-right col-md-4">ส่วนงานย่อย : </label>
+                        <div>
+                            <select class="akow-control-dropdownlist" id="EditSector" name="EditSector" ng-model="EditSector" style="width:220px">
+                                <option value="" selected>-- เลือก --</option>
+                                <option ng-repeat="sector in SectorEdit" ng-selected="sector.ID==EditSector" ng-show="sector.ParentID==EditSection" value="{{sector.ID}}">{{sector.Name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row no-gutter" style="padding-top:0.5em">
+                        <label for="editPosition" class="control-label text-right col-md-4"><span style="color:red;">* </span>ตำแหน่ง : </label>
+                        <div class="col-sm-4">
+                            @*@Html.DropDownList("EditPosition", ViewData["EditPosition"] as SelectListItem[], "-- เลือก --", new { @class = "akow-control-dropdownlist akow-require-field", @title = "Position", @style = "width:220px" })*@
+                            <select class="akow-control-dropdownlist" id="EditPosition" name="EditPosition" ng-model="EditPosition" style="width:220px">
+                                <option value="" selected>-- เลือก --</option>
+                                <option ng-repeat="position in PositionEdit" ng-selected="position.ID==EditPosition" ng-show="position.ParentID==EditSection" value="{{position.ID}}">{{position.Name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top:2em"></div>
+                </fieldset>
+                <div style="padding-top:1em">
+                    <label for="editStatus" class="control-label text-right col-lg-4">สถานะ : </label>
+                    <div>
+                        <label class="radio-inline">
+                            <input name="rbtStatusGroup" id="rbtStatus1" ng-model="editStatus" type="radio" value="1">ใช้งาน
+                        </label>
+                        <label class="radio-inline">
+                            <input name="rbtStatusGroup" id="rbtStatus2" ng-model="editStatus" type="radio" value="0">ไม่ใช้งาน
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 center-block">
+                <fieldset>
+                    <label class="control-label text-right">Branch Services</label>
+                    @*<div>
+                            <div id="kendoTreeDisplay" kendo-tree-view="treeWidget" k-data-text-field="'Text'" k-options="treeOptions"></div>
+                        </div>*@
+                    <div class="row" style="padding-top:0.5em">
+                        <div class="col-md-6">
+                            <div class="akow-col-left">
+                                <div id="kendoTreeDisplay1" kendo-tree-view="treeWidget" k-data-text-field="'Text'" k-options="treeOptions1"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="akow-col-left">
+                                <div id="kendoTreeDisplay2" kendo-tree-view="treeWidget" k-data-text-field="'Text'" k-options="treeOptions2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer" style="text-align:center">
+        <button class="btn btn-primary akow-savebutton" ng-click="editEmployee()"><i class="fa fa-floppy-o"></i>&nbsp;Save</button>
+        <button class="btn btn-primary" ng-click="Close()"><i class="fa fa-times-circle"></i>&nbsp;Cancel</button>
+    </div>
+</div>

@@ -1,0 +1,143 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="mainT-Table" ng-init="initial()">
+    <div class="modal-header" style="border-bottom: 1px solid #e5e5e5;  background: #e5e5e5;">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="Close()">
+            &times;
+        </button>
+        @{ IHtmlString str = new HtmlString(@Session["AddNavTitle"].ToString()); @Html.Raw(str) }
+    </div>
+    <div class="modal-body col-lg-12">
+        <div class="col-lg-6">
+            <form>
+                <div class="row no-gutter" style="padding-top:0.5em">
+                    <label for="addEmpCode" class="control-label text-right col-lg-4"><span style="color:red;">* </span>รหัสพนักงาน : </label>
+                    <div class="col-lg-1"><input kendo-masked-text-box k-mask="'00000'" type="text" id="addEmpCode" name="addEmpCode" maxlength="6" class="akow-control-textbox akow-require-field akow-control-masked-textbox" title="รหัสพนักงาน"></div>
+                </div>
+                <div class="row no-gutter" style="padding-top:0.5em">
+                    <label for="addPassword" class="control-label text-right col-lg-4"><span style="color:red;">* </span>คำนำหน้า : </label>
+                    <div class="col-lg-3">
+                    @*@Html.DropDownList("AddEmpTitle", ViewData["AddEmpTitle"] as SelectListItem[], new { @class = "akow-control-dropdownlist akow-require-field", @title = "คำนำหน้า", @style = "width:100px" })*@
+                    
+                    <select class="akow-control-dropdownlist" id="AddEmpTitle" name="AddEmpTitle" ng-model="AddEmpTitle" style="width:220px">
+                        <option value="" selected>-- ทั้งหมด --</option>
+                        <option ng-repeat="title in ModelTitleAdd" value="{{title.ID}}">{{title.Name}}</option>
+                    </select>
+
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top:0.5em">
+                    <label for="addEmpFirstName" class="control-label text-right col-lg-4"><span style="color:red;">* </span>ชื่อ : </label>
+                    <div class="col-lg-4">
+                        <input type="text" id="addEmpFirstName" name="addEmpFirstName" maxlength="128" class="akow-control-textbox akow-require-field" style="width:225px" title="ชื่อ">
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top:0.5em">
+                    <label for="addEmpLastName" class="control-label text-right col-lg-4"><span style="color:red;">*</span>นามสกุล : </label>
+                    <div class="col-lg-4">
+                        <input type="text" id="addEmpLastName" name="addEmpLastName" maxlength="128" class="akow-control-textbox akow-require-field" style="width:225px" title="นามสกุล">
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top:0.5em">
+                    <label for="addEmpNickName" class="control-label text-right col-lg-4">ชื่อเล่น : </label>
+                    <div class="col-lg-4">
+                        <input type="text" id="addEmpNickName" name="addEmpNickName" maxlength="50" class="akow-control-textbox" title="ชื่อเล่น">
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top:0.5em">
+                    @*<label for="addEmail" class="control-label text-right col-lg-4"><span style="color:red;">* </span>อีเมล์ : </label>*@
+                    <label for="addEmail" class="control-label text-right col-lg-4">อีเมล์ : </label>
+                    <div class="col-lg-4">
+                        <input type="email" id="addEmail" name="addEmail" maxlength="256" class="akow-control-textbox" style="width:225px" title="Email" ng-model="model.Email">
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top:0.5em">
+                    <label for="addMobile" class="control-label text-right col-lg-4"><span style="color:red;">* </span>โทรศัพท์มือถือ : </label>
+                    <div>
+                        <input kendo-masked-text-box k-mask="'00-0000-0000'" type="text" id="addMobile" name="addMobile" maxlength="30" class="akow-control-textbox akow-require-field akow-control-masked-textbox" title="โทรศัพท์ มือถือ" ng-model="model.Mobile">
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top:0.5em">
+                    <label for="addPhone" class="control-label text-right col-lg-4">โทรศัพท์ : </label>
+                    <div>
+                        <input kendo-masked-text-box k-mask="'0-0000-0000'" type="text" id="addPhone" name="addPhone" maxlength="30" class="akow-control-textbox akow-control-masked-textbox" title="โทรศัพท์" ng-model="model.Phone">
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top:0.5em">
+                    <label for="addExtPhone" class="control-label text-right col-lg-4">เบอร์ต่อ : </label>
+                    <div class="col-lg-3">
+                        <input type="text" id="addExtPhone" name="addExtPhone" maxlength="5" class="akow-control-textbox" title="เบอร์ต่อ" ng-model="model.ExtPhone">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-6">
+            <fieldset style="width:380px">
+                <legend><b>สังกัด</b></legend>
+                @*<div class="row no-gutter" style="padding-top:0.5em">
+                    <label for="addCompany" class="control-label text-right col-md-4">บริษัท : </label>
+                    <div>
+                        <label for="addDataCompany" class="control-label text-left" ng-model="CompanyName" >@ViewData["AddOrgName"]</label>
+                    </div>
+                </div>*@
+             
+                <div class="row no-gutter" style="padding-top:0.5em">
+                    <label for="addDepartment" class="control-label text-right col-md-4"><span style="color:red;">* </span>ฝ่าย : </label>
+                    <div>
+                        <select class="akow-control-dropdownlist akow-require-field" id="AddDepartment" name="AddDepartment" ng-model="AddDepartment" style="width:220px" ng-change="AddSection=null">
+                            <option value="" selected>-- เลือก --</option>
+                            <option ng-repeat="dep in DepartmentAdd" ng-selected="dep.ID==AddDepartment" value="{{dep.ID}}">{{dep.Name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top:0.5em">
+                    <label for="addSection" class="control-label text-right col-md-4">ส่วนงาน : </label>
+                    <div>
+                        <select class="akow-control-dropdownlist" id="AddSection" name="AddSection" ng-model="AddSection" style="width:220px">
+                            <option value="" selected>-- เลือก --</option>
+                            <option ng-repeat="sec in SectionAdd" ng-selected="sec.ID==AddSection" ng-show="sec.ParentID==AddDepartment" value="{{sec.ID}}">{{sec.Name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top:0.5em">
+                    <label for="addSector" class="control-label text-right col-md-4">ส่วนงานย่อย : </label>
+                    <div>
+                        <select class="akow-control-dropdownlist" id="AddSector" name="AddSector" ng-model="AddSector" style="width:220px">
+                            <option value="" selected>-- เลือก --</option>
+                            <option ng-repeat="sector in SectorAdd" ng-selected="sector.ID==AddSector" ng-show="sector.ParentID==AddSection" value="{{sector.ID}}">{{sector.Name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top:0.5em">
+                    <label for="addPosition" class="control-label text-right col-md-4"><span style="color:red;">* </span>ตำแหน่ง : </label>
+                    <div>
+                        @*@Html.DropDownList("AddPosition", ViewData["AddPosition"] as SelectListItem[], "-- เลือก --", new { @class = "akow-control-dropdownlist akow-require-field", @title = "Position", @style = "width:220px" })*@
+                        <select class="akow-control-dropdownlist" id="AddPosition" name="AddPosition" ng-model="AddPosition" style="width:220px">
+                            <option value="" selected>-- เลือก --</option>
+                            <option ng-repeat="position in PositionAdd" ng-selected="position.ID==AddPosition" ng-show="position.ParentID==AddPosition" value="{{position.ID}}">{{position.Name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row" style="padding-top:2em"></div>
+            </fieldset>
+            <div style="padding-top:1em">
+                <label for="addPhone" class="control-label text-right col-lg-4">สถานะ : </label>
+            </div>
+            <div>
+                <label class="radio-inline">
+                    <input name="rbtStatusGroup" id="rbtStatus1" checked type="radio" value="1">ใช้งาน
+                </label>
+                <label class="radio-inline">
+                    <input name="rbtStatusGroup" id="rbtStatus2" type="radio" value="0">ไม่ใช้งาน
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer" style="text-align:center">
+        <button class="btn btn-primary akow-addbutton" ng-click="addEmployee()"><i class="fa fa-floppy-o"></i>&nbsp;Save</button>
+        <button class="btn btn-primary" ng-click="Close()"><i class="fa fa-times-circle"></i>&nbsp;Cancel</button>
+    </div>
+</div>
+

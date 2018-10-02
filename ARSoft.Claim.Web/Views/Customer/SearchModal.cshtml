@@ -1,0 +1,53 @@
+﻿
+@{
+    Layout = null;
+}
+
+<progressbar class="progress-striped active" value="dynamic"
+             ng-show="loading"></progressbar>
+<div class="modal-header">
+    <h3 class="modal-title">
+        Search Employee
+    </h3>
+</div>
+<div class="modal-body col-xs-12 form-horizontal form-group-sm table-bordered" ng-init="init()">
+    <div class="col-xs-12">
+        <form>
+            <div class="row">
+                <div class="col-xs-4">
+                    <label for="CustomerName">รหัส/ชื่อลูกค้า</label>
+                </div>
+                <div class="col-xs-6">
+                    <input type="text" class="form-control" ng-model="model.Name" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <label for="CustomerType">ประเภทลูกค้า</label>
+                </div>
+                <div class="col-xs-3">
+                    <div class="checkbox-inline">
+                        <input type="checkbox" ng-model="IsProject" ng-disabled="DisabledProject"  /><label>Project</label>
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="checkbox-inline">
+                        <input type="checkbox" ng-model="IsRetail" ng-disabled="DisabledRetail" /><label>Retail</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <button class="btn btn-default" ng-click="search()">ค้นหา</button>
+                    <button class="btn btn-default" ng-click="clear()">ปิดหน้าจอ</button> 
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div kendo-grid="grid" k-options="mainGridOptions"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal-footer"></div>

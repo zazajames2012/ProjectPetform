@@ -1,0 +1,207 @@
+﻿@*
+    *** Update by : Jirawat Pipatpaisan ***
+    *** Update Date : 21/01/2016 13:30  ***
+*@
+
+@using ARSoft.Claim.DataModel;
+@{
+    Layout = null;
+}
+
+<div class="mainT-Table" ng-init="Customer_Initial()">
+    <div class="modal-header" style="border-bottom: 1px solid #e5e5e5;  background: #e5e5e5;">
+        <button class="close" type="button" data-dismiss="modal" aria-hidden="true" ng-click="Customer_Close()">
+            &times;
+        </button>
+        @{ IHtmlString str = new HtmlString(@Session["AddNavTitle"].ToString()); @Html.Raw(str) }
+    </div>
+    <div class="modal-body">
+        <div style="padding-bottom: 10px;">
+            <div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right" for="Customer_AddCode"><span style="color:red;">* </span>กลุ่มลูกค้า : </label>
+                        <div class="col-sm-6">
+                            <select ng-model="Customer_AddCustomerGroup" class="akow-control-dropdownlist akow-require-field">
+                                <option value="">-- กรุณาเลือกกลุ่มลูกค้า --</option>
+                                <option ng-repeat="Item in CustomerGroupList" value="{{Item.ID}}">{{Item.Name}}</option>
+                            </select>
+                            @*<input class="akow-control-textbox akow-require-field" type="text" id="Customer_AddCode" name="Customer_AddCode" maxlength="30" title="รหัสลูกค้า" style="width: 150px;" ng-model="Customer_AddCode">*@
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right" for="Customer_AddCustomerType"><span style="color:red;">* </span>ประเภทลูกค้า : </label>
+                        <div class="col-sm-4">
+                            @*<label ng-repeat="option in CustomerType">
+                                &nbsp;<input type="radio" ng-model="customerType" ng-value="option.ID" />{{option.Name}}
+                            </label>*@
+                            <label ng-repeat="option in CustomerType">
+                                <input type="radio" ng-value="option.ID" ng-model="customerType" name="customertype">{{option.Name}}
+                            </label>
+                            @*@foreach (var c in (IEnumerable<CustomerModel>)ViewBag.Customer_CusType)
+                            {
+                                <input type="radio" name="Customer_AddCustomerType" value=@c.ID ng-model="Customer_AddCustomerType" ng-change='CustomerTypeSelected(Customer_AddCustomerType)'><span>&nbsp;&nbsp;</span>@c.Name<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            }*@
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <input type="radio" name="Customer_JuristicTypeID" value=@ViewBag.Customer_OrgValue ng-model="Customer_JuristicTypeID" ng-disabled="Customer_AddCustomerGroupOrgDis" ng-change='CustomerGroupSelected(Customer_JuristicTypeID)'>&nbsp;&nbsp;<label class="control-label">@ViewBag.Customer_OrgName</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right" for="Customer_AddName"><span style="color:red;">* </span>ชื่อหน่วยงาน : </label>
+                        <div class="col-sm-7">
+                            <input type="text" id="Customer_AddName" name="Customer_AddName" maxlength="256" title="ชื่อหน่วยงาน" ng-class="Customer_AddNameCss" ng-disabled="Customer_AddNameDis" ng-model="Customer_AddName">
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right" for="Customer_AddNameShort">ชื่อย่อ : </label>
+                        <div class="col-sm-4">
+                            <input type="text" id="Customer_AddNameShort" name="Customer_AddNameShort" maxlength="30" title="ชื่อย่อ" ng-class="Customer_AddNameShortCss" ng-disabled="Customer_AddNameShortDis" ng-model="Customer_AddNameShort">
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right" for="Customer_Category">ประเภทหน่วยงาน : </label>
+                        <div class="col-sm-4">
+                            <select ng-model="Customer_Category" class="akow-control-dropdownlist">
+                                <option value="">-- เลือก --</option>
+                                <option ng-repeat="Item in CustomerCategoryList" value="{{Item.MasterSetupId}}">{{Item.Name}}</option>
+                            </select> 
+                         
+                            @*@Html.DropDownList("Customer_Category", ViewData["Customer_Category"] as SelectListItem[], "-- เลือก --", new { @class = "akow-control-dropdownlist", @title = "ประเภทหน่วยงาน" })*@
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <div class="col-sm-3 text-right">
+                            <input type="radio" name="Customer_JuristicTypeID" value=@ViewBag.Customer_IndividualValue ng-model="Customer_JuristicTypeID" ng-disabled="Customer_AddCustomerGroupIndividualDis" ng-change='CustomerGroupSelected(Customer_JuristicTypeID)'>&nbsp;&nbsp;<label class="control-label">@ViewBag.Customer_IndividualName</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right" for="Customer_AddTitle">คำนำหน้า : </label>
+                        <div class="col-sm-4">
+                            <input type="text" id="Customer_AddTitle" name="Customer_AddTitle" maxlength="30" title="คำนำหน้า" ng-class="Customer_AddTitleCss" ng-disabled="Customer_AddTitleDis" ng-model="Customer_AddTitle">
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right" for="Customer_AddFirstName"><span style="color:red;">* </span>ชื่อ-สกุล : </label>
+                        <div class="col-sm-3">
+                            <input type="text" id="Customer_AddFirstName" name="Customer_AddFirstName" maxlength="128" title="ชื่อ" ng-class="Customer_AddFirstNameCss" ng-disabled="Customer_AddFirstNameDis" ng-model="Customer_AddFirstName">
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" id="Customer_AddLastName" name="Customer_AddLastName" maxlength="128" title="สกุล" ng-class="Customer_AddLastNameCss" ng-disabled="Customer_AddLastNameDis" ng-model="Customer_AddLastName">
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right" for="Customer_AddMemberID">รหัสสมาชิก : </label>
+                        <div class="col-sm-2">
+                            <input type="text" id="Customer_AddMemberID" name="Customer_AddMemberID" maxlength="30" title="รหัสสมาชิก" ng-class="Customer_AddMemberIDCss" ng-disabled="Customer_AddMemberIDDis" ng-model="Customer_AddMemberID">
+                        </div>
+                        <label class="col-sm-2 control-label text-right" for="Customer_AddRegisterDate">วันที่เป็นสมาชิก : </label>
+                        <div class="col-sm-3">
+                            <input class="akow-date-field" id="Customer_AddRegisterDate" name="Customer_AddRegisterDate" ng-disabled="Customer_AddRegisterDateDis" ng-model="Customer_AddRegisterDate" kendo-date-picker k-format="'{{DATE_FORMAT}}'" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right">การติดต่อ : </label>
+                        <div class="col-sm-9">
+                            <input class="Customer_AddContact" type="checkbox" name="Customer_AddContact" ng-disabled="Customer_AddContactDis" ng-model="Customer_AddContact" />&nbsp;&nbsp;ติดต่อโดยตรง
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right" for="Customer_AddTaxID">เลขที่ผู้เสียภาษี : </label>
+                        <div class="col-sm-9">
+                            <input kendo-masked-text-box k-mask="'000000000000000'" class="akow-control-textbox" type="text" id="Customer_AddTaxID" name="Customer_AddTaxID" maxlength="15" title="เลขที่ผู้เสียภาษี" style="width: 150px;" ng-model="Customer_AddTaxID">
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right" for="Customer_AddReferCode01">รหัสอ้างอิง : </label>
+                        <div class="col-sm-9">
+                            <input class="akow-control-textbox" type="text" id="Customer_AddReferCode01" name="Customer_AddReferCode01" maxlength="128" title="รหัสอ้างอิง" style="width: 150px;" ng-model="Customer_AddReferCode01">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right">โทรศัพทมือถือ : </label>
+                        <div class="col-sm-9">
+                            <input kendo-masked-text-box  class="akow-control-textbox akow-control-masked-textbox" type="text" id="Customer_AddMobile" name="Customer_AddMobile" maxlength="20" title="โทรศัพท์ เคลื่อนที่" style="width: 150px;" ng-model="Customer_AddMobile">
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right">โทรศัพท์ : </label>
+                        <div class="col-sm-9">
+                            <input kendo-masked-text-box class="akow-control-textbox akow-control-masked-textbox" type="text" id="Customer_AddPhone" name="Customer_AddPhone" maxlength="20" title="โทรศัพท์" style="width: 150px;" ng-model="Customer_AddPhone">
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right">แฟกซ์ : </label>
+                        <div class="col-sm-9">
+                            <input kendo-masked-text-box  class="akow-control-textbox akow-control-masked-textbox" type="text" id="Customer_AddFax" name="Customer_AddFax" maxlength="20" title="Fax" style="width: 150px;" ng-model="Customer_AddFax">
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right">อีเมล์ : </label>
+                        <div class="col-sm-4">
+                            <input class="akow-control-textbox" type="email" id="Customer_AddEmail" name="Customer_AddEmail" maxlength="256" title="email" ng-model="Customer_AddEmail">
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right" for="Customer_AddWebSite">เว็บไซต์ : </label>
+                        <div class="col-sm-7">
+                            <input class="akow-control-textbox" type="text" id="Customer_AddWebSite" name="Customer_AddWebSite" maxlength="256" title="Web site" ng-model="Customer_AddWebSite">
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right" for="Customer_AddRemark">หมายเหตุ : </label>
+                        <div class="col-sm-7">
+                            <textarea class="akow-control-textbox" id="Customer_AddRemark" name="Customer_AddRemark" maxlength="256" rows="5" title="หมายเหตุ" style="resize:none" ng-model="Customer_AddRemark"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer" style="text-align:center;">
+        <button class="btn btn-primary akow-addbutton" ng-click="Customer_Add()"><i class="fa fa-floppy-o"></i>&nbsp;Save</button>        
+        <button class="btn btn-primary" ng-click="Customer_Close()"><i class="fa fa-times-circle"></i>&nbsp;Cancel</button>
+    </div>
+</div>

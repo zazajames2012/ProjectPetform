@@ -1,0 +1,62 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="mainT-Table" ng-init="initial()">
+    <div class="modal-header" style="border-bottom: 1px solid #e5e5e5;  background: #e5e5e5;">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="Close()">
+            &times;
+        </button>
+        @{ IHtmlString str = new HtmlString(@Session["ViewNavTitle"].ToString()); @Html.Raw(str) }
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div style="padding-bottom: 10px;">
+            <div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label text-right" translate>ชื่อ : </label>
+                    <div class="col-sm-6">
+                        <input type="text" ng-model="roles_edit_RoleName" maxlength="20" class="akow-control-textbox" title="Code">
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label text-right" translate>รายละเอียด : </label>
+                    <div class="col-sm-6">
+                        <textarea name="modelDescription" class="form-control akow-control-textbox" ng-model="roles_edit_Description" maxlength="2048" style="margin: 0px; height: 139px"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top:0.5em">
+                <div class="col-md-3">
+                    <div style="text-align:right;">
+                        <label id="lbl_msc_Status" translate>สถานะ : </label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="editor-field" style="text-align:left;">
+                        <input type="radio" name="rbtEditStatus" ng-checked="true" ng-model="roles_edit_Status" value="1" id="rbtStatusActive" translate /> ใช้งาน &nbsp;&nbsp;
+                        <input type="radio" name="rbtEditStatus" ng-model="roles_edit_Status" value="0" id="rbtStatusInActive" translate /> ไม่ใช้งาน
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top:0.5em">
+                <div class="col-md-3">
+                    <div style="text-align:right;">
+                        <label id="lbl_msc_Status" translate>สิทธิ์ Admin : </label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="editor-field" style="text-align:left;">
+                        <input type="radio" name="rbtEditAdmin" ng-checked="true" ng-model="roles_edit_Admin" value="1" id="rbtAdminActive" translate /> มีสิทธิ์ &nbsp;&nbsp;
+                        <input type="radio" name="rbtEditAdmin" ng-model="roles_edit_Admin" value="0" id="rbtAdminInActive" translate /> ไม่มีสิทธิ์
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer" style="text-align:center">
+        <button class="btn btn-primary akow-addbutton" ng-click="saveEdit()"><i class="fa fa-floppy-o" translate></i>&nbsp;Save</button>
+        <button class="btn btn-primary" ng-click="Close()"><i class="fa fa-times-circle" translate></i>&nbsp;Cancel</button>
+    </div>
+</div>

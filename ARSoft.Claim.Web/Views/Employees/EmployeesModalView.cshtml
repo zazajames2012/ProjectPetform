@@ -1,0 +1,180 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="mainT-Table" ng-init="initial()">
+    <div class="modal-header" style="border-bottom: 1px solid #e5e5e5;  background: #e5e5e5;">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="Close()">
+            &times;
+        </button>
+        @{ IHtmlString str = new HtmlString(@Session["ViewNavTitle"].ToString()); @Html.Raw(str) }
+    </div>
+    <div class="modal-body" ng-init="init()">
+        <div style="padding-bottom: 10px;">
+            <div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label for="viewEmpCode" class="col-sm-2 control-label text-right"><span style="color:red;">* </span>รหัสพนักงาน : </label>
+                    <div class="col-sm-3">
+                        <input type="text" id="viewEmpCode" style="width: 100px;" name="viewEmpCode" ng-model="viewCode" maxlength="6" class="akow-control-textbox-disabled akow-require-field" title="รหัสพนักงาน">
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label for="viewPassword" class="col-sm-2 control-label text-right"><span style="color:red;">* </span>คำนำหน้า : </label>
+                    <div class="col-sm-3">
+                        @*@Html.DropDownList("ViewEmpTitle", ViewData["ViewEmpTitle"] as SelectListItem[], new { @class = "akow-control-dropdownlist-disabled akow-require-field", @title = "คำนำหน้า" })*@
+                       
+                         <select class="akow-control-dropdownlist-disabled" id="ViewEmpTitle" name="ViewEmpTitle" ng-model="ViewEmpTitle" style="width:220px">
+                            <option value="" selected>-- ทั้งหมด --</option>
+                            <option ng-repeat="title in ModelTitleView" value="{{title.ID}}">{{title.Name}}</option>
+                        </select>
+
+                        @*<select class="akow-control-dropdownlist" id="ViewEmpTitle" name="ViewEmpTitle" ng-model="ViewEmpTitle" style="width:220px">
+                            <option value="" selected>-- ทั้งหมด --</option>
+                            <option ng-repeat="title in ModelTitleView" value="{{title.ID}}">{{title.Name}}</option>
+                        </select>*@
+                    </div>
+                    @*<label for="viewCompany" class="col-sm-2 control-label text-right">บริษัท : </label>
+                    <div class="col-sm-4">
+                        <label for="viewDataCompany" class="col-sm-2 control-label text-left" style="width: 100%;">@ViewData["ViewOrgName"]</label>
+                    </div>*@
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label for="viewEmpFirstName" class="col-sm-2 control-label text-right"><span style="color:red;">* </span>ชื่อ : </label>
+                    <div class="col-sm-3">
+                        <input type="text" id="viewEmpFirstName" name="viewEmpFirstName" maxlength="128" ng-model="viewFirstName" class="akow-control-textbox-disabled akow-require-field" title="ชื่อ">
+                    </div>
+                    <label for="viewDepartment" class="col-sm-2 control-label text-right"><span style="color:red;">* </span>ฝ่าย : </label>
+                    <div class="col-sm-4">
+                        @*@Html.DropDownList("ViewDepartment", ViewData["ViewDepartment"] as SelectListItem[], "-- เลือก --", new { @class = "akow-control-dropdownlist-disabled akow-require-field", @title = "Department" })*@
+                        <select class="akow-control-dropdownlist-disabled" id="ViewDepartment" name="ViewDepartment" ng-model="ViewDepartment" style="width:220px" ng-change="EditSection=null">
+                            <option value="" selected>-- เลือก --</option>
+                            <option ng-repeat="dep in DepartmentView" ng-selected="dep.ID==ViewDepartment" value="{{dep.ID}}">{{dep.Name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label for="viewEmpLastName" class="col-sm-2 control-label text-right"><span style="color:red;">* </span>นามสกุล : </label>
+                    <div class="col-sm-3">
+                        <input type="text" id="viewEmpLastName" name="viewEmpLastName" maxlength="128" ng-model="viewLastName" class="akow-control-textbox-disabled akow-require-field" title="นามสกุล">
+                    </div>
+
+                    <label for="viewSection" class="col-sm-2 control-label text-right">ส่วนงาน : </label>
+                    <div class="col-sm-4">
+                        <select class="akow-control-dropdownlist-disabled" id="ViewSection" name="ViewSection" ng-model="ViewSection" style="width:220px">
+                            <option value="" selected>-- เลือก --</option>
+                            <option ng-repeat="sec in SectionView" ng-selected="sec.ID==ViewSection" ng-show="sec.ParentID==ViewDepartment" value="{{sec.ID}}">{{sec.Name}}</option>
+                        </select>
+                       @* @Html.DropDownList("ViewSection", ViewData["ViewSection"] as SelectListItem[], "-- เลือก --", new { @class = "akow-control-dropdownlist-disabled", @title = "Section" })*@
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label for="viewEmpNickName" class="col-sm-2 control-label text-right">ชื่อเล่น : </label>
+                    <div class="col-sm-3">
+                        <input type="text" id="viewEmpNickName" name="viewEmpNickName" maxlength="50" ng-model="viewNickName" class="akow-control-textbox-disabled" title="ชื่อเล่น">
+                    </div>
+
+                    <label for="viewSector" class="col-sm-2 control-label text-right">ส่วนงานย่อย : </label>
+                    <div class="col-sm-4">
+                        <select class="akow-control-dropdownlist-disabled" id="ViewSector" name="ViewSector" ng-model="ViewSector" style="width:220px">
+                            <option value="" selected>-- เลือก --</option>
+                            <option ng-repeat="sector in SectorView" ng-selected="sector.ID==ViewSector" ng-show="sector.ParentID==ViewSection" value="{{sector.ID}}">{{sector.Name}}</option>
+                        </select>
+                        @*@Html.DropDownList("ViewSector", ViewData["ViewSector"] as SelectListItem[], "-- เลือก --", new { @class = "akow-control-dropdownlist-disabled", @title = "Sector" })*@
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    @*<label for="viewEmail" class="col-sm-2 control-label text-right"><span style="color:red;">* </span>อีเมล์ : </label>*@
+                    <label for="viewEmail" class="col-sm-2 control-label text-right">อีเมล์ : </label>
+                    <div class="col-sm-3">
+                        <input type="text" id="viewEmail" name="viewEmail" maxlength="256" class="akow-control-textbox-disabled" title="Email" ng-model="viewEmail">
+                    </div>
+
+                    <label for="viewPosition" class="col-sm-2 control-label text-right"><span style="color:red;">* </span>ตำแหน่ง : </label>
+                    <div class="col-sm-4">
+                        <select class="akow-control-dropdownlist-disabled" id="ViewPosition" name="ViewPosition" ng-model="ViewPosition" style="width:220px">
+                            <option value="" selected>-- เลือก --</option>
+                            <option ng-repeat="position in PositionView" ng-selected="position.ID==ViewPosition" ng-show="position.ParentID==ViewPosition" value="{{position.ID}}">{{position.Name}}</option>
+                        </select>
+                       @* @Html.DropDownList("ViewPosition", ViewData["ViewPosition"] as SelectListItem[], "-- เลือก --", new { @class = "akow-control-dropdownlist-disabled akow-require-field", @title = "Position" })*@
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label for="viewMobile" class="col-sm-2 control-label text-right"><span style="color:red;">* </span>โทรศัพท์มือถือ : </label>
+                    <div class="col-sm-3">
+                        <input type="text" id="viewMobile" name="viewMobile" maxlength="30" class="akow-control-textbox-disabled akow-require-field" title="โทรศัพท์ มือถือ" ng-model="viewMobile">
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label for="viewPhone" class="col-sm-2 control-label text-right">โทรศัพท์ : </label>
+                    <div class="col-sm-3">
+                        <input type="text" id="viewPhone" name="viewPhone" maxlength="30" class="akow-control-textbox-disabled" title="โทรศัพท์" ng-model="viewPhone">
+                    </div>
+
+                    <label for="viewStatus" class="col-sm-2 control-label text-right">สถานะ : </label>
+                    <div class="col-sm-4">
+                        <label class="radio-inline">
+                            <input name="rbtStatusGroup" id="rbtStatus1" ng-model="viewStatus" type="radio" value="1">ใช้งาน
+                        </label>
+                        <label class="radio-inline">
+                            <input name="rbtStatusGroup" id="rbtStatus2" ng-model="viewStatus" type="radio" value="0">ไม่ใช้งาน
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label for="viewExtPhone" class="col-sm-2 control-label text-right">เบอร์ต่อ : </label>
+                    <div class="col-sm-3">
+                        <input type="text" id="viewExtPhone" name="viewExtPhone" maxlength="30" class="akow-control-textbox-disabled" title="เบอร์ต่อ" ng-model="viewExtPhone">
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding-top: 10px; padding-left: 50px; padding-right: 50px; ">
+                @*<div class="col-sm-12 center-block">
+                    <fieldset>
+                        <label class="control-label text-right">Branch Services</label>
+                        <div>
+                            <div id="kendoTreeDisplay" kendo-tree-view="treeWidget" k-data-text-field="'Text'" k-options="treeOptions"></div>
+                        </div>
+                    </fieldset>
+                </div>*@
+
+                <div class="col-lg-12 center-block">
+                    <fieldset>
+                        <label class="control-label text-right">Branch Services</label>
+                        <div class="row" style="padding-top:0.5em">
+                            <div class="col-md-6">
+                                <div class="akow-col-left">
+                                    <div id="kendoTreeDisplay1" kendo-tree-view="treeWidget" k-data-text-field="'Text'" k-options="treeOptions1"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="akow-col-left">
+                                    <div id="kendoTreeDisplay2" kendo-tree-view="treeWidget" k-data-text-field="'Text'" k-options="treeOptions2"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer" style="text-align:center">        
+        <button class="btn btn-primary center-block" ng-click="Close()"><i class="fa fa-sign-out"></i>&nbsp;Close</button>
+    </div>
+</div>
+

@@ -1,0 +1,36 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="mainT-Table" ng-init="initial()">
+    <div class="modal-header" style="border-bottom: 1px solid #e5e5e5;  background: #e5e5e5;">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="Close()">
+            &times;
+        </button>
+        @{ IHtmlString str = new HtmlString(@Session["ViewNavTitle"].ToString()); @Html.Raw(str) }
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div style="padding-bottom: 10px;">
+            <div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label text-right" translate><span style="color:red;">* </span>ชื่อ : </label>
+                    <div class="col-sm-6">
+                        <input type="text" ng-model="roles_add_Name" maxlength="20" class="akow-control-textbox akow-require-field" title="Code">
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label text-right" translate><span style="color:red;">* </span>รายละเอียด : </label>
+                    <div class="col-sm-6">
+                        <textarea name="modelDescription" class="form-control akow-control-textbox akow-require-field" ng-model="roles_add_Description" maxlength="2048" style="margin: 0px; height: 139px"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer" style="text-align:center">
+        <button class="btn btn-primary akow-addbutton" ng-click="saveAdd()" translate><i class="fa fa-floppy-o"></i>&nbsp;Save</button>
+        <button class="btn btn-primary" ng-click="Close()" translate><i class="fa fa-times-circle"></i>&nbsp;Cancel</button>
+    </div>
+</div>

@@ -1,0 +1,213 @@
+﻿@*
+    *** Update by : Pongthorn Paemanee ***
+    *** Update Date : 08/10/2015 16:00  ***
+*@
+
+@using ARSoft.Claim.DataModel;
+
+@{
+    Layout = null;
+}
+
+<div class="mainT-Table" ng-init="Customer_Initial()">
+    <div class="modal-header" style="border-bottom: 1px solid #e5e5e5;  background: #e5e5e5;">
+        <button class="close" type="button" data-dismiss="modal" aria-hidden="true" ng-click="Customer_Close()">
+            &times;
+        </button>
+        @{ IHtmlString str = new HtmlString(@Session["EditNavTitle"].ToString()); @Html.Raw(str) }
+    </div>
+    <div class="modal-body">
+        <div>
+            <div class="row no-gutter" style="padding-top:0.5em;">
+                <label class="control-label text-right col-sm-2" for="Customer_EditCode"><span style="color:red;">* </span>รหัสลูกค้า :</label>
+                <div class="col-sm-2">
+                    <input class="akow-control-textbox akow-require-field" type="text" id="Customer_EditCode" ng-readonly="true" name="Customer_EditCode" maxlength="30" title="รหัสลูกค้า" ng-model="Customer_EditCode">
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top:0.5em;">
+                <label class="col-sm-2 control-label text-right" for="Customer_EditName"><span style="color:red;">* </span>ชื่อลูกค้า : </label>
+                <div class="col-sm-8">
+                    <input type="text" id="Customer_EditName" name="Customer_EditName" maxlength="256" title="ชื่อลูกค้า" ng-class="Customer_EditNameCss" ng-disabled="Customer_EditNameDis" ng-model="Customer_EditName">
+                </div>
+            </div>
+            <hr />
+            <div class="row no-gutter" style="padding-top:0.5em;">
+                <label class="col-sm-2 control-label text-right" for="Customer_EditCustomerType"><span style="color:red;">* </span>ประเภทลูกค้า : </label>
+                <div class="col-sm-2">
+                    {{Customer_EditCustomerType}} | {{Customer_EditCustomerGroup}}
+                </div>
+                <label class="col-sm-2 control-label text-right" for="Customer_EditTitle">คำนำหน้า : </label>
+                <div class="col-sm-1">
+                    <input type="text" id="Customer_EditTitle" name="Customer_EditTitle" maxlength="30" title="คำนำหน้า" ng-class="Customer_EditTitleCss" ng-disabled="Customer_EditTitleDis" ng-model="Customer_EditTitle">
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top:0.5em;">
+                <label class="col-sm-2 control-label text-right"><span style="color:red;">* </span>กลุ่มลูกค้า : </label>
+                <div class="col-sm-2">
+                    <select ng-model="Customer_EditCustomerGroupID" class="akow-control-dropdownlist akow-require-field">
+                        <option ng-repeat="Item in CustomerGroupList" value="{{Item.ID}}" ng-selected="Item.ID==Customer_EditCustomerGroupID">{{Item.Name}}</option>
+                    </select>
+                </div>
+                <label class="col-sm-2 control-label text-right" for="Customer_EditFirstName"><span style="color:red;">* </span>ชื่อ สกุล : </label>
+                <div class="col-sm-2">
+                    <input type="text" id="Customer_EditFirstName" name="Customer_EditFirstName" maxlength="128" title="ชื่อ" ng-class="Customer_EditFirstNameCss" ng-disabled="Customer_EditFirstNameDis" ng-model="Customer_EditFirstName">
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" id="Customer_EditLastName" name="Customer_EditLastName" maxlength="128" title="สกุล" ng-class="Customer_EditLastNameCss" ng-disabled="Customer_EditLastNameDis" ng-model="Customer_EditLastName">
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top:0.5em;">
+                <label class="col-sm-2 control-label text-right" for="Customer_EditNameShort">ชื่อย่อ : </label>
+                <div class="col-sm-2">
+                    <input type="text" id="Customer_EditNameShort" name="Customer_EditNameShort" maxlength="30" title="ชื่อย่อ" ng-class="Customer_EditNameShortCss" ng-disabled="Customer_EditNameShortDis" ng-model="Customer_EditNameShort">
+                </div>
+                <label class="col-sm-2 control-label text-right" for="Customer_EditMemberID">รหัสสมาชิก : </label>
+                <div class="col-sm-2">
+                    <input type="text" id="Customer_EditMemberID" name="Customer_EditMemberID" maxlength="30" title="รหัสสมาชิก" ng-disabled="Customer_EditMemberIDDis" ng-class="Customer_EditMemberIDCss" ng-model="Customer_EditMemberID">
+                </div>
+                @*<div class="col-sm-2">
+                    <label class="control-label text-right" for="Customer_EditRegisterDate">วันที่เป็นสมาชิก : </label>
+                </div>*@
+                <label class="col-sm-2 text-right" for="Customer_EditRegisterDate">วันที่เป็นสมาชิก : </label>
+                <div class="col-sm-2">
+                    <input class="akow-date-field" id="Customer_EditRegisterDate" name="Customer_EditRegisterDate" ng-disabled="Customer_EditRegisterDateDis" ng-model="Customer_EditRegisterDate" kendo-date-picker k-format="'{{DATE_FORMAT}}'" />
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top:0.5em;">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right" for="Customer_EditCategory">ประเภทหน่วยงาน : </label>
+                    <div class="col-sm-2">
+                        <select ng-model="Customer_EditCategory" class="akow-control-dropdownlist">
+                            <option ng-repeat="Item in CustomerCategoryList" value="{{Item.MasterSetupId}}" ng-selected="Item.MasterSetupId==Customer_EditCategory">{{Item.Name}}</option>
+                        </select>
+                        @*<select ng-model="Customer_EditCategory" class="akow-control-dropdownlist">
+                            <option value="">-- เลือก --</option>
+                            <option ng-repeat="Item in CustomerCategoryList" value="{{Item.ID}}">{{Item.Name}}</option>
+                        </select>*@
+                       @* @Html.DropDownList("Customer_EditCategory", ViewData["Customer_EditCategory"] as SelectListItem[], "-- เลือก --", new { @class = "akow-control-dropdownlist", @title = "ประเภทหน่วยงาน" })*@
+                    </div>
+                    <label class="col-sm-2 control-label text-right">การติดต่อ : </label>
+                    <div class="col-sm-2">
+                        <input class="Customer_EditContact" type="checkbox" name="Customer_EditContact" ng-disabled="Customer_EditContactDis" ng-model="Customer_EditContact" />&nbsp;ติดต่อโดยตรง
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row no-gutter" style="padding-top:0.5em;">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">เลขที่ผู้เสียภาษี : </label>
+                    <div class="col-sm-2">
+                        <input kendo-masked-text-box k-mask="'000000000000000'" class="akow-control-textbox" type="text" id="Customer_EditTaxID" name="Customer_EditTaxID" maxlength="15" title="เลขที่ผู้เสียภาษี" ng-model="Customer_EditTaxID">
+                    </div>
+                    <label class="col-sm-2 control-label text-right">รหัสอ้างอิง : </label>
+                    <div class="col-sm-2">
+                        <input class="akow-control-textbox" type="text" id="Customer_EditReferCode01" name="Customer_EditReferCode01" maxlength="128" title="รหัสอ้างอิง" style="width: 150px;" ng-model="Customer_EditReferCode01">
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top:0.5em;">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">โทรศัพทมือถือ : </label>
+                    <div class="col-sm-2">
+                        <input kendo-masked-text-box class="akow-control-textbox akow-control-masked-textbox" type="text" id="Customer_EditMobile" name="Customer_EditMobile" maxlength="20" title="โทรศัพท์ เคลื่อนที่" style="width: 150px;" ng-model="Customer_EditMobile">
+                    </div>
+                    <label class="col-sm-2 control-label text-right">แฟกซ์ : </label>
+                    <div class="col-sm-2">
+                        <input kendo-masked-text-box  class="akow-control-textbox akow-control-masked-textbox" type="text" id="Customer_EditFax" name="Customer_EditFax" maxlength="20" title="Fax" style="width: 150px;" ng-model="Customer_EditFax">
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top:0.5em;">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right">โทรศัพท์ : </label>
+                    <div class="col-sm-2">
+                        <input kendo-masked-text-box class="akow-control-textbox akow-control-masked-textbox" type="text" id="Customer_EditPhone" name="Customer_EditPhone" maxlength="20" title="โทรศัพท์" style="width: 150px;" ng-model="Customer_EditPhone">
+                    </div>
+                    <label class="col-sm-2 control-label text-right">อีเมล์ : </label>
+                    <div class="col-sm-2">
+                        <input class="akow-control-textbox" type="email" id="Customer_EditEmail" name="Customer_EditEmail" maxlength="256" title="email" ng-model="Customer_EditEmail">
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top:0.5em;">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right" for="Customer_EditWebSite">เว็บไซต์ : </label>
+                    <div class="col-sm-8">
+                        <input class="akow-control-textbox" type="text" id="Customer_EditWebSite" name="Customer_EditWebSite" maxlength="256" title="Web site" ng-model="Customer_EditWebSite">
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top:0.5em;">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label text-right" for="Customer_EditRemark">หมายเหตุ : </label>
+                    <div class="col-sm-8 text-left">
+                        <textarea class="akow-control-textbox" id="Customer_EditRemark" name="Customer_EditRemark" maxlength="256" rows="5" title="หมายเหตุ" style="resize:none" ng-model="Customer_EditRemark"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top:0.5em;">
+                <div>
+                    <label class="col-sm-2 control-label text-right" for="searchCusStatus">สถานะ : </label>
+                    <div class="col-sm-8 text-left">
+
+                        <label ng-repeat="option in StatusList">
+                            <input type="radio" ng-value="option.ID" ng-model="rbtCusStatusGroup" name="status">{{option.Name}}
+                        </label>
+
+                        @*@foreach (var c in (IEnumerable<DropdownModel>)ViewBag.CusStatusGroup)
+                        {
+                            <input type="radio" name="Customer_EditStatus" value=@c.ID ng-model="Customer_EditStatus"><span>&nbsp;&nbsp;</span>@c.Name<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        }*@
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="Customer_EditTabStrip" kendo-tab-strip k-content-urls="[ null, null]">
+            <ul>
+                <li class="k-state-active"><a id="Customer_lnkCusContact">ข้อมูลผู้ติดต่อ</a></li>
+                <li><a id="Customer_lnkCusLocation">สถานที่ติดต่อ(Branch)</a></li>
+            </ul>
+            <div>
+                <div class="row" style="padding:0.5em 0 0.5em 0;">
+                    <div class="col-sm-2" style="text-align:right">
+                        <div> ชื่อผู้ติดต่อ :  </div>
+                    </div>
+                    <div class="col-sm-3" style="text-align:left">
+                        <input ng-model="CustomerSearchContactName" maxlength="50" class="akow-form-control" />
+                    </div>
+                    <div class="col-sm-3" style="text-align:left">
+                        <button class="btn btn-primary" ng-click="CusContact_Initial()"><i class="fa fa-search"></i>&nbsp;Search</button><br />
+                    </div>
+                </div>
+                <div class="row" style="padding-bottom:0.5em">
+                    <div class="col-sm-5"><button class="btn btn-primary akow-addbutton" ng-click="Customer_AddCusContact()"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;Add</button></div>
+                    <div class="col-sm-6 text-right"><button class='btn btn-danger akow-deletebutton' ng-click='Customer_DelCusContact()'><i class='fa fa-trash'></i>&nbsp;Delete</button></div>
+                </div>
+                <div kendo-grid="grid" k-options="Customer_OptGridCusContact" id="Customer_GridCusContact"></div>
+            </div>
+            <div>
+                <div class="row" style="padding-bottom:0.5em">
+                    <div class="row" style="padding:0.5em 0 0.5em 0;">
+                        <div class="col-sm-2" style="text-align:right">
+                            <div> ชื่อสถานที่ :  </div>
+                        </div>
+                        <div class="col-sm-3" style="text-align:left">
+                            <input ng-model="CustomerSearchLocatorName" maxlength="50" class="akow-form-control" />
+                        </div>
+                        <div class="col-sm-3" style="text-align:left">
+                            <button class="btn btn-primary" ng-click="CusLocation_Initial()"><i class="fa fa-search"></i>&nbsp;Search</button><br />
+                        </div>
+                    </div>
+                    <div class="col-sm-5"><button class="btn btn-primary akow-addbutton" ng-click="Customer_AddCusLocation()"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;Add</button>&nbsp;&nbsp;<button class='btn btn-primary akow-editbutton' ng-disabled="projectEquipmentItemID == '0'" ng-click='ExportTemplate(header.ProjectEquipmentItemID)'><i class='fa fa-file-excel-o'></i>&nbsp;Export</button></div>
+                    <div class="col-sm-6 text-right"><button class='btn btn-danger akow-deletebutton' ng-click='Customer_DelCusLocation()'><i class='fa fa-trash'></i>&nbsp;Delete</button></div>
+                </div>
+                <div kendo-grid="grid" k-options="Customer_OptGridCusLocation" id="Customer_GridCusLocation"></div>
+            </div>
+        </div>
+        <div class="modal-footer" style="text-align:center;">
+            <iframe src="{{Customer_TempPath}}" id="CloseJobDetail_SearchExportExcel" style="display:none"></iframe>
+            <button class="btn btn-primary akow-savebutton" ng-click="Customer_Edit()"><i class="fa fa-floppy-o"></i>&nbsp;Save</button>            
+            <button class="btn btn-primary" ng-click="Customer_Close()"><i class="fa fa-times-circle"></i>&nbsp;Cancel</button>
+        </div>
+    </div>
+</div>

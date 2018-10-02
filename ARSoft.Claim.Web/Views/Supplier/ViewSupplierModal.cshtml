@@ -1,0 +1,287 @@
+﻿@*// *** Update by : Nutthapaphon Sopradisth ***
+    // *** Update Date : 22/01/2016 10:56  ****@
+@{
+    Layout = null;
+}
+
+<progressbar class="progress-striped active" value="dynamic"
+             ng-show="loading"></progressbar>
+
+<div class="mainT-Table" ng-init="initialSuppliers()">
+    <div style="width:100%;">
+        <div class="modal-header" style="border-bottom: 1px solid #e5e5e5;  background: #e5e5e5;">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="Close()">
+                &times;
+            </button>
+            @{ IHtmlString str = new HtmlString(@Session["ViewNavTitle"].ToString()); @Html.Raw(str) }
+        </div>
+        <div class="modal-body">
+            <!-- Page Heading -->
+            <table id="ViewSupplierTable">
+                <tr>
+                    <td>
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-md-3">
+                                <div class="editor-label" style="text-align:right;">
+                                    <span style="color:red;">* </span><label id="mse_lblSupplierCode">รหัสผู้จำหน่าย : </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="editor-field" style="text-align:left;">
+                                    <input id="mse_txtSupplierCode" maxlength="128" type="text" ng-disabled="Disabled" ng-model="mse_view_Code" class="akow-control-textbox akow-require-field" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-md-3">
+                                <div class="editor-label" style="text-align:right;">
+                                    <span style="color:red;">* </span><label id="mse_lblSupplierName">ชื่อผู้จำหน่าย : </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="editor-field" style="text-align:left;">
+                                    <input id="mse_txtName" maxlength="128" type="text" ng-disabled="Disabled" ng-model="mse_view_Name" class="akow-control-textbox akow-require-field" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-md-3">
+                                <div class="editor-label" style="text-align:right;">
+                                    <span style="color:red;">* </span><label id="mse_lblSupplierGroup">กลุ่มของผู้ขาย : </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="editor-field" style="text-align:left;">
+                                    &nbsp;&nbsp;&nbsp;<input type="radio" name="rbtDomestic" id="rbtDomestic" ng-disabled="Disabled" ng-model="mse_view_SupplierGroupTypeID" value="1" checked /> ผู้ขายในประเทศ
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="rbtOverseas" id="rbtOverseas" ng-disabled="Disabled" ng-model="mse_view_SupplierGroupTypeID" value="2" /> ผู้ขายต่างประเทศ
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-md-3">
+                                <div class="editor-label" style="text-align:right;">
+                                    <span style="color:red;">* </span><label id="mse_lblSupplierType">ประเภทผู้ขาย : </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="editor-field" style="text-align:left;">
+                                    <select ng-model="mse_view_SupplierTypeID" ng-disabled="Disabled" class="akow-control-dropdownlist akow-require-field" id="ddl_mse_SupplierGroupType">
+                                        <option ng-repeat="supplierType in SupplierTypes" ng-selected="supplierType.ID==mse_view_SupplierTypeID" value="{{supplierType.ID}}">{{supplierType.Description}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-md-3">
+                                <div class="editor-label" style="text-align:right;">
+                                    <label id="mse_lblSupplierName">ชื่อย่อ : </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="editor-field" style="text-align:left;">
+                                    <input id="mse_txtNameShort" maxlength="20" type="text" ng-disabled="Disabled" ng-model="mse_view_NameShort" class="akow-control-textbox" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-md-3">
+                                <div class="editor-label" style="text-align:right;">
+                                    <label id="mse_lblSupplierName">เลขที่ผู้เสียภาษี : </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="editor-field" style="text-align:left;">
+                                    <input id="mse_txtTaxID" maxlength="20" type="text" ng-disabled="Disabled" ng-model="mse_view_TaxID" class="akow-control-textbox" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-md-3">
+                                <div class="editor-label" style="text-align:right;">
+                                    <label id="mse_lblSupplierName">เลขที่อ้างอิง : </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="editor-field" style="text-align:left;">
+                                    <input id="mse_txtReferCode" maxlength="20" type="text" ng-disabled="Disabled" ng-model="mse_view_ReferCode" class="akow-control-textbox" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-md-3">
+                                <div class="editor-label" style="text-align:right;">
+                                    <span style="color:red;">* </span><label id="mse_lblAddressOne">ที่อยู่ : </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="editor-field" style="text-align:left;">
+                                    <input id="mse_txtAddressOne" maxlength="128" type="text" ng-disabled="Disabled" ng-model="mse_view_AddressOne" class="akow-control-textbox akow-require-field" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-md-3">
+                                <div class="editor-label" style="text-align:right;">
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="editor-field" style="text-align:left;">
+                                    <input id="mse_txtAddressTwo" maxlength="128" type="text" ng-disabled="Disabled" ng-model="mse_view_AddressTwo" class="akow-control-textbox" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-md-3">
+                                <div class="editor-label" style="text-align:right;">
+                                    <span style="color:red;">* </span><label id="mse_lblDistrictID">อำเภอ : </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="editor-field" style="text-align:left;">
+                                    <select class="akow-control-dropdownlist akow-require-field" id="ddl_mse_District" name="ddl_mse_District" ng-disabled="Disabled" ng-model="mse_view_DistrictID">
+                                        <option value="" selected>-- เลือก --</option>
+                                        <option ng-repeat="district in Districts" value="{{district.ID}}" ng-selected="district.ID==mse_view_DistrictID" ng-show="district.ProvinceID==mse_view_ProvinceID">{{district.Name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-md-3">
+                                <div class="editor-label" style="text-align:right;">
+                                    <span style="color:red;">* </span><label id="mse_lblProvinceName">จังหวัด : </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="editor-field" style="text-align:left;">
+                                    <div class="editor-field" style="text-align:left;">
+                                        <select class="akow-control-dropdownlist akow-require-field" id="ddl_mse_ProvinceID" name="ddl_mse_ProvinceID" ng-disabled="Disabled" ng-model="mse_view_ProvinceID" ng-change="changeDistrict()">
+                                            <option value="" selected>-- เลือก --</option>
+                                            <option ng-repeat="province in Provinces" value="{{province.ID}}" ng-selected="province.ID==mse_view_ProvinceID">{{province.Name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-md-3">
+                                <div class="editor-label" style="text-align:right;">
+                                    <label id="mse_lblPostCode">รหัสไปรษณีย์ : </label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="editor-field" style="text-align:left;">
+                                    <input id="mse_txtPostCode" kendo-masked-text-box k-mask="'00000'" maxlength="5" type="text" ng-disabled="Disabled" ng-model="mse_view_PostCode" class="akow-control-textbox" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-md-3">
+                                <div class="editor-label" style="text-align:right;">
+                                    <label id="mse_lblPhone">โทรศัพท์ : </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="editor-field" style="text-align:left;">
+                                    <input id="mse_txtPhone" kendo-masked-text-box k-mask="'0-0000-0000'" maxlength="20" type="text" ng-disabled="Disabled" ng-model="mse_view_Phone" class="akow-control-textbox" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-md-3">
+                                <div class="editor-label" style="text-align:right;">
+                                    <label id="mse_lblFax">แฟกซ์ : </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="editor-field" style="text-align:left;">
+                                    <input id="mse_txtFax" kendo-masked-text-box k-mask="'0-0000-0000'" maxlength="20" type="text" ng-disabled="Disabled" ng-model="mse_view_Fax" class="akow-control-textbox" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-md-3">
+                                <div class="editor-label" style="text-align:right;">
+                                    <label id="mse_lblEmail">อีเมล์ : </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="editor-field" style="text-align:left;">
+                                    <input id="mse_txtEmail" maxlength="256" type="email" ng-disabled="Disabled" ng-model="mse_view_Email" class="akow-control-textbox" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-md-3">
+                                <div class="editor-label" style="text-align:right;">
+                                    <label id="mse_lblFax">เว็บไซต์ : </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="editor-field" style="text-align:left;">
+                                    <input id="mse_txtWebSite" maxlength="256" type="text" ng-disabled="Disabled" ng-model="mse_view_WebSite" class="akow-control-textbox" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-md-3">
+                                <div class="editor-label" style="text-align:right;">
+                                    <label id="mse_lblRemark">หมายเหตุ : </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="editor-field" style="text-align:left;">
+                                    <textarea name="mse_txtRemark" maxlength="256" id="mse_txtRemark" class="akow-control-textbox" ng-disabled="Disabled" ng-model="mse_view_Remark" cols="100" rows="5"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row no-gutter" style="padding-top:0.5em">
+                            <div class="col-md-3">
+                                <div class="editor-label" style="text-align:right;">
+                                    <label id="mse_lblStatus">สถานะ : </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="editor-field" style="text-align:left;">
+                                    <input type="radio" name="rbtAddStatus" ng-checked="true" ng-disabled="Disabled" ng-model="mse_view_Status" value="1" id="rbtActive" /> ใช้งาน &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="radio" name="rbtAddStatus" ng-disabled="Disabled" ng-model="mse_view_Status" value="0" id="rbtInActive" /> ไม่ใช้งาน
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @*<div ng-init="initialTabSupplierContact()">*@
+                        <div id="tabStripContact" kendo-tab-strip k-content-urls="[ null, null]">
+                            <!-- tab list -->
+                            <ul>
+                                <li class="k-state-active"><a id="lnkSupplierContact">ข้อมูลผู้ติดต่อ</a></li>
+                            </ul>
+                            <div style="padding: 1em">
+                                <!-- ข้อมูลผู้ติดต่อ -->
+                                <table class="table demo" data-filter="#filter" data-filter-text-only="true" style="width:100%;border: 0px solid #ddd;">
+                                    <tr>
+                                        <td colspan="2">
+                                            <div class="mainT-Table" id="gridSupplierContactList" kendo-grid="grid" k-options="mainGridOptionsSupplierContact"></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="modal-footer" style="text-align:center;">
+            @*<button class="btn btn-default" ng-click="Close()"><i class="fa fa-times"></i>&nbsp;Close</button>*@
+            <button class="btn btn-primary center-block" ng-click="Close()"><i class="fa fa-sign-out"></i>&nbsp;Close</button>
+        </div>
+    </div>
+</div>

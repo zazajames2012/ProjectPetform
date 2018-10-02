@@ -1,0 +1,194 @@
+﻿@*
+*** Update by : Pongthorn Paemanee ***
+*** Update Date : 08/10/2015 16:00  ***
+*@
+
+@using ARSoft.Claim.DataModel;
+
+@{
+    Layout = null;
+}
+
+<div class="mainT-Table" ng-init="CustomerLocation_Initial()">
+    <div class="modal-header" style="border-bottom: 1px solid #e5e5e5;  background: #e5e5e5;">
+        <button class="close" type="button" data-dismiss="modal" aria-hidden="true" ng-click="CustomerLocation_Close()">
+            &times;
+        </button>
+        <h4 class="akow-modal-title">แก้ไขข้อมูลลูกค้า <i class="fa fa-fw fa-chevron-right"></i> แก้ไขข้อมูลสถานที่ติดต่อ</h4>
+    </div>
+    <div class="modal-body">
+        <div style="padding-bottom: 10px;">
+            <div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right" for="CustomerLocation_EditLocationName"><span style="color:red;">* </span>ชื่อสถานที่ : </label>
+                        <div class="col-sm-5">
+                            <input class="akow-control-textbox akow-require-field" type="text" maxlength="128" ng-model="CustomerLocation_EditLocationName" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right" for="CustomerLocation_EditAddressLineOne"><span style="color:red;">* </span>ที่อยู่ : </label>
+                        <div class="col-sm-9">
+                            <input class="akow-control-textbox akow-require-field" type="text" id="CustomerLocation_EditAddressLineOne" name="CustomerLocation_EditAddressLineOne" maxlength="128" title="ที่อยู่" ng-model="CustomerLocation_EditAddressLineOne">
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right" for="CustomerLocation_EditAddressLineTwo"><span style="color:red;">* </span>ตำบล : </label>
+                        <div class="col-sm-9">
+                            <input class="akow-control-textbox akow-require-field" type="text" id="CustomerLocation_EditAddressLineTwo" name="CustomerLocation_EditAddressLineTwo" maxlength="128" title="ที่อยู่" ng-model="CustomerLocation_EditAddressLineTwo">
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right" for="CustomerLocation_EditDistrict"><span style="color:red;">* </span>อำเภอ : </label>
+                        <div class="col-sm-4">
+                            <select class="akow-control-dropdownlist akow-require-field" id="CustomerLocation_EditDistrict" name="CustomerLocation_EditDistrict" ng-model="CustomerLocation_EditDistrict">
+                                <option value="" selected>-- เลือก --</option>
+                                <option ng-repeat="dist in CustomerLocation_DistrictEdit" ng-selected="dist.ID==CustomerLocation_EditDistrict" ng-show="dist.ProvinceID==CustomerLocation_EditProvince" value="{{dist.ID}}">{{dist.Name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right" for="CustomerLocation_EditProvince"><span style="color:red;">* </span>จังหวัด : </label>
+                        <div class="col-sm-4">
+                            <select class="akow-control-dropdownlist akow-require-field" id="CustomerLocation_EditProvince" name="CustomerLocation_EditProvince" ng-model="CustomerLocation_EditProvince">
+                                <option value="" selected>-- เลือก --</option>
+                                <option ng-repeat="prov in CustomerLocation_ProvinceEdit" ng-selected="prov.ID==CustomerLocation_EditProvince" value="{{prov.ID}}">{{prov.Name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right" for="CustomerLocation_EditPostCode"><span style="color:red;">* </span>รหัสไปรษณีย์ : </label>
+                        <div class="col-sm-4">
+                            <input kendo-masked-text-box k-mask="'00000'" class="akow-control-textbox akow-require-field akow-control-masked-textbox" type="text" id="CustomerLocation_EditPostCode" name="CustomerLocation_EditPostCode" maxlength="5" title="รหัสไปรษณีย์" ng-model="CustomerLocation_EditPostCode">
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right" for="CusLocation_EditZone">Zone : </label>
+                        <div class="col-sm-4">
+                            <select class="akow-control-dropdownlist" id="CustomerLocation_EditZone" name="CustomerLocation_EditZone" ng-model="CustomerLocation_EditZone">
+                                <option value="" selected>-- เลือก --</option> 
+                                <option ng-repeat="zone in CusLocation_ZoneEdit" ng-selected="zone.ID==CustomerLocation_EditZone" value="{{zone.ID}}">{{zone.Name}}</option>
+                            </select>
+
+                            @*@Html.DropDownList("CusLocation_EditZone", ViewData["CusLocation_EditZone"] as SelectListItem[], "-- เลือก --", new { @class = "akow-control-dropdownlist", @title = "Zone" })*@
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right" for="CustomerLocation_EditGpsLocation">ตำแหน่ง GPS : </label>
+                        <div class="col-sm-9">
+                            <input class="akow-control-textbox" type="text" id="CustomerLocation_EditGpsLocation" name="CustomerLocation_EditGpsLocation" maxlength="128" title="ตำแหน่ง GPS" ng-model="CustomerLocation_EditGpsLocation">
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right" for="CustomerLocation_EditPhone">โทรศัพท์ : </label>
+                        <div class="col-sm-4">
+                            <input kendo-masked-text-box k-mask="'0-0000-0000'" class="akow-control-textbox akow-control-masked-textbox" type="text" id="CustomerLocation_EditPhone" name="CustomerLocation_EditPhone" maxlength="50" title="โทรศัพท์" ng-model="CustomerLocation_EditPhone">
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right" for="CustomerLocation_EditFax">Fax : </label>
+                        <div class="col-sm-4">
+                            <input kendo-masked-text-box k-mask="'0-0000-0000'" class="akow-control-textbox akow-control-masked-textbox" type="text" id="CustomerLocation_EditFax" name="CustomerLocation_EditFax" maxlength="50" title="Fax" ng-model="CustomerLocation_EditFax">
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right" for="CustomerLocation_EditContactName">ชื่อผู้ติดต่อ : </label>
+                        <div class="col-sm-5">
+                            <input class="akow-control-textbox" type="text" ng-model="CustomerLocation_EditContactName" />
+                        </div>
+                        <div class="col-sm-1">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" ng-click="CustomerLocation_PopupContactName()"><i class="glyphicon glyphicon-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right" for="CustomerLocation_EditContactPhone">เบอร์โทร : </label>
+                        <div class="col-sm-4">
+                            <label class="control-label text-right" for="CustomerLocation_EditContactPhone">{{CustomerLocation_EditContactPhone}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right" for="CustomerLocation_EditDescription">หมายเหตุ : </label>
+                        <div class="col-sm-9">
+                            <textarea class="akow-control-textbox" id="CustomerLocation_EditDescription" name="CustomerLocation_EditDescription" maxlength="256" title="หมายเหตุ" style="resize:none" rows="5" ng-model="CustomerLocation_EditDescription"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-right">ประเภทที่อยู่ : </label>
+                        <div class="col-sm-9">
+                            <table>
+                                <tr>
+                                    <td width="200">
+                                        <input class="chkEditLocationType" type="checkbox" name="chkEditDefalutLocation" ng-model="CustomerLocation_EditDefalutLocation" /><span>&nbsp;</span>ที่อยู่ประจำ
+                                    </td>
+                                    <td width="200">
+                                        <input class="chkEditLocationType" type="checkbox" name="chkEditBillingLocation" ng-model="CustomerLocation_EditBillingLocation" /><span>&nbsp;</span>ที่อยู่จัดเก็บเงิน
+                                    </td>
+                                    <td width="200">
+                                        <input class="chkEditLocationType" type="checkbox" name="chkEditProjectSite" ng-model="CustomerLocation_EditProjectSite" /><span>&nbsp;</span>ที่อยู่ Stand by Site
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="200">
+                                        <input class="chkEditLocationType" type="checkbox" name="chkEditAssetLocation" ng-model="CustomerLocation_EditAssetLocation" /><span>&nbsp;</span>ที่อยู่ติดตั้งอุปกรณ์
+                                    </td>
+                                    <td width="200">
+                                        <input class="chkEditLocationType" type="checkbox" name="chkEditOtherLocation" ng-model="CustomerLocation_EditOtherLocation" /><span>&nbsp;</span>ที่อยู่อื่นๆ
+                                    </td>
+                                    <td width="200"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-gutter" style="padding-top: 10px;">
+                    <div>
+                        <label class="col-sm-3 control-label text-right" for="searchCusStatusGroup">สถานะ : </label>
+                        <div class="col-sm-9 text-left">
+
+                            <label ng-repeat="option in StatusList">
+                                <input type="radio" ng-value="option.ID" ng-model="rbtCusStatusGroup" name="status">{{option.Name}}
+                            </label>
+
+                            @*@foreach (var c in (IEnumerable<DropdownModel>)ViewBag.CusStatusGroup)
+                            {
+                                <input type="radio" name="CustomerLocation_EditStatus" value=@c.ID ng-model="CustomerLocation_EditStatus"><span>&nbsp;</span>@c.Name<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            }*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer" style="text-align:center;">
+        <button class="btn btn-primary akow-savebutton" ng-click="CustomerLocation_Edit()"><i class="fa fa-floppy-o"></i>&nbsp;Save</button>        
+        <button class="btn btn-primary" ng-click="CustomerLocation_Close()"><i class="fa fa-times-circle"></i>&nbsp;Cancel</button>
+    </div>
+</div>

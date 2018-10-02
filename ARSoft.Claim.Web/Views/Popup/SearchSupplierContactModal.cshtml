@@ -1,0 +1,76 @@
+﻿@{
+    Layout = null;
+}
+<style>
+    .k-grid > table > tbody > tr:hover,
+    .k-grid-content > table > tbody > tr:hover {
+        background: #ccc !important;
+    }
+</style>
+<div class="header bg-light-blue-gradient">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="close()">
+        &times; &nbsp;&nbsp;
+    </button>
+    <h3 class="akow-modal-popup-title">
+        &nbsp;&nbsp; ค้นหา - ผู้ติดต่อคู่ค้า (Supplier Contacts)
+    </h3>
+</div>
+<div class="modal-body col-xs-12 form-horizontal form-group-sm table-bordered" ng-init="init()">
+    <div class="col-xs-12">
+        <form>
+            @*<div class="row">
+                &nbsp;
+            </div>*@
+            <div class="row no-gutter" style="padding: 0.5em 0 0 1.5em">
+                <div class="col-xs-4" style="text-align:right;">
+                    <div class="editor-label" style="text-align:right;">
+                        <label for="SupplierName">ชื่อคู่ค้า :</label>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="editor-field" style="text-align:left;">
+                        <input type="text" ng-disabled="true" class="form-control" ng-model="msc_criteria_SupplierName" />
+                    </div>
+                </div>
+            </div>
+            @*<div class="row">
+                    &nbsp;
+                </div>*@
+            <div class="row no-gutter" style="padding: 0.5em 0 0 1.5em">
+                <div class="col-xs-4" style="text-align:right;">
+                    <div class="editor-label" style="text-align:right;">
+                        <label for="SupplierContactName">ชื่อผู้ติดต่อ :</label>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="editor-field" style="text-align:left;">
+                        <input type="text" class="form-control" ng-model="msc_criteria_ContactName" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                &nbsp;
+            </div>
+            <div class="row">
+                <div class="col-xs-12" style="text-align:center;">
+                    <button class="btn btn-primary" ng-click="getSupplierContactByCriteria()"><i class="fa fa-search"></i>&nbsp;Search</button>&nbsp;&nbsp;
+                    <button class="btn btn-primary" ng-click="close()"><i class="fa fa-sign-out"></i>&nbsp;Close</button>
+                </div>
+            </div>
+            <div class="row">
+                &nbsp;
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div id="gridLOVSupplierContact" kendo-grid="grid" k-on-change="selectRowItem()" k-options="mainGridOptions"></div>
+                </div>
+            </div>
+            @*<div class="row">
+                <div class="col-xs-12" style="text-align:center;">
+                    <button class="btn btn-default" ng-click="close()"><i class="fa fa-times"></i>&nbsp;Close</button>
+                </div>
+            </div>*@
+        </form>
+    </div>
+</div>
+<div class="modal-footer"></div>

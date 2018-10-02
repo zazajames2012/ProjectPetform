@@ -1,0 +1,39 @@
+﻿<input id="hdTokenCookieName" type="hidden" value="@Session["TokenCookieName"].ToString()" />
+<input id="hdPadding1CookieName" type="hidden" value="@Session["Padding1CookieName"].ToString()" />
+<input id="hdPadding2CookieName" type="hidden" value="@Session["Padding2CookieName"].ToString()" />
+
+@{
+    if (Session["Username"] != null && Session["Username"] != "")
+    {
+        <input id="hdEmployeeID" type="hidden" value="@Session["EmployeeID"].ToString()" />
+        <input id="hdUserID" type="hidden" value="@Session["UserID"].ToString()" />
+        <input id="hdUserName" type="hidden" value="@Session["Username"].ToString()" />
+        <input id="hdDisplayName" type="hidden" value="@Session["DisplayName"].ToString()" />
+        <input id="hdDisplayEmployeeName" type="hidden" value="@Session["EmployeeName"].ToString()" />
+
+        @*if (Session["EmployeeName"] != null)
+            {
+                <input id="hdDisplayEmployeeName" type="hidden" value="@Session["EmployeeName"].ToString()" />
+            }
+            else
+            {
+                <input id="hdDisplayEmployeeName" type="hidden" value="@Session["EmployeeName"]" />
+            }*@
+
+        <input id="hdWebApiUrl" type="hidden" value="@Session["WebApiUrl"].ToString()" />
+        <input id="hdWebMvcUrl" type="hidden" value="@Session["WebMvcUrl"].ToString()" />
+        <input id="hdSAMWebApiUrl" type="hidden" value="@Session["SAMWebApiUrl"].ToString()" />
+        <input id="hdSAMWebMvcUrl" type="hidden" value="@Session["SAMWebMvcUrl"].ToString()" />
+
+        if (Session["FunctionCode"] != null)
+        {
+            <input id="hdWebFunctionCode" type="hidden" value="@Session["FunctionCode"].ToString()" />
+        }
+    }
+    else
+    {
+        @*<script>
+            window.location.href = '/Login/Logout';
+        </script>*@
+    }
+}

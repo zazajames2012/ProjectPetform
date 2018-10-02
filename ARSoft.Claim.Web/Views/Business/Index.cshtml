@@ -1,0 +1,95 @@
+﻿@*// *** Update by : Nutthapaphon Sopradisth ***
+    // *** Update Date : 28/10/2015 17:00  ****@
+
+@{
+    ViewBag.Title = "Services Order Types";
+    Layout = "~/Views/Shared/AdminLTEV2_M.cshtml";
+}
+
+<link href="~/Content/kendo/2014.2.716/kendo.common-bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/kendo/2014.2.716/kendo.bootstrap.min.css" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/angular-ui/ui-bootstrap-tpls.min.js" type="text/javascript"></script>
+<script src="~/Scripts/kendo/2014.2.716/kendo.all.min.js" type="text/javascript"></script>
+<script src="@Url.Content("~/Apps/Controllers/BusinessController.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Apps/Modules/ConstantConfig.js")" type="text/javascript"></script>
+
+<style>
+    .app-modal-window-Position .modal-dialog {
+        width: 50%;
+    }
+
+    .app-modal-window-edit-Position .modal-dialog {
+        width: 50%;
+    }
+</style>
+
+<div class="mainT-Table" ng-app="Business" ng-controller="BusinessController" ng-init="initial()">
+    <div>
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="akow-header-blank"></div>
+                @{ IHtmlString str = new HtmlString(@Session["SearchNavTitle"].ToString()); @Html.Raw(str) }
+                <div class="akow-header-blank"></div>
+                <table class="table demo" data-filter="#filter" data-filter-text-only="true" style="width:100%;border: 0px solid #ddd;">
+                    <tr>
+                        <td>
+                            <!-- Criteria -->
+                            <table id="criteriaBGtable" style="width:100%;border: 1px solid #ddd; background-color:white;">
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <table id="CriteriaTable" style="width:100%;border: 1px solid #ddd;">
+                                                <tr>
+                                                    <td>
+                                                        <br />
+                                                        <div class="row no-gutter" style="padding: 0.5em 0 0 1.5em">
+                                                            <div class="col-md-5">
+                                                                <div class="akow-col-right" style="text-align:right;">
+                                                                    <label id="lblZoneName">Business Name : </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <div class="akow-col-left">
+                                                                    <input id="txtPositionName" maxlength="128" type="text" ng-model="criteria_PositionName" class="akow-control-textbox" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <br />
+                                                        <div class="row" style="text-align:center;">
+                                                            <button class="btn btn-primary" ng-click="getBusinessCriteria()"><i class="fa fa-search"></i>&nbsp;Search</button>&nbsp;&nbsp;&nbsp;
+                                                            <button class="btn btn-primary" ng-click="initial()"><i class="fa fa-refresh"></i>&nbsp;Clear</button>
+                                                            <br />
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div>
+                                <button class="btn btn-primary akow-loading akow-addbutton" ng-click="addBusiness()"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;Add</button><br />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div id="gridBusinessList" kendo-grid="grid" k-options="mainGridOptions"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

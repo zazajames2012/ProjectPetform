@@ -1,0 +1,70 @@
+﻿@*<script src="@Url.Content("~/Scripts/jquery-1.11.1.min.js")" type="text/javascript"></script>*@
+<script src="@Url.Content("~/Scripts/angular.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/angular-route.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/angular-gettext.min.js")" type="text/javascript"></script>
+
+<script src="@Url.Content("~/Scripts/bootstrap.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/bootstrap.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/bootstrap3-typeahead.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/footable.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/footable.paginate.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/footable.sort.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/footable.filter.js")" type="text/javascript"></script>
+@*<script src="@Url.Content("~/Scripts/jquery/akow.menu.js")" type="text/javascript"></script>*@
+<script src="@Url.Content("~/Scripts/jquery/akow.authentication.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery/akow.validate.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery/akow.messagebox.js")" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+    //Script Defined Gobal
+    $(function () {
+        $('table').footable();
+
+        var pageSize = $('#Paging_Number').val();
+        $('.footable').data('page-size', pageSize);
+        $('.footable').trigger('footable_initialized');
+
+        $('.footable').data('limit-navigation', 4);
+        $('.footable').trigger('footable_initialized');
+
+        // $('.table').trigger('footable_expand_all');
+        $('.table').trigger('footable_collapse_all');
+
+        $('#Paging_Number').change(function (e) {
+            e.preventDefault();
+            var pageSize = $(this).val();
+            $('.footable').data('page-size', pageSize);
+            $('.footable').trigger('footable_initialized');
+        });
+
+        @Html.Raw(ViewBag.ModalMessage)
+
+    });
+
+    function CheckRequired() {
+        var res = true;
+        var statement = "";
+
+        $(".valuerequired").each(function () {
+            var temp = $(this).val();
+            if (temp == "") {
+                statement += "- กรุณาเลือกหรือกรอกข้อมูล " + $(this).attr("title") + "<br/>";
+                res = false;
+            }
+        });
+
+        if (!res) {
+            $('#ModalAlertStartment').html(statement);
+            $('#ModalAlert').modal('toggle');
+        }
+
+        return res;
+    }
+
+    function ModalAlertNotification(statement) {
+        $('#ModalAlertStartment').html(statement);
+        $('#ModalAlert').modal('toggle');
+    }
+
+</script>

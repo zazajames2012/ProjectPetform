@@ -1,0 +1,17 @@
+﻿<aside class="main-sidebar">
+    <section class="sidebar">
+        @*<<Cancel>>Implement Render Menu ON  "Scripts\jquery\akow.menu.js"*@
+        <ul class="sidebar-menu">
+            @{
+                if (Session["AuthorizedMenusHtml"] != null)
+                {
+                    @Html.Raw(Session["AuthorizedMenusHtml"].ToString());
+                }
+            }
+        </ul>
+
+        @Html.Partial("~/Views/Shared/_AkowAuthen.cshtml")
+
+    </section>
+</aside>
+

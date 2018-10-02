@@ -1,0 +1,256 @@
+﻿@{
+    Layout = null;
+}
+<style>
+    .labor-text-right {
+        text-align: right !important;
+        font-size: 15px !important;
+    }
+</style>
+
+<div class="mainT-Table" ng-init="initial()">
+    <div class="modal-header" style="border-bottom: 1px solid #e5e5e5;  background: #e5e5e5;">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="Close()">
+            &times;
+        </button>
+        @{ IHtmlString str = new HtmlString(@Session["AddNavTitle"].ToString()); @Html.Raw(str) }
+    </div>
+    <div class="modal-body">
+        <div style="padding-bottom: 10px;">
+            @*<div class="row" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label for="addEmpCode" class="col-sm-4 control-label text-right">รหัสผลิตภัณฑ์ : </label>
+                        <div class="col-sm-6">
+                            <input type="text" ng-model="productCode" style="width: 100px;" name="productCode" maxlength="10" class="akow-control-textbox k-textbox" title="รหัสผลิตภัณฑ์">
+                        </div>
+                    </div>
+                </div>*@
+            <div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label for="productName" class="col-sm-4 control-label text-right"><span style="color:red;">* </span>ชื่อผลิตภัณฑ์ : </label>
+                    <div class="col-sm-6">
+                        <input type="text" ng-model="productName" name="productName" maxlength="128" style="width:100%;" class="akow-control-textbox akow-require-field" title="ชื่อผลิตภัณฑ์">
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label for="productGroupID" class="col-sm-4 control-label text-right"><span style="color:red;">* </span>กลุ่มผลิตภัณฑ์ : </label>
+                    <div class="col-sm-6">
+                        <select kendo-combo-box
+                                k-placeholder="'-- ทั้งหมด --'"
+                                k-data-text-field="'Text'"
+                                k-data-value-field="'ID'"
+                                k-filter="'contains'"
+                                k-auto-bind="false"
+                                k-min-length="3"
+                                k-data-source="ProductsGroup"
+                                style="width: 100%"
+                                ng-model="productGroupID"
+                                class="akow-require-field"></select>
+                    </div>
+                </div>
+            </div>
+            @*<div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label for="specific" class="col-sm-4 control-label text-right"><span style="color:red;">* </span>ต้องระบุรหัสแยก : </label>
+                    <div class="col-sm-6">
+                        <label akow-checkboxlabelname="validChkBox">
+                            <input type="checkbox" name="specificGroup" akow-checkboxlabel="validChkBox" akow-checkboxgroup="specificGroup" class="akow-require-field" ng-model="productSymptomCode">
+                            Symptom Code
+                        </label>
+                        &nbsp;&nbsp;&nbsp;
+                        <label akow-checkboxlabelname="validChkBox">
+                            <input type="checkbox" name="specificGroup" akow-checkboxgroup="specificGroup" class="akow-require-field" ng-model="productRepairCode">
+                            Repair Code
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label for="BundleSoftware" class="col-sm-4 control-label text-right">Software/Firmware : </label>
+                    <div class="col-sm-6">
+                        <label class="radio-inline">
+                            <input name="rbtBundleSoftwareGroup" ng-model="BundleSoftware" id="rbtBundleSoftware" type="radio" value="1" ng-click="onClickBundleSoftware()">มี Software/Firmware
+                        </label>
+                        <label class="radio-inline">
+                            <input name="rbtBundleSoftwareGroup" ng-model="BundleSoftware" id="rbtNotBundleSoftware" ng-checked="true" type="radio" value="0" ng-click="onClickBundleSoftware()">ไม่มี Software/Firmware
+                        </label>
+                    </div>
+                </div>
+            </div>*@
+            @*<div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label for="RequestSizeOnJob" class="col-sm-4 control-label text-right">เปิดงานซ่อม : </label>
+                    <div class="col-sm-6">
+                        <label class="radio-inline">
+                            <input name="rbtRequestSizeOnJobGroup" ng-model="RequestSizeOnJob" id="rbtRequestSizeOnJob" type="radio" value="1">ต้องยืนยันขนาดของอุปกรณ์
+                        </label>
+                        <label class="radio-inline">
+                            <input name="rbtRequestSizeOnJobGroup" ng-model="RequestSizeOnJob" id="rbtNotRequestSizeOnJob" ng-checked="true" type="radio" value="0">ไม่ต้องยืนยันขนาดของอุปกรณ์
+                        </label>
+                    </div>
+                </div>
+            </div>*@
+            <div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label for="addEmail" class="col-sm-4 control-label text-right">Description : </label>
+                    <div class="col-sm-6">
+                        <textarea name="productDescription" ng-model="productDescription" id="productDescription" style="resize:none;" maxlength="256" class="form-control"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter" style="padding-top: 10px;">
+                <div class="form-group">
+                    <label for="Status" class="col-sm-4 control-label text-right">Status : </label>
+                    <div class="col-sm-6">
+                        <label class="radio-inline">
+                            <input name="rbtStatusGroup" ng-model="productStatus" id="rbtStatus1" ng-checked="true" type="radio" value="1">ใช้งาน
+                        </label>
+                        <label class="radio-inline">
+                            <input name="rbtStatusGroup" ng-model="productStatus" id="rbtStatus2" type="radio" value="0">ไม่ใช้งาน
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            @*<fieldset style="width:85%;">
+                <legend>ค่าแรงช่าง(บาท)</legend>
+                <table id="LaborCostLayoutTable" style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td style="width:23%;"></td>
+                        <td style="width:18%; text-align:left;">
+                            <input type="checkbox" id="chkSmall" name="DefaltSizeGroup" ng-disabled="!smallDefaltSizeStatus" ng-model="smallDefaltSize" ng-click="onChangeSmallDefaltSize()" value="{{smallDefaltSizeID}}" />&nbsp;{{smallDisplaySizeName}}
+                        </td>
+                        <td style="width:18%; text-align:left;">
+                            <input type="checkbox" id="chkNormal" name="DefaltSizeGroup" ng-disabled="!normalDefaltSizeStatus" ng-model="normalDefaltSize" ng-click="onChangeNormalDefaltSize()" value="{{normalDefaltSizeID}}" />&nbsp;{{normalDefaltSizeName}}
+                        </td>
+                        <td style="width:18%; text-align:left;">
+                            <input type="checkbox" id="chkLarge" name="DefaltSizeGroup" ng-disabled="!largeDefaltSizeStatus" ng-model="largeDefaltSize" ng-click="onChangeLargeDefaltSize()" value="{{largeDefaltSizeID}}" />&nbsp;{{largeDefaltSizeName}}
+                        </td>
+                        <td style="width:18%; text-align:left;">
+                            <input type="checkbox" id="chkExtraLarge" name="DefaltSizeGroup" ng-disabled="!extraLargeDefaltSizeStatus" ng-model="extraLargeDefaltSize" ng-click="onChangeExtraLargeDefaltSize()" value="{{extraLargeDefaltSizeID}}" />&nbsp;{{extraLargeDefaltSizeName}}
+                        </td>
+                        <td style="width:5%; text-align:left;">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:23%; text-align:right; vertical-align:middle !important">
+                            <label><span style="color:red;">* </span>ขนาดของอุปกรณ์ : </label>&nbsp;
+                        </td>
+                        <td style="width:18%;"><input id="txtSmallDisplaySizeText" type="text" ng-model="smallDisplaySizeText" ng-disabled="true" class="text-left k-textbox" /></td>
+                        <td style="width:18%;"><input id="txtNormalDisplaySizeText" type="text" ng-model="normalDisplaySizeText" ng-disabled="true" class="text-left k-textbox" /></td>
+                        <td style="width:18%;"><input id="txtLargeDisplaySizeText" type="text" ng-model="largeDisplaySizeText" ng-disabled="true" class="text-left k-textbox" /></td>
+                        <td style="width:18%;"><input id="txtExtraLargeDisplaySizeText" type="text" ng-model="extraLargeDisplaySizeText" ng-disabled="true" class="text-left k-textbox" /></td>
+                        <td style="width:5%; text-align:left;">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:23%; text-align:right; vertical-align:middle !important">
+                            <label><span style="color:red;">* </span>Hardware : </label>&nbsp;
+                        </td>
+                        <td style="width:18%;"><input id="txtSmallLaborCostHardware" type="text" ng-model="smallLaborCostHardware" class="labor-text-right akow-require-field" /></td>
+                        <td style="width:18%;"><input id="txtNormalLaborCostHardware" type="text" ng-model="normalLaborCostHardware" class="labor-text-right akow-require-field" /></td>
+                        <td style="width:18%;"><input id="txtLargeLaborCostHardware" type="text" ng-model="largeLaborCostHardware" class="labor-text-right akow-require-field" /></td>
+                        <td style="width:18%;"><input id="txtExtraLargeLaborCostHardware" type="text" ng-model="extraLargeLaborCostHardware" class="labor-text-right akow-require-field" /></td>
+                        <td style="width:5%; text-align:left;">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:23%; text-align:right; vertical-align:middle !important">
+                            <label><span style="color:red;">{{RequireLaborCostSoftwareStar}} </span>Software : </label>&nbsp;
+                        </td>
+                        <td style="width:18%;"><input id="txtSmallLaborCostSoftware" type="text" ng-model="smallLaborCostSoftware" class="labor-text-right akow-require-field" /></td>
+                        <td style="width:18%;"><input id="txtNormalLaborCostSoftware" type="text" ng-model="normalLaborCostSoftware" class="labor-text-right akow-require-field" /></td>
+                        <td style="width:18%;"><input id="txtLargeLaborCostSoftware" type="text" ng-model="largeLaborCostSoftware" class="labor-text-right akow-require-field" /></td>
+                        <td style="width:18%;"><input id="txtExtraLargeLaborCostSoftware" type="text" ng-model="extraLargeLaborCostSoftware" class="labor-text-right akow-require-field" /></td>
+                        <td style="width:5%; text-align:left;">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:23%; text-align:right; vertical-align:middle !important">
+                            <label><span style="color:red;">* </span>ส่วนลด Dealer (%) : </label>&nbsp;
+                        </td>
+                        <td style="width:18%;"><input id="txtSmallDealerDiscount" type="text" class="labor-text-right akow-require-field" /></td>
+                        <td style="width:18%;"><input id="txtNormalDealerDiscount" type="text" class="labor-text-right akow-require-field" /></td>
+                        <td style="width:18%;"><input id="txtLargeDealerDiscount" type="text" class="labor-text-right akow-require-field" /></td>
+                        <td style="width:18%;"><input id="txtExtraLargeDealerDiscount" type="text" class="labor-text-right akow-require-field" /></td>
+                        <td style="width:5%; text-align:left;">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:23%; text-align:right; vertical-align:middle !important">
+                            <label><span style="color:red;">* </span>ต่ำสุดไม่น้อยกว่า : </label>&nbsp;
+                        </td>
+                        <td style="width:18%;"><input id="txtSmallMinimumPrice" type="text" ng-model="smallMinimumPrice" class="labor-text-right akow-require-field" /></td>
+                        <td style="width:18%;"><input id="txtNormalMinimumPrice" type="text" ng-model="normalMinimumPrice" class="labor-text-right akow-require-field" /></td>
+                        <td style="width:18%;"><input id="txtLargeMinimumPrice" type="text" ng-model="largeMinimumPrice" class="labor-text-right akow-require-field" /></td>
+                        <td style="width:18%;"><input id="txtExtraLargeMinimumPrice" type="text" ng-model="extraLargeMinimumPrice" class="labor-text-right akow-require-field" /></td>
+                        <td style="width:5%; text-align:left;">
+                            &nbsp;
+                        </td>
+                    </tr>
+                </table>
+
+                @*<div class="row">
+                        <div class="col-sm-1">
+
+                        </div>
+                        <div class="col-sm-10">
+                            <div class="row">
+                                <div class="col-sm-3" style="text-align: left; ">
+                                    <label>Small</label>
+                                    <input id="LaborCostSmall" kendo-numeric-text-box k-min="0" k-max="9999" k-options="numericOptionLaborCostSmall" style="width:80px" ng-class="LaborCostSmallCss" ng-disabled="LaborCostSmallDis" ng-model="LaborCostSmall" />
+                                </div>
+                                <div class="col-sm-3" style="text-align: left; ">
+                                    <label>Medium</label>
+                                    <input id="LaborCostMedium" kendo-numeric-text-box k-min="0" k-max="9999" k-options="numericOptionLaborCostMedium" style="width:80px" ng-class="LaborCostMediumCss" ng-disabled="LaborCostMediumDis" ng-model="LaborCostMedium" />
+                                </div>
+                                <div class="col-sm-3" style="text-align: left; ">
+                                    <label>Large</label>
+                                    <input id="LaborCostLarge" kendo-numeric-text-box k-min="0" k-max="9999" k-options="numericOptionLaborCostLarge" style="width:80px" ng-class="LaborCostLargeCss" ng-disabled="LaborCostLargeDis" ng-model="LaborCostLarge" />
+                                </div>
+                                <div class="col-sm-3" style="text-align: left; ">
+                                    <label>Extra&nbsp;Large</label>
+                                    <input id="LaborCostXLarge" kendo-numeric-text-box k-min="0" k-max="9999" k-options="numericOptionLaborCostXLarge" style="width:80px" ng-class="LaborCostXLargeCss" ng-disabled="LaborCostXLargeDis" ng-model="LaborCostXLarge" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row no-gutter" style="padding-top: 10px;">
+                        <label class=" control-label text-right col-sm-4"><span style="color:red;">* </span>เปิดงาน : </label>
+                        <div class="col-sm-6">
+                            <input type="checkbox" id="RequestSizeOnJob" name="RequestSizeOnJob" ng-model="RequestSizeOnJob" ng-click="RequestSizeOnJobClick()">&nbsp;ต้องยืนยันขนาด ของสินค้า
+                        </div>
+                    </div>
+                    <div class="row no-gutter" style="padding-top: 10px;">
+                        <label class=" control-label text-right col-sm-4">แสดงราคาเบื้องต้น : </label>
+                        <div class="col-sm-6">
+                            <textarea name="MessageOnJob" ng-model="MessageOnJob" id="MessageOnJob" ng-class="MessageOnJobCss" maxlength="128" style="resize:none"></textarea>
+                        </div>
+                    </div>
+            </fieldset>*@
+
+            @*<div class="row" style="padding-top: 10px;">
+                    <div class="form-group">
+                        <label for="addEmpNickName" class="col-sm-4 control-label text-right">รหัส : </label>
+                        <div class="col-sm-6">
+                            <input type="text" id="specificCode" ng-model="specificCode" name="specificCode" maxlength="1" class="form-control" style="width:40px" title="Code">
+                        </div>
+                    </div>
+                </div>*@
+
+        </div>
+    </div>
+    <div class="modal-footer" style="text-align:center">
+        <button class="btn btn-primary akow-addbutton" ng-click="addProduct()"><i class="fa fa-floppy-o"></i>&nbsp;Save</button>
+        <button class="btn btn-primary" ng-click="Close()"><i class="fa fa-times-circle"></i>&nbsp;Cancel</button>
+    </div>
+</div>
+
